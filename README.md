@@ -231,9 +231,7 @@ client := iam.NewIamClient(
 
 - 不适用于 `多ProjectId` 的场景。
 
-### 5. 发送请求并查看响应
-
-[:top:](#华为云开发者-go-软件开发工具包-go-sdk)
+### 5. 发送请求并查看响应 [:top:](#华为云开发者-go-软件开发工具包-go-sdk)
 
 ``` go
 // 初始化请求,，以调用接口 ListVpcs 为例
