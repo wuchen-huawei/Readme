@@ -113,16 +113,16 @@ func main() {
     * [5.1 HTTP 监听器](#51-http监听器-top)
 
 
-### 1. 客户端连接参数 [:top:](#用户手册)
+### 1. 客户端连接参数 [:top:](#用户手册-top)
 
-#### 1.1  默认配置 [:top:](#用户手册)
+#### 1.1  默认配置 [:top:](#用户手册-top)
 
 ``` go
 // 使用默认配置
 httpConfig := config.DefaultHttpConfig()
 ```
 
-#### 1.2  网络代理 [:top:](#用户手册)
+#### 1.2  网络代理 [:top:](#用户手册-top)
 
  ``` go
  // 根据需要配置网络代理
@@ -134,20 +134,20 @@ httpConfig := config.DefaultHttpConfig()
      WithPassword("password"))))
  ```
 
-#### 1.3  超时配置 [:top:](#用户手册)
+#### 1.3  超时配置 [:top:](#用户手册-top)
 
 ``` go
 httpConfig.WithTimeout(120);
 ```
 
-#### 1.4  SSL 配置 [:top:](#用户手册)
+#### 1.4  SSL 配置 [:top:](#用户手册-top)
 
 ``` go
 // 根据需要配置是否跳过SSL证书校验
 httpConfig.WithIgnoreSSLVerification(true);
 ```
 
-### 2. 客户端认证信息 [:top:](#用户手册)
+### 2. 客户端认证信息 [:top:](#用户手册-top)
 
 **说明**：华为云服务存在两种部署方式，Region 级服务和 Global 级服务。
 
@@ -161,7 +161,7 @@ Region 级服务仅需要提供 projectId 。Global 级服务需要提供 domain
 - `domainId` 华为云账号 ID 。
 - `securityToken` 采用临时 AK&SK 认证场景下的安全票据。
 
-#### 2.1  永久 AK 和 SK [:top:](#用户手册)
+#### 2.1  永久 AK 和 SK [:top:](#用户手册-top)
     
 ``` go
 // Region 级服务
@@ -180,7 +180,7 @@ globalAuth := global.NewCredentialsBuilder().
 ```
 **说明**：`0.0.26-beta` 及以上版本支持通过永久 AK&SK 回填 projectId/domainId ，需要在初始化客户端时配合 `WithRegion()` 方法使用，代码示例详见 [4.2 指定Region方式（推荐）](#42-指定-region-方式-推荐)。
     
-#### 2.2  临时 AK 和 SK [:top:](#用户手册)
+#### 2.2  临时 AK 和 SK [:top:](#用户手册-top)
 
 首先需要获得临时 AK、SK 和 SecurityToken ，可以从永久 AK&SK 获得，或者通过委托授权获得。
 
@@ -208,11 +208,11 @@ globalAuth := global.NewCredentialsBuilder().
             Build()
 ```
 
-### 3. 客户端初始化 [:top:](#用户手册)
+### 3. 客户端初始化 [:top:](#用户手册-top)
 
 客户端初始化有两种方式，可根据需要选择下列两种方式中的一种：
 
-#### 3.1 指定云服务 Endpoint 方式 [:top:](#用户手册)
+#### 3.1 指定云服务 Endpoint 方式 [:top:](#用户手册-top)
 
 ``` go
 // 初始化指定云服务的客户端 New{Service}Client ，以初始化 NewVpcClient 为例
@@ -227,7 +227,7 @@ client := vpc.NewVpcClient(
 **说明:**
 `endpoint` 华为云各服务应用区域和各服务的终端节点，详情请查看[地区和终端节点](https://developer.huaweicloud.com/endpoint)。
     
-#### 3.2 指定 Region 方式 **（推荐）** [:top:](#用户手册)
+#### 3.2 指定 Region 方式 **（推荐）** [:top:](#用户手册-top)
 
 ``` go
 import (
@@ -256,7 +256,7 @@ client := iam.NewIamClient(
 
 - 不适用于 `多ProjectId` 的场景。
 
-### 4. 发送请求并查看响应 [:top:](#用户手册)
+### 4. 发送请求并查看响应 [:top:](#用户手册-top)
 
 ``` go
 // 初始化请求,，以调用接口 ListVpcs 为例
@@ -276,7 +276,7 @@ if err == nil {
 }
 ```
 
-#### 4.1 异常处理 [:top:](#用户手册)
+#### 4.1 异常处理 [:top:](#用户手册-top)
 
 | 一级分类 | 一级分类说明 |
 | :---- | :---- | 
@@ -292,9 +292,9 @@ if err == nil {
 }
 ```
 
-### 5. 故障处理 [:top:](#用户手册)
+### 5. 故障处理 [:top:](#用户手册-top)
 
-#### 5.1 HTTP监听器 [:top:](#用户手册)
+#### 5.1 HTTP监听器 [:top:](#用户手册-top)
 在某些场景下可能对业务发出的Http请求进行Debug，需要看到原始的Http请求和返回信息，SDK提供侦听器功能来获取原始的为加密的Http请求和返回信息。
 
 > :warning:  Warning: 原始信息打印仅在debug阶段使用，请不要在生产系统中将原始的Http头和Body信息打印到日志，这些信息并未加密且其中包含敏感数据，例如所创建虚拟机的密码，IAM用户的密码等;
