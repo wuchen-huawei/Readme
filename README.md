@@ -141,7 +141,7 @@ globalAuth := global.NewCredentialsBuilder().
             WithDomainId(domainId).
             Build()
 ```
-**说明**：`0.0.26-beta` 及以上版本支持通过永久 AK&SK 回填 projectId/domainId ，需要在初始化客户端时配合 `WithRegion()` 方法使用，代码示例详见 [4.2 指定Region方式（推荐）](#4-2-指定Region方式推荐)。
+**说明**：`0.0.26-beta` 及以上版本支持通过永久 AK&SK 回填 projectId/domainId ，需要在初始化客户端时配合 `WithRegion()` 方法使用，代码示例详见 [4.2 指定Region方式（推荐）](#42-指定-region-方式-推荐)。
     
 #### 3.2 使用临时 AK 和 SK
 
