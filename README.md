@@ -10,7 +10,7 @@
 
 [快速跳转](#华为云开发者-go-软件开发工具包-go-sdk)
   * [在线调试](#在线调试)
-  * [前提条件](#前提条件)
+  * [使用前提](#使用前提)
   * [SDK 获取和安装](#sdk-获取和安装)
   * [开始使用](#开始使用)
     * [1. 导入依赖模块](#1-导入依赖模块)
@@ -23,7 +23,8 @@
       * [3.1 使用永久 AK 和 SK](#31-使用永久-ak-和-sk)
       * [3.2 使用临时 AK 和 SK](#32-使用临时-ak-和-sk)
     * [4. 初始化客户端（两种方式）](#4-初始化客户端两种方式)
-      * [4.1 指定云服务Endpoint方式]()
+      * [4.1 指定云服务 Endpoint 方式](#41-指定云服务-endpoint-方式)
+      * [4.2 指定 Region 方式 （推荐）](#42-指定-region-方式-推荐)
     * [5. 发送请求并查看响应](#5-发送请求并查看响应)
     * [6. 异常处理](#6-异常处理)
     * [7. 原始Http侦听器](#7-原始Http侦听器)
@@ -34,7 +35,7 @@
 [API Explorer](https://apiexplorer.developer.huaweicloud.com/apiexplorer/overview) 提供API检索及平台调试，支持全量快速检索、可视化调试、帮助文档查看、在线咨询。
 
 
-## 前提条件
+## 使用前提
 
  - 要使用华为云 Go SDK ，您需要拥有云账号以及该账号对应的 Access Key（AK）和 Secret Access Key（SK）。 请在华为云控制台“我的凭证-访问密钥”页面上创建和查看您的 AK&SK 。更多信息请查看[访问密钥](https://support.huaweicloud.com/usermanual-ca/zh-cn_topic_0046606340.html)。
 
@@ -215,7 +216,7 @@ client := iam.NewIamClient(
 
 - 不适用于`多 ProjectId `场景。
 
-### 5. 发送请求并查看响应.
+### 5. 发送请求并查看响应
 
 ``` go
 // 初始化请求,，以调用接口 ListVpcs 为例
