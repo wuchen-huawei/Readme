@@ -29,6 +29,7 @@
     * [6. 异常处理](#6-异常处理)
     * [7. 原始Http侦听器](7-原始-http-侦听器)
   * [代码示例](#代码示例)
+  * [变更日志](#变更日志)
 
 ## 在线调试
 
@@ -338,3 +339,7 @@ func main() {
     }
 }
 ```
+
+## 变更日志
+
+每个版本的详细更改记录可在[变更日志](https://github.com/huaweicloud/huaweicloud-sdk-go-v3/blob/master/CHANGELOG_CN.md)中查看。
