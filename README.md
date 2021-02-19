@@ -33,10 +33,14 @@
 
 ## 在线调试
 
+[:top:](#华为云开发者-go-软件开发工具包-go-sdk)
+
 [API Explorer](https://apiexplorer.developer.huaweicloud.com/apiexplorer/overview) 提供API检索及平台调试，支持全量快速检索、可视化调试、帮助文档查看、在线咨询。
 
 
 ## 使用前提
+
+[:top:](#华为云开发者-go-软件开发工具包-go-sdk)
 
  - 要使用华为云 Go SDK ，您需要拥有云账号以及该账号对应的 Access Key（AK）和 Secret Access Key（SK）。 请在华为云控制台“我的凭证-访问密钥”页面上创建和查看您的 AK&SK 。更多信息请查看[访问密钥](https://support.huaweicloud.com/usermanual-ca/zh-cn_topic_0046606340.html)。
 
@@ -46,6 +50,8 @@
 
 
 ## SDK 获取和安装
+
+[:top:](#华为云开发者-go-软件开发工具包-go-sdk)
 
 使用 go get 安装华为云 Go SDK ，执行如下命令安装华为云 Go SDK 库以及相关依赖库：
 
@@ -58,6 +64,8 @@ go get github.com/json-iterator/go
 ```
 
 ## 开始使用
+
+[:top:](#华为云开发者-go-软件开发工具包-go-sdk)
 
 以使用虚拟私有云VPC SDK为例，您需要使用模块 `github.com/huaweicloud/huaweicloud-sdk-go-v3/services/vpc/v2` ：
 
@@ -77,6 +85,8 @@ import (
 ```
 
 ### 2. 配置客户端属性
+
+[:top:](#华为云开发者-go-软件开发工具包-go-sdk)
 
 #### 2.1 默认配置
 
@@ -112,29 +122,31 @@ httpConfig.WithIgnoreSSLVerification(true);
 
 ### 3. 初始化认证信息
 
+[:top:](#华为云开发者-go-软件开发工具包-go-sdk)
+
 **说明**：华为云服务存在两种部署方式，Region 级服务和 Global 级服务。
 
-Global级服务当前仅支持 BSS, DevStar, EPS， IAM， RMS。
+Global 级服务当前仅支持 BSS, DevStar, EPS, IAM, RMS。
 
-Region级服务仅需要提供projectId。Global级服务需要提供domainId。
+Region 级服务仅需要提供 projectId 。Global 级服务需要提供 domainId 。
 
 - `ak` 华为云账号 Access Key 。
 - `sk` 华为云账号 Secret Access Key 。
 - `projectId` 云服务所在项目 ID ，根据你想操作的项目所属区域选择对应的项目 ID 。
-- `domainId` 华为云账号ID 。
-- `securityToken` 采用临时AK/SK认证场景下的安全票据。
+- `domainId` 华为云账号 ID 。
+- `securityToken` 采用临时 AK&SK 认证场景下的安全票据。
 
 #### 3.1 使用永久 AK 和 SK
     
 ``` go
-// Region级服务
+// Region 级服务
 basicAuth := basic.NewCredentialsBuilder().
             WithAk(ak).
             WithSk(sk).
             WithProjectId(projectId).
             Build()
 
-// Global级服务
+// Global 级服务
 globalAuth := global.NewCredentialsBuilder().
             WithAk(ak).
             WithSk(sk).
@@ -172,6 +184,8 @@ globalAuth := global.NewCredentialsBuilder().
 ```
 
 ### 4. 初始化客户端（两种方式）
+
+[:top:](#华为云开发者-go-软件开发工具包-go-sdk)
 
 #### 4.1 指定云服务 Endpoint 方式
 
@@ -213,11 +227,13 @@ client := iam.NewIamClient(
    
 **说明：**
 
-- 指定 Region 方式创建客户端场景，支持自动获取用户的regionId以及domainId，认证Credential中无需再次指定。
+- 指定 Region 方式创建客户端的场景，支持自动获取用户的 projectId 或者 domainId，初始化认证信息时可无需指定响应参数。
 
-- 不适用于`多 ProjectId `场景。
+- 不适用于 `多ProjectId` 的场景。
 
 ### 5. 发送请求并查看响应
+
+[:top:](#华为云开发者-go-软件开发工具包-go-sdk)
 
 ``` go
 // 初始化请求,，以调用接口 ListVpcs 为例
