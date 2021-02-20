@@ -1,7 +1,7 @@
 [English](./README.md) | 简体中文
 
 <p align="center">
-<a href="https://www.huaweicloud.com/"><img src="https://console-static.huaweicloud.com/static/authui/20210202115135/public/custom/images/logo-en.svg"></a>
+<a href="https://www.huaweicloud.com/"><img width="360px" height="120px" src="https://console-static.huaweicloud.com/static/authui/20210202115135/public/custom/images/logo.svg"></a>
 </p>
 
 # 华为云开发者 Go 软件开发工具包 （Go SDK）
@@ -35,9 +35,7 @@
   * [5. 故障处理](#5-故障处理-top)
     * [5.1 HTTP 监听器](#51-http监听器-top)
 
-## 使用前提 [<i class="arrow-to-top"></i>](#华为云开发者-go-软件开发工具包-go-sdk)
-
-<i class="icon-weibo"></i>
+## 使用前提 [:top:](#华为云开发者-go-软件开发工具包-go-sdk)
 
  - 要使用华为云 Go SDK ，您需要拥有云账号以及该账号对应的 Access Key（AK）和 Secret Access Key（SK）。 请在华为云控制台“我的凭证-访问密钥”页面上创建和查看您的 AK&SK 。更多信息请查看[访问密钥](https://support.huaweicloud.com/usermanual-ca/zh-cn_topic_0046606340.html)。
 
