@@ -104,7 +104,7 @@ Detailed changes for each released version are documented in the [CHANGELOG.md](
 * [3. Client Initialization](#3--client-initialization-top)
     * [3.1  Initialize client with specified Endpoint](#31--initialize-the-serviceclient-with-specified-endpoint-top)
     * [3.2  Initialize client with specified Region](#32--initialize-the-serviceclient-with-specified-region-recommended-top)
-* [4. Send Request and get response](#4--send-requests-and-get-responses-top)
+* [4. Send Request and Handle response](#4--send-requests-and-handle-responses-top)
     * [4.1  Exceptions](#41--exceptions-top)
 * [5. Troubleshooting](#5--troubleshooting-top)
     * [5.1  Original HTTP Listener](#51--original-http-listener-top)
@@ -133,8 +133,8 @@ httpConfig.WithProxy(config.NewProxy().
 #### 1.3  Connection [:top:](#user-manual-top)
 
 ``` go
-// seconds to wait for the server to send data before giving up
-httpConfig.WithTimeout(30);
+// Seconds to wait for the server to send data before giving up
+httpConfig.WithTimeout(120);
 ```
 
 #### 1.4  SSL Certification [:top:](#user-manual-top)
@@ -180,8 +180,8 @@ globalAuth := global.NewCredentialsBuilder().
 
   
 #### 2.2  Use Temporary AK/SK [:top:](#user-manual-top)
-    
-It's required to obtain temporary access key, security key and security token first, which could be obtained through permanent access key and security key or through an agency.
+
+**Notice**: It's required to obtain temporary access key, security key and security token first, which could be obtained through permanent access key and security key or through an agency.
 
 Obtaining a temporary access key token through permanent access key and security key, you could refer to document: https://support.huaweicloud.com/en-us/api-iam/iam_04_0002.html . The API mentioned in the document above corresponds to the method of `CreateTemporaryAccessKeyByToken` in IAM SDK.
 
@@ -253,7 +253,7 @@ client := iam.NewIamClient(
 - If you use `region` to initialize {Service}Client, projectId/domainId supports automatic acquisition, you don't need to configure it when initializing Credentials.
 - Multiple ProjectId situation is not supported.
     
-### 4.  Send Requests and Get Responses [:top:](#user-manual-top)
+### 4.  Send Requests and Handle Responses [:top:](#user-manual-top)
 
 ``` go
 // send a request and print response, take interface of ListVpcs for example
