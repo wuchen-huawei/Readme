@@ -2,7 +2,7 @@ English | [简体中文](./README_CN.md)
 
 <p align="center">
 <a href="https://www.huaweicloud.com/"><img width="600px" height="136px" src="https://console-static.huaweicloud.com/static/authui/20210202115135/public/custom/images/logo-en.svg"></a>
-</p><br>
+</p>
 
 # Huawei Cloud Go Software Development Kit (Go SDK)
 
