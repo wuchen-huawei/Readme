@@ -1,4 +1,4 @@
-## 0.0.33-rc 2021-02-07
+# 0.0.33-rc 2021-02-07
 
 ### HuaweiCloud SDK Core
 
@@ -38,7 +38,7 @@
 - __Change__
   - None
 
-## 0.0.32-rc 2021-01-30
+# 0.0.32-rc 2021-01-30
 
 ### HuaweiCloud SDK DDS
 
