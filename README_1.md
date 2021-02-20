@@ -101,231 +101,30 @@ func main() {
 
 
 ## 用户手册 [:top:](#华为云开发者-go-软件开发工具包-go-sdk)
-  * [1. 客户端连接参数](#1-客户端连接参数-top)
-    * [1.1 默认配置](#11--默认配置-top)
-    * [1.2 网络代理](#12--网络代理-top)
-    * [1.3 超时配置](#13--超时配置-top)
-    * [1.4 SSL配置](#14--ssl-配置-top)
-  * [2. 客户端认证信息](#2-客户端认证信息-top)
-    * [2.1 永久 AK 和 SK](#21--永久-ak-和-sk-top)
-    * [2.2 临时 AK 和 SK](#22--临时-ak-和-sk-top)
-  * [3. 客户端初始化](#3-客户端初始化-top)
-    * [3.1 指定云服务 Endpoint 方式](#31-指定云服务-endpoint-方式-top)
-    * [3.2 指定 Region 方式（推荐）](#32-指定-region-方式-推荐-top)
-  * [4. 发送请求并查看响应](#4-发送请求并查看响应-top)
-    * [4.1 异常处理](#41-异常处理-top)
-  * [5. 故障处理](#5-故障处理-top)
-    * [5.1 HTTP 监听器](#51-http监听器-top)
-
-### 1. 客户端连接参数 [:top:](#用户手册-top)
-
-#### 1.1  默认配置 [:top:](#用户手册-top)
-
-``` go
-// 使用默认配置
-httpConfig := config.DefaultHttpConfig()
-```
-
-#### 1.2  网络代理 [:top:](#用户手册-top)
-
- ``` go
- // 根据需要配置网络代理
- httpConfig.WithProxy(config.NewProxy().
-     WithSchema("http").
-     WithHost("proxy.huaweicloud.com").
-     WithPort(80).
-     WithUsername("testuser").
-     WithPassword("password"))))
- ```
-
-#### 1.3  超时配置 [:top:](#用户手册-top)
-
-``` go
-httpConfig.WithTimeout(120);
-```
-
-#### 1.4  SSL 配置 [:top:](#用户手册-top)
-
-``` go
-// 根据需要配置是否跳过SSL证书校验
-httpConfig.WithIgnoreSSLVerification(true);
-```
-
-### 2. 客户端认证信息 [:top:](#用户手册-top)
-
-**说明**：华为云服务存在两种部署方式，Region 级服务和 Global 级服务。
-
-Global 级服务当前仅支持 BSS, DevStar, EPS, IAM, RMS。
-
-Region 级服务仅需要提供 projectId 。Global 级服务需要提供 domainId 。
-
-- `ak` 华为云账号 Access Key 。
-- `sk` 华为云账号 Secret Access Key 。
-- `projectId` 云服务所在项目 ID ，根据你想操作的项目所属区域选择对应的项目 ID 。
-- `domainId` 华为云账号 ID 。
-- `securityToken` 采用临时 AK&SK 认证场景下的安全票据。
-
-#### 2.1  永久 AK 和 SK [:top:](#用户手册-top)
-    
-``` go
-// Region 级服务
-basicAuth := basic.NewCredentialsBuilder().
-            WithAk(ak).
-            WithSk(sk).
-            WithProjectId(projectId).
-            Build()
-
-// Global 级服务
-globalAuth := global.NewCredentialsBuilder().
-            WithAk(ak).
-            WithSk(sk).
-            WithDomainId(domainId).
-            Build()
-```
-**说明**：`0.0.26-beta` 及以上版本支持通过永久 AK&SK 回填 projectId/domainId ，需要在初始化客户端时配合 `WithRegion()` 方法使用，代码示例详见 [4.2 指定Region方式（推荐）](#42-指定-region-方式-推荐)。
-    
-#### 2.2  临时 AK 和 SK [:top:](#用户手册-top)
-
-首先需要获得临时 AK、SK 和 SecurityToken ，可以从永久 AK&SK 获得，或者通过委托授权获得。
-
-- 通过永久 AK&SK 获得可以参考文档：https://support.huaweicloud.com/api-iam/iam_04_0002.html ，对应 IAM SDK 中的 `CreateTemporaryAccessKeyByToken` 方法。
-
-- 通过委托授权获得可以参考文档：https://support.huaweicloud.com/api-iam/iam_04_0101.html, 对应 IAM SDK 中的 `CreateTemporaryAccessKeyByAgency` 方法。
-
-临时 AK&SK&SecurityToken 获取成功后，可使用如下方式初始化认证信息：
-
-``` go
-// Region级服务
-basicAuth := basic.NewCredentialsBuilder().
-            WithAk(ak).
-            WithSk(sk).
-            WithProjectId(projectId).
-            WithSecurityToken(securityToken).
-            Build()
-
-// Global级服务
-globalAuth := global.NewCredentialsBuilder().
-            WithAk(ak).
-            WithSk(sk).
-            WithDomainId(domainId).
-            WithSecurityToken(securityToken).
-            Build()
-```
-
-### 3. 客户端初始化 [:top:](#用户手册-top)
-
-客户端初始化有两种方式，可根据需要选择下列两种方式中的一种：
-
-#### 3.1 指定云服务 Endpoint 方式 [:top:](#用户手册-top)
-
-``` go
-// 初始化指定云服务的客户端 New{Service}Client ，以初始化 NewVpcClient 为例
-client := vpc.NewVpcClient(
-    vpc.VpcClientBuilder().
-        WithEndpoint(endpoint).
-        WithCredential(basicAuth).
-        WithHttpConfig(config.DefaultHttpConfig()).  
-        Build())
-```
-
-**说明:**
-`endpoint` 华为云各服务应用区域和各服务的终端节点，详情请查看[地区和终端节点](https://developer.huaweicloud.com/endpoint)。
-    
-#### 3.2 指定 Region 方式 **（推荐）** [:top:](#用户手册-top)
-
-``` go
-import (
-    // 增加region依赖
-    "github.com/huaweicloud/huaweicloud-sdk-go-v3/services/iam/v3/region"
-)
-
-globalAuth := global.NewCredentialsBuilder().
-            WithAk(ak).
-            WithSk(sk).
-            // 可不填 domainId
-            Build()
-
-// 初始化指定云服务的客户端 New{Service}Client ，以初始化 NewIamClient 为例
-client := iam.NewIamClient(
-    iam.IamClientBuilder().
-        WithRegion(region.CN_NORTH_4).
-        WithCredential(globalAuth).
-        WithHttpConfig(config.DefaultHttpConfig()).  
-        Build())
-```
-   
-**说明：**
-
-- 指定 Region 方式创建客户端的场景，支持自动获取用户的 projectId 或者 domainId，初始化认证信息时可无需指定响应参数。
-
-- 不适用于 `多ProjectId` 的场景。
-
-### 4. 发送请求并查看响应 [:top:](#用户手册-top)
-
-``` go
-// 初始化请求,，以调用接口 ListVpcs 为例
-request := &model.ListVpcsRequest{
-    Body: &model.ListVpcsRequestBody{
-        Vpc: &model.ListVpcsOption{
-            limit: 1,
-        },
-    },
-}
-
-response, err := client.ListVpcs(request)
-if err == nil {
-    fmt.Printf("%+v\n",response.Vpc)
-} else {
-    fmt.Println(err)
-}
-```
-
-#### 4.1 异常处理 [:top:](#用户手册-top)
-
-| 一级分类 | 一级分类说明 |
-| :---- | :---- | 
-| ServiceResponseError | service response error |
-| url.Error | connect endpoint error |
-
-``` go
-response, err := client.ListVpcs(request)
-if err == nil {
-    fmt.Println(response)
-} else {
-    fmt.Println(err)
-}
-```
-
-### 5. 故障处理 [:top:](#用户手册-top)
-
-#### 5.1 HTTP监听器 [:top:](#用户手册-top)
-在某些场景下可能对业务发出的Http请求进行Debug，需要看到原始的Http请求和返回信息，SDK提供侦听器功能来获取原始的为加密的Http请求和返回信息。
-
-> :warning:  Warning: 原始信息打印仅在debug阶段使用，请不要在生产系统中将原始的Http头和Body信息打印到日志，这些信息并未加密且其中包含敏感数据，例如所创建虚拟机的密码，IAM用户的密码等;
-
-``` go
-func RequestHandler(request http.Request) {
-    fmt.Println(request)
-}
-
-func ResponseHandler(response http.Response) {
-    fmt.Println(response)
-}
-
-client := vpc.NewVpcClient(
-    vpc.VpcClientBuilder().
-        WithEndpoint("{your endpoint}").
-        WithCredential(
-            basic.NewCredentialsBuilder().
-                WithAk("{your ak string}").
-                WithSk("{your sk string}").
-                WithProjectId("{your project id}").
-                    Build()).
-        WithHttpConfig(config.DefaultHttpConfig().
-            WithIgnoreSSLVerification(true).
-            WithHttpHandler(httphandler.
-                NewHttpHandler().
-                    AddRequestHandler(RequestHandler).
-                    AddResponseHandler(ResponseHandler))).
-        Build())
-```
+<details>
+  <summary>1. 客户端连接参数</summary>
+    <details>
+      <summary>1.1  默认配置</summary>
+      <pre><code>// 使用默认配置
+httpConfig := config.DefaultHttpConfig()</pre></code>
+    </details>
+    <details>
+      <summary>1.2  网络代理</summary>
+      <pre><code>// 根据需要配置网络代理
+httpConfig.WithProxy(config.NewProxy().
+  WithSchema("http").
+  WithHost("proxy.huaweicloud.com").
+  WithPort(80).
+  WithUsername("testuser").
+  WithPassword("password"))))</pre></code>
+    </details>
+    <details>
+      <summary>1.3  超时配置</summary>
+      <pre><code>httpConfig.WithTimeout(120);</pre></code>
+    </details>
+    <details>
+      <summary>1.4  SSL 配置</summary>
+      <pre><code>// 根据需要配置是否跳过SSL证书校验
+httpConfig.WithIgnoreSSLVerification(true);</pre></code>
+    </details>
+</details>
