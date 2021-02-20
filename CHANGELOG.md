@@ -1,5 +1,5 @@
-### 0.0.33-rc 2021-02-07
-#### HuaweiCloud SDK Core
+## 0.0.33-rc 2021-02-07
+### HuaweiCloud SDK Core
 - **新增特性**
     - 无
 - 解决问题
