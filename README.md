@@ -93,20 +93,20 @@ Detailed changes for each released version are documented in the [CHANGELOG.md](
 
 
 ## User Manual [:top:](#huawei-cloud-go-software-development-kit-go-sdk)
-* [1  Client Configuration](#1--client-configuration-top)
+* [1. Client Configuration](#1--client-configuration-top)
     * [1.1  Default Configuration](#11--default-configuration-top)
     * [1.2  Network Proxy](#12--network-proxy-top)
     * [1.3  Connection](#13--connection-top)
     * [1.4  SSL Certification](#14--ssl-certification-top)
-* [2  Credentials Configuration](#2--credentials-configuration-top)
+* [2. Credentials Configuration](#2--credentials-configuration-top)
     * [2.1  Use Permanent AK&SK](#21--use-permanent-aksk-top)
     * [2.2  Use Temporary AK&SK](#22--use-temporary-aksk-top)
-* [3  Client Initialization](#3--client-initialization-top)
+* [3. Client Initialization](#3--client-initialization-top)
     * [3.1  Initialize client with specified Endpoint](#31--initialize-the-serviceclient-with-specified-endpoint-top)
     * [3.2  Initialize client with specified Region](#32--initialize-the-serviceclient-with-specified-region-recommended-top)
-* [4  Send Request and get response](#4--send-requests-and-get-responses-top)
+* [4. Send Request and get response](#4--send-requests-and-get-responses-top)
     * [4.1  Exceptions](#41--exceptions-top)
-* [5  Troubleshooting](#5--troubleshooting-top)
+* [5. Troubleshooting](#5--troubleshooting-top)
     * [5.1  Original HTTP Listener](#51--original-http-listener-top)
 
 ### 1.  Client Configuration [:top:](#user-manual-top)
@@ -176,7 +176,7 @@ globalAuth := global.NewCredentialsBuilder().
             Build()
 ```
 
-**Notice**: projectId/domainId supports **automatic acquisition** in version `0.0.26-beta` or later, if you want to use this feature, it's required to build your client instance with method `WithRegion()`, detailed example could refer to [3.2  Initialize with specified Endpoint](). 
+**Notice**: projectId/domainId supports **automatic acquisition** in version `0.0.26-beta` or later, if you want to use this feature, it's required to build your client instance with method `WithRegion()`, detailed example could refer to [3.2  Initialize client with specified Region](#32--initialize-the-serviceclient-with-specified-region-recommended-top). 
 
   
 #### 2.2  Use Temporary AK/SK [:top:](#user-manual-top)
