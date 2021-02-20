@@ -98,28 +98,27 @@ Detailed changes for each released version are documented in the [CHANGELOG.md](
     * [1.2  Network Proxy](#12--network-proxy)
     * [1.3  Connection](#13--connection)
     * [1.4  SSL Certification](#14--ssl-certification)
-* [2  Credentials Configuration](#)
-    * [2.1  Use Permanent AK&SK]()
-    * [2.2  Use Temporary AK&SK]()
-* [3  Client Initialization]()
-    * [3.1  Initialize client with specified Endpoint]()
-    * [3.2  Initialize client with specified Region]()
-* [4  Send Request and get response]()
-    * [4.1  Exceptions]()
-* [5  Troubleshooting ]
-    * [5.1  Original HTTP Listener]()
-    
+* [2  Credentials Configuration](#2--credentials-configuration)
+    * [2.1  Use Permanent AK&SK](#21--use-permanent-aksk)
+    * [2.2  Use Temporary AK&SK](#22--use-temporary-aksk)
+* [3  Client Initialization](#3--client-initialization)
+    * [3.1  Initialize client with specified Endpoint](#31--initialize-the-serviceclient-with-specified-endpoint)
+    * [3.2  Initialize client with specified Region](#32--initialize-the-serviceclient-with-specified-region-recommended)
+* [4  Send Request and get response](#4--send-requests-and-get-responses)
+    * [4.1  Exceptions](#41--exceptions)
+* [5  Troubleshooting](#5--troubleshooting)
+    * [5.1  Original HTTP Listener](#51--original-http-listener)
 
-### 1.  Client Configuration
+### 1.  Client Configuration [:top:](#user-manual-top)
 
-#### 1.1  Default Configuration
+#### 1.1  Default Configuration [:top:](#user-manual-top)
 
 ``` go
 // Use default configuration
 httpConfig := config.DefaultHttpConfig()
 ```
 
-#### 1.2  Network Proxy
+#### 1.2  Network Proxy [:top:](#user-manual-top)
 
 ``` go
 // Use proxy if needed
@@ -131,21 +130,21 @@ httpConfig.WithProxy(config.NewProxy().
     WithPassword("password"))))
 ```
 
-#### 1.3  Connection
+#### 1.3  Connection [:top:](#user-manual-top)
 
 ``` go
 // seconds to wait for the server to send data before giving up
 httpConfig.WithTimeout(30);
 ```
 
-#### 1.4  SSL Certification
+#### 1.4  SSL Certification [:top:](#user-manual-top)
 
 ``` go
 // Skip ssl certification checking while using https protocol if needed
 httpConfig.WithIgnoreSSLVerification(true);
 ```
 
-### 2.  Credentials Configuration
+### 2.  Credentials Configuration [:top:](#user-manual-top)
 
 There are two types of Huawei Cloud services, `regional` services and `global` services. 
 
@@ -159,7 +158,7 @@ For `Regional` services' authentication, projectId is required. For `global` ser
 - `domainId` is the account ID of HUAWEI CLOUD.
 - `securityToken` is the security token when using temporary AK/SK.
 
-#### 2.1  Use Permanent AK&SK
+#### 2.1  Use Permanent AK&SK [:top:](#user-manual-top)
     
 ``` go
 # Regional Services
@@ -180,7 +179,7 @@ globalAuth := global.NewCredentialsBuilder().
 **Notice**: projectId/domainId supports **automatic acquisition** in version `0.0.26-beta` or later, if you want to use this feature, it's required to build your client instance with method `WithRegion()`, detailed example could refer to [3.2  Initialize with specified Endpoint](). 
 
   
-#### 2.2  Use Temporary AK/SK
+#### 2.2  Use Temporary AK/SK [:top:](#user-manual-top)
     
 It's required to obtain temporary access key, security key and security token first, which could be obtained through permanent access key and security key or through an agency.
 
@@ -206,11 +205,11 @@ globalAuth := global.NewCredentialsBuilder().
             Build()
 ```
 
-### 3.  Client Initialization
+### 3.  Client Initialization [:top:](#user-manual-top)
 
 There are two ways to initialize the {Service}Client, you could choose one you preferred. 
 
-#### 3.1  Initialize the {Service}Client with specified Endpoint
+#### 3.1  Initialize the {Service}Client with specified Endpoint [:top:](#user-manual-top)
 
 ``` go
 // Initialize specified New{Service}Client, take NewVpcClient for example
@@ -226,7 +225,7 @@ client := vpc.NewVpcClient(
 
 - `endpoint` varies with services and regions, see [Regions and Endpoints](https://developer.huaweicloud.com/intl/en-us/endpoint) to obtain correct endpoint. 
 
-#### 3.2  Initialize the {Service}Client with specified Region **(Recommended)**
+#### 3.2  Initialize the {Service}Client with specified Region **(Recommended)** [:top:](#user-manual-top)
     
 ``` go
 import (
@@ -254,7 +253,7 @@ client := iam.NewIamClient(
 - If you use `region` to initialize {Service}Client, projectId/domainId supports automatic acquisition, you don't need to configure it when initializing Credentials.
 - Multiple ProjectId situation is not supported.
     
-### 4.  Send Requests and Get Responses
+### 4.  Send Requests and Get Responses [:top:](#user-manual-top)
 
 ``` go
 // send a request and print response, take interface of ListVpcs for example
@@ -274,7 +273,7 @@ if err == nil {
 }
 ```
 
-#### 4.1  Exceptions
+#### 4.1  Exceptions [:top:](#user-manual-top)
 
 | Level 1 | Notice | 
 | :---- | :---- | 
@@ -290,13 +289,13 @@ if err == nil {
 }
 ```
 
-### 5.  Troubleshooting
+### 5.  Troubleshooting [:top:](#user-manual-top)
 
-#### 5.1  Original HTTP Listener
+#### 5.1  Original HTTP Listener [:top:](#user-manual-top)
 
 In some situation, you may need to debug your http requests, original http request and response information will be needed. The SDK provides a listener function to obtain the original encrypted http request and response information.
 
-> :warning:  Warning: The original http log information are used in debugging stage only, please do not print the original http header or body in the production environment. These log information are not encrypted and contain sensitive data such as the password of your ECS virtual machine or the password of your IAM user account, etc.
+> :warning:  Warning: The original http log information is used in debugging stage only, please do not print the original http header or body in the production environment. This log information is not encrypted and contains sensitive data such as the password of your ECS virtual machine, or the password of your IAM user account, etc.
 
 ``` go
 func RequestHandler(request http.Request) {
