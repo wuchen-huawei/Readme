@@ -37,12 +37,12 @@
 <dependency>
     <groupId>com.huaweicloud.sdk</groupId>
     <artifactId>huaweicloud-sdk-core</artifactId>
-    <version>[3.0.30-rc, 3.1.0-rc)</version>
+    <version>[3.0.1-beta, 3.1.0-rc)</version>
 </dependency>
 <dependency>
     <groupId>com.huaweicloud.sdk</groupId>
     <artifactId>huaweicloud-sdk-vpc</artifactId>
-    <version>[3.0.30-rc, 3.1.0-rc)</version>
+    <version>[3.0.1-beta, 3.1.0-rc)</version>
 </dependency>
 ```
 
@@ -155,10 +155,8 @@ HttpConfig config = HttpConfig.getDefaultHttpConfig();
 
 #### 1.2 网络代理 [:top:](#用户手册-top)
 
-网络代理默认的协议为 `http` 协议：
-
 ``` java
-// 根据需要配置网络代理
+// 根据需要配置网络代理，网络代理默认的协议为 `http` 协议
 config.withProxyHost("proxy.huaweicloud.com")
     .withProxyPort(8080)
     .withProxyUsername("test")
