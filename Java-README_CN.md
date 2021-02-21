@@ -313,7 +313,10 @@ logger.info(response.toString());
 ``` java
 // 异常处理
 try {
-    ListVpcResponse listVpcResponse = client.listVpcs(new ListVpcsRequest().withLimit(1));
+    ListVpcRequest request = new ListVpcsRequest().withLimit(1);
+
+    ListVpcsResponse response = client.listVpcs(request); 
+    logger.info(response.toString());
 } catch(ServiceResponseException e) {
     logger.error("HttpStatusCode: " + e.getHttpStatusCode());
     logger.error("RequestId: " + e.getRequestId());
