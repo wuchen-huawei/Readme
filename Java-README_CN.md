@@ -146,14 +146,14 @@ public class Application {
 
 ### 1. 客户端连接参数 [:top:](#用户手册-top)
 
-#### 1.1  默认配置 [:top:](#用户手册-top)
+#### 1.1 默认配置 [:top:](#用户手册-top)
 
 ``` java
 // 使用默认配置
 HttpConfig config = HttpConfig.getDefaultHttpConfig();
 ```
 
-#### 1.2  网络代理 [:top:](#用户手册-top)
+#### 1.2 网络代理 [:top:](#用户手册-top)
 
 网络代理默认的协议为 `http` 协议：
 
@@ -165,7 +165,7 @@ config.withProxyHost("proxy.huaweicloud.com")
     .withProxyPassword("test");
 ```
 
-#### 1.3  超时配置 [:top:](#用户手册-top)
+#### 1.3 超时配置 [:top:](#用户手册-top)
 
 ``` java 
 // 默认连接超时时间为60秒，可根据需要调整
@@ -189,15 +189,15 @@ Region 级服务仅需要提供 projectId 。Global 级服务需要提供 domain
 
 **参数说明**：
 
-- `ak` -  华为云账号 Access Key
-- `sk` -  华为云账号 Secret Access Key
+- `ak` - 华为云账号 Access Key
+- `sk` - 华为云账号 Secret Access Key
 - `projectId` - 云服务所在项目 ID ，根据你想操作的项目所属区域选择对应的项目 ID
 - `domainId` - 华为云账号 ID
 - `securityToken` - 采用临时 AK&SK 认证场景下的安全票据
 
 客户端认证可以使用永久 AK&SK 认证，也可以使用临时 AK&SK&SecurityToken 认证。
 
-#### 2.1  使用永久 AK 和 SK [:top:](#用户手册-top)
+#### 2.1 使用永久 AK 和 SK [:top:](#用户手册-top)
 
 ``` java
 // Region级服务
@@ -215,15 +215,18 @@ GlobalCredentials globalCredentials = new GlobalCredentials()
 
 **说明**：
 
-- `3.0.26-beta` 及以上版本支持通过永久 AK&SK 回填 projectId/domainId ，需要在初始化客户端时配合 `withRegion()` 方法使用，代码示例详见 [3.2 指定Region方式（推荐）](#32--指定-region-方式-推荐-top)。
+- `3.0.26-beta` 及以上版本支持通过永久 AK&SK 回填 projectId/domainId ，需要在初始化客户端时配合 `withRegion()`
+  方法使用，代码示例详见 [3.2 指定Region方式（推荐）](#32--指定-region-方式-推荐-top)。
 
-#### 2.2  使用临时 AK 和 SK [:top:](#用户手册-top)
+#### 2.2 使用临时 AK 和 SK [:top:](#用户手册-top)
 
 首先需要获得临时 AK、SK 和 SecurityToken ，可以从永久 AK&SK 获得，或者通过委托授权获得。
 
-- 通过永久 AK&SK 获得可以参考文档：https://support.huaweicloud.com/api-iam/iam_04_0002.html ，对应 IAM SDK 中的 `CreateTemporaryAccessKeyByToken` 方法。
+- 通过永久 AK&SK 获得可以参考文档：https://support.huaweicloud.com/api-iam/iam_04_0002.html ，对应 IAM SDK
+  中的 `CreateTemporaryAccessKeyByToken` 方法。
 
-- 通过委托授权获得可以参考文档：https://support.huaweicloud.com/api-iam/iam_04_0101.html, 对应 IAM SDK 中的 `CreateTemporaryAccessKeyByAgency` 方法。
+- 通过委托授权获得可以参考文档：https://support.huaweicloud.com/api-iam/iam_04_0101.html, 对应 IAM SDK
+  中的 `CreateTemporaryAccessKeyByAgency` 方法。
 
 临时 AK&SK&SecurityToken 获取成功后，可使用如下方式初始化认证信息：
 
@@ -247,7 +250,7 @@ GlobalCredentials globalCredentials = new GlobalCredentials()
 
 客户端初始化有两种方式，可根据需要选择下列两种方式中的一种：
 
-#### 3.1  指定云服务 Endpoint 方式 [:top:](#用户手册-top)
+#### 3.1 指定云服务 Endpoint 方式 [:top:](#用户手册-top)
 
 ``` java
 // 初始化指定云服务的客户端 {Service}Client ，以初始化 VpcClient 为例
@@ -259,9 +262,10 @@ VpcClient vpcClient = VpcClient.newBuilder()
 ```
 
 **说明：**
+
 - `endpoint` 是华为云各服务应用区域和各服务的终端节点，详情请查看[地区和终端节点](https://developer.huaweicloud.com/endpoint)。
 
-#### 3.2  指定 Region 方式 **（推荐）** [:top:](#用户手册-top)
+#### 3.2 指定 Region 方式 **（推荐）** [:top:](#用户手册-top)
 
 ``` java
 // 增加region依赖
@@ -281,6 +285,7 @@ IamClient iamClient = IamClient.newBuilder()
 ```
 
 **说明：**
+
 - 指定 Region 方式创建客户端的场景，支持自动获取用户的 projectId 或者 domainId，初始化认证信息时可无需指定相应参数。
 
 - 不适用于 `多ProjectId` 的场景。
@@ -296,7 +301,8 @@ logger.info(response.toString());
 
 ```
 
-#### 4.1  异常处理 [:top:](#用户手册-top)
+#### 4.1 异常处理 [:top:](#用户手册-top)
+
 | 一级分类 | 一级分类说明 | 二级分类 | 二级分类说明 |
 | :---- | :---- | :---- | :---- |
 | ConnectionException | 连接类异常 | HostUnreachableException | 网络不可达、被拒绝 |
@@ -339,7 +345,7 @@ ListVpcsResponse response = future.get();
 
 SDK 提供 Access 级别的访问日志级 Debug 级别的原始 HTTP 监听器日志，用户可根据需要进行配置。
 
-#### 6.1  访问日志 [:top:](#用户手册-top)
+#### 6.1 访问日志 [:top:](#用户手册-top)
 
 **注意：** SDK在运行的时候默认采用slf4j进行日志打印，如果在运行代码实例时，未配置日志实现库，会有提示如下：
 
@@ -351,7 +357,7 @@ SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further detail
 
 所以需要用户根据目标项目实际情况引入对应的日志实现，请在对应的工程项目的 pom.xml 文件中引入日志实现的依赖，如：
 
-`slf4j`
+**slf4j**
 
 ``` xml
   <dependency>
@@ -361,7 +367,7 @@ SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further detail
   </dependency>
 ```
 
-`logback`
+**logback**
 
 ``` xml
 <dependency>
@@ -376,7 +382,7 @@ SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further detail
 </dependency>
 ```
 
-`log4j`
+**log4j**
 
 ``` xml
 <dependency>
@@ -404,7 +410,7 @@ SDK 默认会打印访问日志，每次请求都会有一条记录：
 
 可以根据项目情况在对应的日志配置文件中对访问日志进行屏蔽，或者单独打印到独立文件中。
 
-例如在logback中关闭访问日志：
+例如在 logback 中关闭访问日志：
 
 ``` xml
 <logger name="HuaweiCloud-SDK-Access" level="OFF"> </logger>
@@ -412,13 +418,13 @@ SDK 默认会打印访问日志，每次请求都会有一条记录：
 
 #### 6.2  HTTP 监听器 [:top:](#用户手册-top)
 
-在某些场景下可能对业务发出的Http请求进行Debug，需要看到原始的Http请求和返回信息，SDK提供侦听器功能来获取原始的为加密的Http请求和返回信息。
+在某些场景下可能对业务发出的 HTTP 请求进行 Debug ，需要看到原始的 HTTP 请求和返回信息， SDK 提供监听器功能来获取原始的为加密的 HTTP 请求和返回信息。
 
-> :warning:  Warning: 原始信息打印仅在debug阶段使用，请不要在生产系统中将原始的Http头和Body信息打印到日志，这些信息并未加密且其中包含敏感数据，例如所创建虚拟机的密码，IAM用户的密码等；当Body体为二进制内容，即Content-Type标识为二进制时，body为"***"，详细内容不输出。
+> :warning:  Warning: 原始信息打印仅在 Debug 阶段使用，请不要在生产系统中将原始的 HTTP 头和 Body 信息打印到日志，这些信息并未加密且其中包含敏感数据，例如所创建虚拟机的密码，IAM 用户的密码等；当 Body 体为二进制内容，即 Content-Type 标识为二进制时，Body 为"***"，详细内容不输出。
 
 ``` java
 HttpConfig config = new HttpConfig().addHttpListener(HttpListener.forRequestListener(requestListener ->
-    // 注册侦听器后打印Http Request 原始信息,请勿在生产系统中使用
+    // 注册监听器后打印Http Request 原始信息,请勿在生产系统中使用
     logger.debug("REQUEST: {} {} {} {}",
         requestListener.httpMethod(),
         requestListener.uri(),
@@ -427,7 +433,7 @@ HttpConfig config = new HttpConfig().addHttpListener(HttpListener.forRequestList
             .collect(Collectors.joining(";")),
         requestListener.body().orElse(""))))
     .addHttpListener(HttpListener.forResponseListener(responseListener ->
-        // 注册侦听器后打印Http Request 原始信息,请勿在生产系统中使用
+        // 注册监听器后打印Http Request 原始信息,请勿在生产系统中使用
         logger.debug("RESPONSE: {} {} {} {} {}",
             responseListener.httpMethod(),
             responseListener.uri(),
