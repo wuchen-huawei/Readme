@@ -175,11 +175,11 @@ required.
 
 - `ak` is the access key ID for your account.
 - `sk` is the secret access key for your account.
-- `projectId` is the ID of your project depending on your region which you want to operate.
-- `domainId` is the account ID of HUAWEI CLOUD.
+- `projectId` is the ID of your project depending on the region you want to operate.
+- `domainId` is the account ID of Huawei Cloud.
 - `securityToken` is the security token when using temporary AK/SK.
 
-You could use permanent AK plus SK **or** use temporary AK plus SK plus SecurityToken to complete credentials'
+You could use permanent AK and SK **or** use temporary AK and SK and SecurityToken to complete credentials'
 configuration.
 
 #### 2.1 Use Permanent AK&SK [:top:](#user-manual-top)
@@ -249,7 +249,7 @@ VpcClient vpcClient = VpcClient.newBuilder()
 
 **where:**
 
-- `endpoint` varies with services and regions,
+- `endpoint` varies by services and regions,
   see [Regions and Endpoints](https://developer.huaweicloud.com/intl/en-us/endpoint) to obtain correct endpoint.
 
 #### 3.2 Initialize the {Service}Client with specified Region **(Recommended)** [:top:](#user-manual-top)
