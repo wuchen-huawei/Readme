@@ -172,7 +172,7 @@ config.withProxyHost("proxy.huaweicloud.com")
 config.withTimeout(60);
 ```
 
-#### 1.4  SSL 配置 [:top:](#用户手册-top)
+#### 1.4 SSL 配置 [:top:](#用户手册-top)
 
 ``` java
 // 根据需要配置是否跳过SSL证书验证
@@ -416,7 +416,7 @@ SDK 默认会打印访问日志，每次请求都会有一条记录：
 <logger name="HuaweiCloud-SDK-Access" level="OFF"> </logger>
 ```
 
-#### 6.2  HTTP 监听器 [:top:](#用户手册-top)
+#### 6.2 HTTP 监听器 [:top:](#用户手册-top)
 
 在某些场景下可能对业务发出的 HTTP 请求进行 Debug ，需要看到原始的 HTTP 请求和返回信息， SDK 提供监听器功能来获取原始的为加密的 HTTP 请求和返回信息。
 
