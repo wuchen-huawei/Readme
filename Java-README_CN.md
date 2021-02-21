@@ -216,7 +216,7 @@ GlobalCredentials globalCredentials = new GlobalCredentials()
 **说明**：
 
 - `3.0.26-beta` 及以上版本支持通过永久 AK&SK 回填 projectId/domainId ，需要在初始化客户端时配合 `withRegion()`
-  方法使用，代码示例详见 [3.2 指定Region方式（推荐）](#32--指定-region-方式-推荐-top)。
+  方法使用，代码示例详见 [3.2 指定Region方式（推荐）](#32-指定-region-方式-推荐-top)。
 
 #### 2.2 使用临时 AK 和 SK [:top:](#用户手册-top)
 
