@@ -13,13 +13,12 @@ This document introduces how to obtain and use Huawei Cloud Java SDK.
 
 ## Requirements
 
-- To use Huawei Cloud Java SDK, you must have Huawei Cloud account as well as the Access Key and Secret key of the
-  Huawei Cloud account. You can create an AccessKey in the Huawei Cloud console. For more information,
-  see [My Credentials](https://support.huaweicloud.com/usermanual-ca/zh-cn_topic_0046606340.html).
+- To use Huawei Cloud Java SDK, you must have Huawei Cloud account as well as the Access Key and Secret Key of the
+  Huawei Cloud account. You can create an Access Key in the Huawei Cloud console. For more information,
+  see [My Credentials](https://support.huaweicloud.com/en-us/usermanual-ca/en-us_topic_0046606340.html).
 
 - To use Huawei Cloud Java SDK to access the APIs of specific service, please make sure you do have activated the
-  service in [Huawei Cloud console](https://console.huaweicloud.com/console/?locale=zh-cn&region=cn-north-4#/home) if
-  needed.
+  service in [Huawei Cloud console](https://console.huaweicloud.com/?locale=en-us) if needed.
 
 - Huawei Cloud Java SDK requires **Java JDK 1.8** or later.
 
@@ -172,7 +171,7 @@ Global services contain BSS, DevStar, EPS, IAM, OSM, RMS, TMS.
 For `Regional` services' authentication, projectId is required. For `global` services' authentication, domainId is
 required.
 
-`Parameter description`:
+**Parameter description**:
 
 - `ak` is the access key ID for your account.
 - `sk` is the secret access key for your account.
@@ -204,7 +203,7 @@ this feature, it's required to build your client instance with method `withRegio
 to [3.2 Initialize the client with specified Region](#32-initialize-the-serviceclient-with-specified-region-recommended-top)
 .
 
-#### 2.2  Use Temporary AK&SK [:top:](#user-manual-top)
+#### 2.2 Use Temporary AK&SK [:top:](#user-manual-top)
 
 **Notice**: It's required to obtain temporary access key, security key and security token first, which could be obtained
 through permanent access key and security key or through an agency.
@@ -301,7 +300,10 @@ logger.info(response.toString());
 
 ``` java
 try {
-    ListVpcResponse listVpcResponse = client.listVpcs(new ListVpcsRequest());
+    ListVpcRequest request = new ListVpcsRequest().withLimit(1);
+
+    ListVpcsResponse response = client.listVpcs(request); 
+    logger.info(response.toString());
 } catch(ServiceResponseException e) {
     logger.error("HttpStatusCode: " + e.getHttpStatusCode());
     logger.error("RequestId: " + e.getRequestId());
@@ -349,11 +351,11 @@ example, you can add one of the following dependency to your **pom.xml** file:
 **slf4j**
 
 ``` xml
-    <dependency>
-        <groupId>org.slf4j</groupId>
-        <artifactId>slf4j-simple</artifactId>
-        <version>1.7.21</version>
-    </dependency>
+<dependency>
+    <groupId>org.slf4j</groupId>
+    <artifactId>slf4j-simple</artifactId>
+    <version>1.7.21</version>
+</dependency>
 ```
 
 **logback**
