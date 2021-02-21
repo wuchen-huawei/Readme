@@ -124,7 +124,7 @@ public class Application {
 
 每个版本的详细更改记录可在[变更日志](https://github.com/huaweicloud/huaweicloud-sdk-java-v3/blob/master/CHANGELOG_CN.md)中查看。
 
-## 用户手册 [:top:](#华为云开发者-java-软件开发工具包-java-sdk)
+## 用户手册 [:top:](#华为云开发者-java-软件开发工具包java-sdk)
 
 * [1. 客户端连接参数](#1-客户端连接参数-top)
   * [1.1 默认配置](#11--默认配置-top)
@@ -132,26 +132,28 @@ public class Application {
   * [1.3 超时配置](#13--超时配置-top)
   * [1.4 SSL配置](#14--ssl-配置-top)
 * [2. 客户端认证信息](#2-客户端认证信息-top)
-  * [2.1 永久 AK 和 SK](#21--永久-ak-和-sk-top)
-  * [2.2 临时 AK 和 SK](#22--临时-ak-和-sk-top)
+  * [2.1 使用永久 AK 和 SK](#21--使用永久-ak-和-sk-top)
+  * [2.2 使用临时 AK 和 SK](#22--使用临时-ak-和-sk-top)
 * [3. 客户端初始化](#3-客户端初始化-top)
-  * [3.1 指定云服务 Endpoint 方式](#31-指定云服务-endpoint-方式-top)
-  * [3.2 指定 Region 方式（推荐）](#32-指定-region-方式-推荐-top)
+  * [3.1 指定云服务 Endpoint 方式](#31--指定云服务-endpoint-方式-top)
+  * [3.2 指定 Region 方式（推荐）](#32--指定-region-方式-推荐-top)
 * [4. 发送请求并查看响应](#4-发送请求并查看响应-top)
-  * [4.1 异常处理](#41-异常处理-top)
-* [5. 故障处理](#5-故障处理-top)
-  * [5.1 HTTP 监听器](#51-http监听器-top)
+  * [4.1 异常处理](#41--异常处理-top)
+* [5. 异步客户端使用](#5-异步客户端使用-top)
+* [6. 故障处理](#6-故障处理-top)
+  * [6.1 访问日志](#61--访问日志-top)
+  * [6.2 HTTP 监听器](#62--http-监听器-top)
 
 ### 1. 客户端连接参数 [:top:](#用户手册-top)
 
-#### 1.1  默认配置
+#### 1.1  默认配置 [:top:](#用户手册-top)
 
 ``` java
 // 使用默认配置
 HttpConfig config = HttpConfig.getDefaultHttpConfig();
 ```
 
-#### 1.2  网络代理
+#### 1.2  网络代理 [:top:](#用户手册-top)
 
 网络代理默认的协议为 `http` 协议：
 
@@ -163,14 +165,14 @@ config.withProxyHost("proxy.huaweicloud.com")
     .withProxyPassword("test");
 ```
 
-#### 1.3  超时配置
+#### 1.3  超时配置 [:top:](#用户手册-top)
 
 ``` java 
 // 默认连接超时时间为60秒，可根据需要调整
 config.withTimeout(60);
 ```
 
-#### 1.4 SSL配置
+#### 1.4  SSL 配置 [:top:](#用户手册-top)
 
 ``` java
 // 根据需要配置是否跳过SSL证书验证
@@ -195,7 +197,7 @@ Region 级服务仅需要提供 projectId 。Global 级服务需要提供 domain
 
 客户端认证可以使用永久 AK&SK 认证，也可以使用临时 AK&SK&SecurityToken 认证。
 
-#### 2.1 使用永久 AK 和 SK [:top:](#用户手册-top)
+#### 2.1  使用永久 AK 和 SK [:top:](#用户手册-top)
 
 ``` java
 // Region级服务
@@ -215,7 +217,7 @@ GlobalCredentials globalCredentials = new GlobalCredentials()
 
 - `3.0.26-beta` 及以上版本支持通过永久 AK&SK 回填 projectId/domainId ，需要在初始化客户端时配合 `withRegion()` 方法使用，代码示例详见 [3.2 指定Region方式（推荐）](#32-指定-region-方式-推荐-top)。
 
-#### 2.2 使用临时 AK 和 SK [:top:](#用户手册-top)
+#### 2.2  使用临时 AK 和 SK [:top:](#用户手册-top)
 
 首先需要获得临时 AK、SK 和 SecurityToken ，可以从永久 AK&SK 获得，或者通过委托授权获得。
 
@@ -226,26 +228,26 @@ GlobalCredentials globalCredentials = new GlobalCredentials()
 临时 AK&SK&SecurityToken 获取成功后，可使用如下方式初始化认证信息：
 
 ``` java
-    // Region级服务
-    BasicCredentials basicCredentials = new BasicCredentials()
-        .withAk(ak)
-        .withSk(sk)
-        .withSecurityToken(securityToken)
-        .withProjectId(projectId)
+// Region级服务
+BasicCredentials basicCredentials = new BasicCredentials()
+    .withAk(ak)
+    .withSk(sk)
+    .withSecurityToken(securityToken)
+    .withProjectId(projectId)
 
-    // Global级服务
-    GlobalCredentials globalCredentials = new GlobalCredentials()
-        .withAk(ak)
-        .withSk(sk)
-        .withSecurityToken(securityToken)
-        .withDomainId(domainId);
-    ```
+// Global级服务
+GlobalCredentials globalCredentials = new GlobalCredentials()
+    .withAk(ak)
+    .withSk(sk)
+    .withSecurityToken(securityToken)
+    .withDomainId(domainId);
+```
 
 ### 3. 客户端初始化 [:top:](#用户手册-top)
 
 客户端初始化有两种方式，可根据需要选择下列两种方式中的一种：
 
-#### 3.1 指定云服务 Endpoint 方式 [:top:](#用户手册-top)
+#### 3.1  指定云服务 Endpoint 方式 [:top:](#用户手册-top)
 
 ``` java
 // 初始化指定云服务的客户端 {Service}Client ，以初始化 VpcClient 为例
@@ -259,7 +261,7 @@ VpcClient vpcClient = VpcClient.newBuilder()
 **说明：**
 - `endpoint` 是华为云各服务应用区域和各服务的终端节点，详情请查看[地区和终端节点](https://developer.huaweicloud.com/endpoint)。
 
-#### 3.2 指定Region方式**（推荐）** [:top:](#用户手册-top)
+#### 3.2  指定 Region 方式 **（推荐）** [:top:](#用户手册-top)
 
 ``` java
 // 增加region依赖
@@ -316,7 +318,7 @@ try {
 }
 ```
 
-### 5. 异步客户端使用
+### 5. 异步客户端使用 [:top:](#用户手册-top)
 
 ``` java
 // 初始化异步客户端，以初始化 VpcAsyncClient 为例
@@ -333,11 +335,11 @@ CompletableFuture<ListVpcsResponse> future = vpcAsyncClient.listVpcsAsync(new Li
 ListVpcsResponse response = future.get();
 ```
 
-### 6. 故障处理
+### 6. 故障处理 [:top:](#用户手册-top)
 
 SDK 提供 Access 级别的访问日志级 Debug 级别的原始 HTTP 监听器日志，用户可根据需要进行配置。
 
-#### 6.1  访问日志
+#### 6.1  访问日志 [:top:](#用户手册-top)
 
 **注意：** SDK在运行的时候默认采用slf4j进行日志打印，如果在运行代码实例时，未配置日志实现库，会有提示如下：
 
@@ -408,7 +410,7 @@ SDK 默认会打印访问日志，每次请求都会有一条记录：
 <logger name="HuaweiCloud-SDK-Access" level="OFF"> </logger>
 ```
 
-#### 6.2  HTTP 监听器
+#### 6.2  HTTP 监听器 [:top:](#用户手册-top)
 
 在某些场景下可能对业务发出的Http请求进行Debug，需要看到原始的Http请求和返回信息，SDK提供侦听器功能来获取原始的为加密的Http请求和返回信息。
 
@@ -441,4 +443,3 @@ VpcClient vpcClient = VpcClient.newBuilder()
     .withEndpoint(endpoint)
     .build();
 ```
-
