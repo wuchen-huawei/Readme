@@ -287,6 +287,7 @@ globalCredentials->withAk(ak)
 
 ### 3. Client Initialization [:top:](#user-manual-top)
 
+#### 3.1 Initialize the {Service}Client with specified Endpoint [:top:](#user-manual-top)
 
 ``` c++
 // Initialize specified service client instance, take VpcClient for example
