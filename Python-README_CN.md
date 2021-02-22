@@ -16,10 +16,10 @@
 ## 使用前提
 
 - 要使用华为云 Java SDK ，您需要拥有华为云账号以及该账号对应的 Access Key（AK）和 Secret Access Key（SK）。请在华为云控制台 “我的凭证-访问密钥” 页面上创建和查看您的 AK&SK
-  。更多信息请查看[访问密钥](https://support.huaweicloud.com/usermanual-ca/zh-cn_topic_0046606340.html)。
+  。更多信息请查看 [访问密钥](https://support.huaweicloud.com/usermanual-ca/zh-cn_topic_0046606340.html) 。
 
 - 要使用华为云 Java SDK 访问指定服务的 API
-  ，您需要确认已在[华为云控制台](https://console.huaweicloud.com/console/?locale=zh-cn&region=cn-north-4#/home)开通当前服务。
+  ，您需要确认已在 [华为云控制台](https://console.huaweicloud.com/console/?locale=zh-cn&region=cn-north-4#/home) 开通当前服务。
 
 - 华为云 Python SDK 支持 **python3** 及以上版本。可执行 `python --version` 检查当前 python 的版本信息。
 
@@ -105,27 +105,27 @@ if __name__ == "__main__":
 
 ## 变更日志
 
-每个版本的详细更改记录可在[变更日志](https://github.com/huaweicloud/huaweicloud-sdk-python-v3/blob/master/CHANGELOG_CN.md)中查看。
+每个版本的详细更改记录可在 [变更日志](https://github.com/huaweicloud/huaweicloud-sdk-python-v3/blob/master/CHANGELOG_CN.md) 中查看。
 
 ## 用户手册 [:top:](#华为云开发者-python-软件开发工具包python-sdk)
 
 * [1. 客户端连接参数](#1-客户端连接参数-top)
-  * [1.1 默认配置](#11-默认配置-top)
-  * [1.2 网络代理](#12-网络代理-top)
-  * [1.3 超时配置](#13-超时配置-top)
-  * [1.4 SSL 配置](#14-ssl-配置-top)
+    * [1.1 默认配置](#11-默认配置-top)
+    * [1.2 网络代理](#12-网络代理-top)
+    * [1.3 超时配置](#13-超时配置-top)
+    * [1.4 SSL 配置](#14-ssl-配置-top)
 * [2. 客户端认证信息](#2-客户端认证信息-top)
-  * [2.1 使用永久 AK 和 SK](#21-使用永久-ak-和-sk-top)
-  * [2.2 使用临时 AK 和 SK](#22-使用临时-ak-和-sk-top)
+    * [2.1 使用永久 AK 和 SK](#21-使用永久-ak-和-sk-top)
+    * [2.2 使用临时 AK 和 SK](#22-使用临时-ak-和-sk-top)
 * [3. 客户端初始化](#3-客户端初始化-top)
-  * [3.1 指定云服务 Endpoint 方式](#31-指定云服务-endpoint-方式-top)
-  * [3.2 指定 Region 方式（推荐）](#32-指定-region-方式-推荐-top)
+    * [3.1 指定云服务 Endpoint 方式](#31-指定云服务-endpoint-方式-top)
+    * [3.2 指定 Region 方式（推荐）](#32-指定-region-方式-推荐-top)
 * [4. 发送请求并查看响应](#4-发送请求并查看响应-top)
-  * [4.1 异常处理](#41-异常处理-top)
+    * [4.1 异常处理](#41-异常处理-top)
 * [5. 异步客户端使用](#5-异步客户端使用-top)
 * [6. 故障处理](#6-故障处理-top)
-  * [6.1 访问日志](#61-访问日志-top)
-  * [6.2 HTTP 监听器](#62-http-监听器-top)
+    * [6.1 访问日志](#61-访问日志-top)
+    * [6.2 HTTP 监听器](#62-http-监听器-top)
 
 ### 1. 客户端连接参数 [:top:](#用户手册-top)
 
@@ -191,8 +191,8 @@ basic_credentials = BasicCredentials(ak, sk, project_id)
 global_credentials = GlobalCredentials(ak, sk, domain_id)
 ```
 
-- `3.0.26-beta` 及以上版本支持通过永久 AK&SK 回填 projectId/domainId ，需要在初始化客户端时配合 `with_region()`
-  方法使用，代码示例详见 [3.2 指定Region方式（推荐）](#32-指定-region-方式-推荐-top)。
+- `3.0.26-beta` 及以上版本支持通过永久 AK&SK 回填 project_id/domain_id ，需要在初始化客户端时配合 `with_region()`
+  方法使用，代码示例详见 [3.2 指定Region方式（推荐）](#32-指定-region-方式-推荐-top) 。
 
 #### 2.2 使用临时 AK 和 SK [:top:](#用户手册-top)
 
@@ -201,7 +201,7 @@ global_credentials = GlobalCredentials(ak, sk, domain_id)
 - 通过永久 AK&SK 获得可以参考文档：https://support.huaweicloud.com/api-iam/iam_04_0002.html ，对应 IAM SDK
   中的 `CreateTemporaryAccessKeyByToken` 方法。
 
-- 通过委托授权获得可以参考文档：https://support.huaweicloud.com/api-iam/iam_04_0101.html, 对应 IAM SDK
+- 通过委托授权获得可以参考文档：https://support.huaweicloud.com/api-iam/iam_04_0101.html ，对应 IAM SDK
   中的 `CreateTemporaryAccessKeyByAgency` 方法。
 
 临时 AK&SK&SecurityToken 获取成功后，可使用如下方式初始化认证信息：
@@ -231,7 +231,7 @@ client = VpcClient.new_builder() \
 
 **说明:**
 
-- `endpoint` 是华为云各服务应用区域和各服务的终端节点，详情请查看[地区和终端节点](https://developer.huaweicloud.com/endpoint)。
+- `endpoint` 是华为云各服务应用区域和各服务的终端节点，详情请查看 [地区和终端节点](https://developer.huaweicloud.com/endpoint) 。
 
 #### 3.2 指定 Region 方式 **（推荐）** [:top:](#用户手册-top)
 
@@ -262,7 +262,7 @@ client = IamClient.new_builder() \
 request = ListVpcsRequest(limit=1)
 
 response = client.list_vpcs(request)
-print(respones)
+print(response)
 ```
 
 #### 4.1 异常处理 [:top:](#用户手册-top)
@@ -281,7 +281,7 @@ print(respones)
 try:
     request = ListVpcsRequest(limit=1)
     response = client.list_vpcs(request)
-    print(respones)
+    print(response)
 except exception.ServiceResponseException as e:
     print(e.status_code)
     print(e.request_id)
@@ -293,9 +293,9 @@ except exception.ServiceResponseException as e:
 
 ``` python
 # 初始化异步客户端，以初始化 VpcAsyncClient 为例
-vpc_client = VpcAsyncClient.new_builder() \
+client = VpcAsyncClient.new_builder() \
     .with_http_config(config) \
-    .with_credentials(credentials) \
+    .with_credentials(basic_credentials) \
     .with_endpoint(endpoint) \
     .build()
 
@@ -318,7 +318,7 @@ SDK 支持打印 Access 级别的访问日志，需要用户手动打开日志�
 ``` python
 client = VpcClient.new_builder() \
     .with_http_config(config) \
-    .with_credentials(credentials) \
+    .with_credentials(basic_credentials) \
     .with_endpoint(endpoint) \
     .with_file_log(path="test.log", log_level=logging.INFO) \  # 日志打印至文件
     .with_stream_log(log_level=logging.INFO) \                 # 日志打印至控制台
@@ -328,13 +328,13 @@ client = VpcClient.new_builder() \
 **说明**：
 
 - `with_file_log` 支持如下配置：
-  - `path`：日志文件路径
-  - `log_level`：日志级别，默认INFO
-  - `max_bytes`：单个日志文件大小，默认为10485760 bytes
-  - `backup_count`：日志文件个数，默认为5个
+    - `path`：日志文件路径
+    - `log_level`：日志级别，默认INFO
+    - `max_bytes`：单个日志文件大小，默认为10485760 bytes
+    - `backup_count`：日志文件个数，默认为5个
 - `with_stream_log` 支持如下配置：
-  - `stream`：流对象，默认sys.stdout
-  - `log_level`：日志级别，默认INFO
+    - `stream`：流对象，默认sys.stdout
+    - `log_level`：日志级别，默认INFO
 
 打开日志开关后，每次请求都会有一条记录，如：
 
@@ -355,36 +355,40 @@ client = VpcClient.new_builder() \
 > :warning:  Warning: 原始信息打印仅在 Debug 阶段使用，请不要在生产系统中将原始的 HTTP 头和 Body 信息打印到日志，这些信息并未加密且其中包含敏感数据，例如所创建虚拟机的密码，IAM 用户的密码等；当 Body 体为二进制内容，即 Content-Type 标识为二进制时，Body 为"***"，详细内容不输出。
 
 ``` python
+import logging
+from huaweicloudsdkcore.http.http_handler import HttpHandler
+
+
 def response_handler(**kwargs):
-logger = kwargs.get("logger")
-response = kwargs.get("response")
-request = response.request
+    logger = kwargs.get("logger")
+    response = kwargs.get("response")
+    request = response.request
 
-base = "> Request %s %s HTTP/1.1" % (request.method, request.path_url) + "\n"
-if len(request.headers) != 0:
-    base = base + "> Headers:" + "\n"
-    for each in request.headers:
-        base = base + "    %s : %s" % (each, request.headers[each]) + "\n"
-base = base + "> Body: %s" % request.body + "\n\n"
+    base = "> Request %s %s HTTP/1.1" % (request.method, request.path_url) + "\n"
+    if len(request.headers) != 0:
+        base = base + "> Headers:" + "\n"
+        for each in request.headers:
+            base = base + "    %s : %s" % (each, request.headers[each]) + "\n"
+    base = base + "> Body: %s" % request.body + "\n\n"
 
-base = base + "< Response HTTP/1.1 %s " % response.status_code + "\n"
-if len(response.headers) != 0:
-    base = base + "< Headers:" + "\n"
-    for each in response.headers:
-        base = base + "    %s : %s" % (each, response.headers[each],) + "\n"
-base = base + "< Body: %s" % response.content
-logger.debug(base)
+    base = base + "< Response HTTP/1.1 %s " % response.status_code + "\n"
+    if len(response.headers) != 0:
+        base = base + "< Headers:" + "\n"
+        for each in response.headers:
+            base = base + "    %s : %s" % (each, response.headers[each],) + "\n"
+    base = base + "< Body: %s" % response.content
+    logger.debug(base)
 
-client = VpcClient.new_builder() \
-.with_http_config(config) \
-.with_credentials(credentials) \
-.with_endpoint(endpoint) \
-.with_file_log(path="test.log", log_level=logging.INFO) \
-.with_stream_log(log_level=logging.INFO) \
-.with_http_handler(HttpHandler().add_response_handler(response_handler)) \
-.build()
+
+if __name__ == "__main__":
+    client = VpcClient.new_builder() \
+        .with_http_config(config) \
+        .with_credentials(basic_credentials) \
+        .with_stream_log(log_level=logging.DEBUG) \
+        .with_http_handler(HttpHandler().add_response_handler(response_handler)) \
+        .with_endpoint(endpoint) \
+        .build()
 ```
 
 **说明:**
-
-HttpHandler支持如下方法 `add_request_handler`、`add_response_handler` 。
+HttpHandler 支持如下方法 `add_request_handler`、`add_response_handler` 。
