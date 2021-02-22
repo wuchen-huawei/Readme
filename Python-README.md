@@ -39,7 +39,7 @@ pip install huaweicloudsdkcore
 pip install huaweicloudsdkvpc
 ```
 
-- Install from source
+- Install from source code
 
 ```bash
 # Install the core library
