@@ -70,7 +70,7 @@ from huaweicloudsdkvpc.v2 import *
 
 def list_vpc(client):
     try:
-        request = ListVpcsRequest()
+        request = ListVpcsRequest(limit=1)
         response = client.list_vpcs(request)
         print(response)
     except exceptions.ClientRequestException as e:
@@ -107,22 +107,22 @@ the [CHANGELOG.md](https://github.com/huaweicloud/huaweicloud-sdk-python-v3/blob
 ## User Manual [:top:](#huawei-cloud-python-software-development-kit-python-sdk)
 
 * [1. Client Configuration](#1-client-configuration-top)
-  * [1.1  Default Configuration](#11-default-configuration-top)
-  * [1.2  Network Proxy](#12-network-proxy-top)
-  * [1.3  Connection](#13-connection-top)
-  * [1.4  SSL Certification](#14-ssl-certification-top)
+    * [1.1  Default Configuration](#11-default-configuration-top)
+    * [1.2  Network Proxy](#12-network-proxy-top)
+    * [1.3  Connection](#13-connection-top)
+    * [1.4  SSL Certification](#14-ssl-certification-top)
 * [2. Credentials Configuration](#2-credentials-configuration-top)
-  * [2.1  Use Permanent AK&SK](#21-use-permanent-aksk-top)
-  * [2.2  Use Temporary AK&SK](#22-use-temporary-aksk-top)
+    * [2.1  Use Permanent AK&SK](#21-use-permanent-aksk-top)
+    * [2.2  Use Temporary AK&SK](#22-use-temporary-aksk-top)
 * [3. Client Initialization](#3-client-initialization-top)
-  * [3.1  Initialize the client with specified Endpoint](#31-initialize-the-serviceclient-with-specified-endpoint-top)
-  * [3.2  Initialize the client with specified Region (Recommended)](#32-initialize-the-serviceclient-with-specified-region-recommended-top)
+    * [3.1  Initialize the client with specified Endpoint](#31-initialize-the-serviceclient-with-specified-endpoint-top)
+    * [3.2  Initialize the client with specified Region (Recommended)](#32-initialize-the-serviceclient-with-specified-region-recommended-top)
 * [4. Send Requests and Handle Responses](#4-send-requests-and-handle-responses-top)
-  * [4.1  Exceptions](#41-exceptions-top)
+    * [4.1  Exceptions](#41-exceptions-top)
 * [5. Use Asynchronous Client](#5-use-asynchronous-client-top)
 * [6. Troubleshooting](#6-troubleshooting-top)
-  * [6.1 Access Log](#61-access-log-top)
-  * [6.2 Original HTTP Listener](#62-original-http-listener-top)
+    * [6.1 Access Log](#61-access-log-top)
+    * [6.2 Original HTTP Listener](#62-original-http-listener-top)
 
 ### 1. Client Configuration [:top:](#user-manual-top)
 
@@ -294,14 +294,14 @@ except exception.ServiceResponseException as e:
 
 ``` python
 # Initialize asynchronous client, take VpcAsyncClient for example
-vpc_client = VpcAsyncClient.new_builder() \
+client = VpcAsyncClient.new_builder() \
     .with_http_config(config) \
     .with_credentials(basic_credentials) \
     .with_endpoint(endpoint) \
     .build()
 
 # send asynchronous request
-request = ListVpcsRequest()
+request = ListVpcsRequest(limit=1)
 response = client.list_vpcs_async(request)
 
 # get asynchronous response
@@ -323,7 +323,7 @@ For example:
 # Initialize specified service client instance, take VpcClient for example
 client = VpcClient.new_builder() \
     .with_http_config(config) \
-    .with_credentials(credentials) \
+    .with_credentials(basic_credentials) \
     .with_endpoint(endpoint) \
     .with_file_log(path="test.log", log_level=logging.INFO) \  # Write log files
     .with_stream_log(log_level=logging.INFO) \                 # Write log to console
@@ -333,13 +333,13 @@ client = VpcClient.new_builder() \
 **where:**
 
 - `with_file_log`:
-  - `path`: log file path
-  - `log_level`: log level, default is INFO
-  - `max_bytes`: size of single log file, default is 10485760 bytes
-  - `backup_count`: count of log file, default is 5
+    - `path` means log file path.
+    - `log_level` means log level, default is INFO.
+    - `max_bytes` means size of single log file, the default value is 10485760 bytes.
+    - `backup_count` means count of log file, the default value is 5.
 - `with_stream_log`:
-  - `stream`: stream object, default is sys.stdout
-  - `log_level`: log level, default is INFO
+    - `stream` means stream object, the default value is sys.stdout.
+    - `log_level` means log level, the default value is INFO.
 
 After enabled log, the SDK will print the access log by default, every request will be recorded in console like:
 
@@ -361,6 +361,10 @@ needed. The SDK provides a listener function to obtain the original encrypted ht
 > :warning:  Warning: The original http log information is used in debugging stage only, please do not print the original http header or body in the production environment. These log information is not encrypted and contains sensitive data such as the password of your ECS virtual machine, or the password of your IAM user account, etc. When the response body is binary content, the body will be printed as "***" without detailed information.
 
 ``` python
+import logging
+from huaweicloudsdkcore.http.http_handler import HttpHandler
+
+
 def response_handler(**kwargs):
     logger = kwargs.get("logger")
     response = kwargs.get("response")
@@ -381,14 +385,15 @@ def response_handler(**kwargs):
     base = base + "< Body: %s" % response.content
     logger.debug(base)
 
-client = VpcClient.new_builder() \
-    .with_http_config(config) \
-    .with_credentials(credentials) \
-    .with_endpoint(endpoint) \
-    .with_file_log(path="test.log", log_level=logging.INFO) \
-    .with_stream_log(log_level=logging.INFO) \
-    .with_http_handler(HttpHandler().add_response_handler(response_handler)) \
-    .build()
+
+if __name__ == "__main__":
+    client = VpcClient.new_builder() \
+        .with_http_config(config) \
+        .with_credentials(basic_credentials) \
+        .with_stream_log(log_level=logging.DEBUG) \
+        .with_http_handler(HttpHandler().add_response_handler(response_handler)) \
+        .with_endpoint(endpoint) \
+        .build()
 ```
 
 **Notice:**
