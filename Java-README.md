@@ -55,14 +55,16 @@ using VPC SDK for example, you need to install `huaweicloud-sdk-core` library an
 ``` java
 package com.huaweicloud.sdk.test;
 
+/* Import dependent module */
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.huaweicloud.sdk.core.auth.BasicCredentials;
-import com.huaweicloud.sdk.core.exception.ClientRequestException;
+import com.huaweicloud.sdk.core.exception.ServiceResponseException;
 import com.huaweicloud.sdk.core.http.HttpConfig;
 import com.huaweicloud.sdk.vpc.v2.VpcClient;
 import com.huaweicloud.sdk.vpc.v2.model.ListVpcsRequest;
 import com.huaweicloud.sdk.vpc.v2.model.ListVpcsResponse;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class Application {
     private static final Logger logger = LoggerFactory.getLogger(Application.class);
@@ -112,22 +114,22 @@ the [CHANGELOG.md](https://github.com/huaweicloud/huaweicloud-sdk-java-v3/blob/m
 ## User Manual [:top:](#huawei-cloud-java-software-development-kit-java-sdk)
 
 * [1. Client Configuration](#1-client-configuration-top)
-  * [1.1  Default Configuration](#11-default-configuration-top)
-  * [1.2  Network Proxy](#12-network-proxy-top)
-  * [1.3  Connection](#13-connection-top)
-  * [1.4  SSL Certification](#14-ssl-certification-top)
+    * [1.1  Default Configuration](#11-default-configuration-top)
+    * [1.2  Network Proxy](#12-network-proxy-top)
+    * [1.3  Connection](#13-connection-top)
+    * [1.4  SSL Certification](#14-ssl-certification-top)
 * [2. Credentials Configuration](#2-credentials-configuration-top)
-  * [2.1  Use Permanent AK&SK](#21-use-permanent-aksk-top)
-  * [2.2  Use Temporary AK&SK](#22-use-temporary-aksk-top)
+    * [2.1  Use Permanent AK&SK](#21-use-permanent-aksk-top)
+    * [2.2  Use Temporary AK&SK](#22-use-temporary-aksk-top)
 * [3. Client Initialization](#3-client-initialization-top)
-  * [3.1  Initialize the client with specified Endpoint](#31-initialize-the-serviceclient-with-specified-endpoint-top)
-  * [3.2  Initialize the client with specified Region (Recommended)](#32-initialize-the-serviceclient-with-specified-region-recommended-top)
+    * [3.1  Initialize the client with specified Endpoint](#31-initialize-the-serviceclient-with-specified-endpoint-top)
+    * [3.2  Initialize the client with specified Region (Recommended)](#32-initialize-the-serviceclient-with-specified-region-recommended-top)
 * [4. Send Requests and Handle Responses](#4-send-requests-and-handle-responses-top)
-  * [4.1  Exceptions](#41-exceptions-top)
+    * [4.1  Exceptions](#41-exceptions-top)
 * [5. Use Asynchronous Client](#5-use-asynchronous-client-top)
 * [6. Troubleshooting](#6-troubleshooting-top)
-  * [6.1 Access Log](#61-access-log-top)
-  * [6.2 Original HTTP Listener](#62-original-http-listener-top)
+    * [6.1 Access Log](#61-access-log-top)
+    * [6.2 Original HTTP Listener](#62-original-http-listener-top)
 
 ### 1. Client Configuration [:top:](#user-manual-top)
 
@@ -168,7 +170,7 @@ There are two types of Huawei Cloud services, `regional` services and `global` s
 
 Global services contain BSS, DevStar, EPS, IAM, OSM, RMS, TMS.
 
-For `Regional` services' authentication, projectId is required. For `global` services' authentication, domainId is
+For `regional` services' authentication, projectId is required. For `global` services' authentication, domainId is
 required.
 
 **Parameter description**:
@@ -205,8 +207,8 @@ to [3.2 Initialize the client with specified Region](#32-initialize-the-servicec
 
 #### 2.2 Use Temporary AK&SK [:top:](#user-manual-top)
 
-**Notice**: It's required to obtain temporary access key, security key and security token first, which could be obtained
-through permanent access key and security key or through an agency.
+It's required to obtain temporary access key, security key and security token first, which could be obtained through
+permanent access key and security key or through an agency.
 
 Obtaining a temporary access key token through permanent access key and security key, you could refer to
 document: https://support.huaweicloud.com/en-us/api-iam/iam_04_0002.html . The API mentioned in the document above
@@ -217,19 +219,19 @@ document: https://support.huaweicloud.com/en-us/api-iam/iam_04_0101.html . The A
 corresponds to the method of `CreateTemporaryAccessKeyByAgency` in IAM SDK.
 
 ``` java
-    // Region级服务
-    BasicCredentials basicCredentials = new BasicCredentials()
-        .withAk(ak)
-        .withSk(sk)
-        .withSecurityToken(securityToken)
-        .withProjectId(projectId)
-    
-    // Global级服务
-    GlobalCredentials globalCredentials = new GlobalCredentials()
-        .withAk(ak)
-        .withSk(sk)
-        .withSecurityToken(securityToken)
-        .withDomainId(domainId);
+// Region级服务
+BasicCredentials basicCredentials = new BasicCredentials()
+    .withAk(ak)
+    .withSk(sk)
+    .withSecurityToken(securityToken)
+    .withProjectId(projectId)
+
+// Global级服务
+GlobalCredentials globalCredentials = new GlobalCredentials()
+    .withAk(ak)
+    .withSk(sk)
+    .withSecurityToken(securityToken)
+    .withDomainId(domainId);
 ```
 
 ### 3. Client Initialization [:top:](#user-manual-top)
