@@ -1,59 +1,56 @@
-[English](./README.md) | 简体中文
+English | [简体中文](./README_CN.md)
 
 <p align="center">
-  <a href="https://www.huaweicloud.com/"><img width="360px" height="120px" src="https://console-static.huaweicloud.com/static/authui/20210202115135/public/custom/images/logo.svg"></a>
+<a href="https://www.huaweicloud.com/"><img width="600px" height="136px" src="https://console-static.huaweicloud.com/static/authui/20210202115135/public/custom/images/logo-en.svg"></a>
 </p>
-<br>
 
-# 华为云开发者 C++ 软件开发工具包（C++ SDK）
+# Huawei Cloud C++ Software Development Kit (C++ SDK)
 
-欢迎使用华为云 C++ SDK。
+The Huawei Cloud C++ SDK allows you to easily work with Huawei Cloud services such as Elastic Compute Service (ECS) and Virtual Private Cloud (VPC) without the need to handle API related tasks.
 
-华为云 C++ SDK 让您无需关心请求细节即可快速使用弹性云服务器、虚拟私有云等多个华为云服务。
+This document introduces how to obtain and use Huawei Cloud C++ SDK.
 
-这里将向您介绍如何获取并使用华为云 C++ SDK 。
+## Requirements
 
-## 使用前提
+- To use Huawei Cloud C++ SDK, you must have Huawei Cloud account as well as the Access Key and Secret key of the Huawei Cloud account.  You can create an Access Key in the Huawei Cloud console. For more information,
+  see [My Credentials](https://support.huaweicloud.com/en-us/usermanual-ca/en-us_topic_0046606340.html).
 
-- 要使用华为云 C++ SDK ，您需要拥有云账号以及该账号对应的 Access Key（AK）和 Secret Access Key（SK）。 请在华为云控制台“我的凭证-访问密钥”页面上创建和查看您的 AK&SK
-  。更多信息请查看 [访问密钥](https://support.huaweicloud.com/usermanual-ca/zh-cn_topic_0046606340.html) 。
+- To use Huawei Cloud C++ SDK to access the APIs of specific service, please make sure you do have activated the
+  service in [Huawei Cloud console](https://console.huaweicloud.com/?locale=en-us) if needed.
 
-- 要使用华为云 C++ SDK 访问指定服务的 API
-  ，您需要确认已在 [华为云控制台](https://console.huaweicloud.com/console/?locale=zh-cn&region=cn-north-4#/home) 开通当前服务。
+- Huawei Cloud C++ SDK requires **C++ 14** or later, and requires **CMake 3.10** or later.
 
-- 华为云 C++ SDK 支持 **C++ 14** 及以上版本，要求安装 **CMake 3.10** 及以上版本。
+## Install C++ SDK
 
-## SDK 获取和安装
+### Dependent Third-Party Libraries
 
-### 依赖的第三方库
+`curl`, `boost`, `cpprestsdk`, `spdlog`, `openssl`
 
-`curl`、`boost`、`cpprestsdk`、`spdlog`、`openssl`
+### Install SDK on Linux platform
 
-### 在 Linux 系统上安装 SDK
+#### Step 1: Install third-party libraries
 
-#### Step 1：获取依赖包
+The required third-party packages are available in great part of package management tools of different OS.
 
-所需的这些第三方软件包在大部分系统的包管理工具中都有提供：
-
-例如基于 Debian/Ubuntu 的系统
+Take `Debian/Ubuntu` system for example, you could run the following commands:
 
 ``` bash
 sudo apt-get install libcurl4-openssl-dev libboost-all-dev libssl-dev libcpprest-dev
 ```
 
-spdlog 需要从源码进行安装
+`spdlog` is able to installed by source code only:
 
 ``` bash
 git clone https://github.com/gabime/spdlog.git
 cd spdlog
 mkdir build
 cd build
-cmake -DCMAKE_POSITION_INDEPENDENT_CODE=ON ..  // 用以生成动态库
+cmake -DCMAKE_POSITION_INDEPENDENT_CODE=ON ..  // for shared library
 make
 sudo make install
 ```
 
-#### Step 2：编译安装
+#### Step 2: Build and install SDK
 
 ``` bash
 git clone https://github.com/huaweicloud/huaweicloud-sdk-cpp-v3.git
@@ -65,45 +62,43 @@ make
 sudo make install
 ```
 
-完成上述操作后，**C++ SDK 安装目录为 `/usr/local`**。
+After the preceding commands completed, **the installation directory of C++ SDK** is `/usr/local`.
 
-### 在 Windows 系统上安装 SDK
+### Install SDK on Windows platform
 
-#### Step 1：安装 vcpkg 并使用 vcpkg 安装所需软件包
+#### Step 1: Install vcpkg and install third-part libraries by vcpkg:
 
 ``` bash
 vcpkg install curl cpprestsdk boost openssl spdlog
 ```
 
-#### Step 2：使用 CLion 进行编译
+#### Step 2: Build By CLion
 
-1. 使用 CLion 打开 `huaweicloud-sdk-cpp-v3` 目录
+1. open directory `huaweicloud-sdk-cpp-v3` by clion
 
-2. 选择 `File` → `Settings`
+2. choose `File` -> `Settings`
 
-3. 选择 `Build, Execution, Deployment` → `CMake`
+3. choose `Build, Execution, Devloyment` -> `CMake`
 
-4. 在 `CMake options` 中加入
+4. add `-DCMAKE_TOOLCHAIN_FILE={your vcpkg install dir}/scripts/buildsystems/vcpkg.cmake` in `CMake options`
 
-`-DCMAKE_TOOLCHAIN_FILE={your vcpkg install dir}/scripts/buildsystems/vcpkg.cmake`
+5. click `CMakeLists.txt` and choose `Load CMake Project`
 
-5. 右键 `CMakeLists.txt` 选择 `Load CMake Project`
+6. choose `Build` and start compile
 
-6. 选择`Build`开始编译
+#### Step 3: Install C++ SDK
 
-#### Step 3：安装 C++ SDK
+choose `Build` -> `Install` after compilation.
 
-编译完成后选择 `Build` → `Install`
+After the preceding commands completed, **the installation directory of C++ SDK** is `C:\Program File (x86)\huaweicloud-sdk-cpp-v3`.     
+ 
+## Code example
 
-完成上述操作后，**C++ SDK 安装目录为 `C:\Program File (x86)\huaweicloud-sdk-cpp-v3`** 。
+- The following example shows how to query a list of VPC in a specific region, you need to substitute your real `{Service}Client` for `VpcClient` in actual use.
 
-## 代码示例
+- Substitute the values for `{your ak string}`, `{your sk string}`, `{your endpoint}` and `{your project id}`.
 
-- 使用如下代码同步查询指定 Region 下的 VPC 列表，实际使用中请将 `VpcClient` 替换为您使用的产品/服务相应的 `{Service}Client`。
-
-- 调用前请根据实际情况替换如下变量：`{your ak string}`、 `{your sk string}`、 `{your endpoint}` 以及 `{your project id}`。
-
-``` c++
+``` cpp
 #include <cstdio>
 #include <iostream>
 #include <huaweicloud/core/exception/Exceptions.h>
@@ -160,56 +155,52 @@ int main(void)
 }
 ```
 
-如果您是在 Linux 系统中运行该代码，请复制上述文件到 vpc_test.cpp。然后执行如下命令：
+If you want to run the example on Linux platform, please copy commands above and save as vpc_test.cpp, then build with the following command:
 
-``` bash
+```bash
 $ g++ -o vpc_test vpc_test.cpp --std=c++14 -lvpc_v2 -lcore -lcrypto -lboost_system -lcpprest
 $ ./vpc_test
-# 下方会显示实际运行结果
-$ 
+# response
+$
 ```
 
-## 在线调试
+## Changelog
 
-[API Explorer](https://apiexplorer.developer.huaweicloud.com/apiexplorer/overview)
-提供API检索及平台调试，支持全量快速检索、可视化调试、帮助文档查看、在线咨询。
+Detailed changes for each released version are documented in
+the [CHANGELOG.md](https://github.com/huaweicloud/huaweicloud-sdk-cpp-v3/blob/master/CHANGELOG.md).
 
-## 变更日志
+## User Manual [:top:](#huawei-cloud-c-software-development-kit-c-sdk)
 
-每个版本的详细更改记录可在 [变更日志](https://github.com/huaweicloud/huaweicloud-sdk-cpp-v3/blob/master/CHANGELOG_CN.md) 中查看。
+* [1. Client Configuration](#1-client-configuration-top)
+    * [1.1  Default Configuration](#11-default-configuration-top)
+    * [1.2  Network Proxy](#12-network-proxy-top)
+    * [1.3  Connection](#13-connection-top)
+    * [1.4  SSL Certification](#14-ssl-certification-top)
+* [2. Credentials Configuration](#2-credentials-configuration-top)
+    * [2.1  Use Permanent AK&SK](#21-use-permanent-aksk-top)
+    * [2.2  Use Temporary AK&SK](#22-use-temporary-aksk-top)
+* [3. Client Initialization](#3-client-initialization-top)
+    * [3.1  Initialize the client with specified Endpoint](#31-initialize-the-serviceclient-with-specified-endpoint-top)
+* [4. Send Requests and Handle Responses](#4-send-requests-and-handle-responses-top)
+    * [4.1  Exceptions](#41-exceptions-top)
+* [5. Use Asynchronous Client](#5-use-asynchronous-client-top)
+* [6. Troubleshooting](#6-troubleshooting-top)
+    * [6.1 Access Log](#61-access-log-top)
+* [7. Set CMakeLists.txt](#7-set-cmakeliststxt-top)
 
-## 用户手册 [:top:](#华为云开发者-c-软件开发工具包c-sdk)
+### 1. Client Configuration [:top:](#user-manual-top)
 
-* [1. 客户端连接参数](#1-客户端连接参数-top)
-    * [1.1 默认配置](#11-默认配置-top)
-    * [1.2 网络代理](#12-网络代理-top)
-    * [1.3 超时配置](#13-超时配置-top)
-    * [1.4 SSL 配置](#14-ssl-配置-top)
-* [2. 客户端认证信息](#2-客户端认证信息-top)
-    * [2.1 使用永久 AK 和 SK](#21-使用永久-ak-和-sk-top)
-    * [2.2 使用临时 AK 和 SK](#22-使用临时-ak-和-sk-top)
-* [3. 客户端初始化](#3-客户端初始化-top)
-    * [3.1 指定云服务 Endpoint 方式](#31-指定云服务-endpoint-方式-top)
-* [4. 发送请求并查看响应](#4-发送请求并查看响应-top)
-    * [4.1 异常处理](#41-异常处理-top)
-* [5. 异步客户端使用](#5-异步客户端使用-top)
-* [6. 故障处理](#6-故障处理-top)
-    * [6.1 访问日志](#61-访问日志-top)
-* [7. 配置 CMakeLists.txt](#7-配置-cmakeliststxt-top)
-
-### 1. 客户端连接参数 [:top:](#用户手册-top)
-
-#### 1.1 默认配置 [:top:](#用户手册-top)
+#### 1.1 Default Configuration [:top:](#user-manual-top)
 
 ``` c++
-// 使用默认配置
+// Use default configuration
 HttpConfig httpConfig = HttpConfig();
 ```
 
-#### 1.2 网络代理 [:top:](#用户手册-top)
+#### 1.2 Network Proxy [:top:](#user-manual-top)
 
 ``` c++
-// 根据需要配置网络代理
+// Use network proxy if needed
 httpConfig.setProxyProtocol("http");
 httpConfig.setProxyHost("proxy.huawei.com");
 httpConfig.setProxyPort("8080");
@@ -217,76 +208,76 @@ httpConfig.setProxyUser("username");
 httpConfig.setProxyPassword("password");
 ```
 
-#### 1.3 超时配置 [:top:](#用户手册-top)
+#### 1.3 Connection [:top:](#user-manual-top)
 
 ``` c++
-// 默认连接超时为60秒，默认读取超时为120秒。可根据需求修改该默认值
+// The default connection timeout is 60 seconds, the default read timeout is 120 seconds. You could change it if needed.
 httpConfig.setConnectTimeout(60);
 httpConfig.setReadTimeout(120);
 ```
 
-#### 1.4 SSL 配置 [:top:](#用户手册-top)
+#### 1.4 SSL Certification [:top:](#user-manual-top)
 
 ``` c++
-// 配置跳过服务端证书验证（可选）
+// Skip ssl certification checking while using https protocol if needed
 httpConfig.setIgnoreSslVerification(true);
 ```
 
-### 2. 客户端认证信息 [:top:](#用户手册-top)
+### 2. Credentials Configuration [:top:](#user-manual-top)
 
-华为云服务存在两种部署方式，Region 级服务和 Global 级服务。
+There are two types of Huawei Cloud services, `regional` services and `global` services.
 
-Global 级服务当前仅支持 IAM 。
+Global services only contain IAM.
 
-Region 级服务仅需要提供 projectId 。Global 级服务需要提供 domainId 。
+For `regional` services' authentication, project_id is required. For `global` services' authentication, domain_id is
+required.
 
-客户端认证可以使用永久 AK&SK 认证，也可以使用临时 AK&SK&SecurityToken 认证。
+**Parameter description**:
 
-**认证参数说明**：
+- `ak` is the access key ID for your account.
+- `sk` is the secret access key for your account.
+- `project_id` is the ID of your project depending on your region which you want to operate.
+- `domain_id` is the account ID of Huawei Cloud.
+- `security_token` is the security token when using temporary AK/SK.
 
-- `ak` 华为云账号 Access Key
-- `sk` 华为云账号 Secret Access Key
-- `projectId` 云服务所在项目 ID ，根据你想操作的项目所属区域选择对应的项目 ID
-- `domainId` 华为云账号 ID
-- `securityToken` 采用临时 AK&SK 认证场景下的安全票据
-
-#### 2.1 使用永久 AK 和 SK [:top:](#用户手册-top)
+#### 2.1 Use Permanent AK&SK [:top:](#user-manual-top)
 
 ``` c++
-// Region级服务
+// Regional services
 auto basicCredentials = std::make_unique<BasicCredentials>(); 
 basicCredentials->withAk(ak)
     .withSk(sk)
     .withProjectId(projectId);
 
-// Global级服务
+// Global services
 auto globalCredentials = std::make_unique<GlobalCredentials>();
 globalCredentials->withAk(ak)
     .withSk(sk)
     .withDomainId(domainId);
 ```
 
-#### 2.2 使用临时 AK 和 SK [:top:](#用户手册-top)
+#### 2.2 Use Temporary AK&SK [:top:](#user-manual-top)
 
-首先需要获得临时 AK、SK 和 SecurityToken ，可以从永久 AK&SK 获得，或者通过委托授权获得。
+It's required to obtain temporary access key, security key and security token first, which could be obtained through
+permanent access key and security key or through an agency.
 
-- 通过永久 AK&SK 获得可以参考文档：https://support.huaweicloud.com/api-iam/iam_04_0002.html ，对应 IAM SDK
-  中的 `CreateTemporaryAccessKeyByToken` 方法。
+Obtaining a temporary access key token through permanent access key and security key, you could refer to
+document: https://support.huaweicloud.com/en-us/api-iam/iam_04_0002.html . The API mentioned in the document above
+corresponds to the method of `CreateTemporaryAccessKeyByToken` in IAM SDK.
 
-- 通过委托授权获得可以参考文档：https://support.huaweicloud.com/api-iam/iam_04_0101.html ，对应 IAM SDK
-  中的 `CreateTemporaryAccessKeyByAgency` 方法。
-
-临时 AK&SK&SecurityToken 获取成功后，可使用如下方式初始化认证信息：
+Obtaining a temporary access key and security token through an agency, you could refer to
+document: https://support.huaweicloud.com/en-us/api-iam/iam_04_0101.html . The API mentioned in the document above
+corresponds to the method of `CreateTemporaryAccessKeyByAgency` in IAM SDK.
 
 ``` c++
-// Region级服务
+// Regional services
 auto basicCredentials = std::make_unique<BasicCredentials>(); 
 basicCredentials->withAk(ak)
     .withSk(sk)
     .withProjectId(projectId)
     .withSecurityToken(securityToken);
 
-// Global级服务
+// Global services
 auto globalCredentials = std::make_unique<GlobalCredentials>();
 globalCredentials->withAk(ak)
     .withSk(sk)
@@ -294,12 +285,11 @@ globalCredentials->withAk(ak)
     .withSecurityToken(securityToken);
 ```
 
-### 3. 客户端初始化 [:top:](#用户手册-top)
+### 3. Client Initialization [:top:](#user-manual-top)
 
-#### 3.1 指定云服务 Endpoint 方式 [:top:](#用户手册-top)
 
 ``` c++
-// 初始化指定云服务的客户端 {Service}Client ，以初始化 VpcClient 为例
+// Initialize specified service client instance, take VpcClient for example
 std::unique_ptr<Vpc::V2::VpcClient> vpcApi_v2 = Vpc::V2::VpcClient::newBuilder()
     .withCredentials(basicCredentials)
     .withHttpConfig(httpConfig)
@@ -307,33 +297,34 @@ std::unique_ptr<Vpc::V2::VpcClient> vpcApi_v2 = Vpc::V2::VpcClient::newBuilder()
     .build();
 ```
 
-**说明:**
+**where:**
 
-- `endpoint` 是华为云各服务应用区域和各服务的终端节点，详情请查看 [地区和终端节点](https://developer.huaweicloud.com/endpoint) 。
+- `endpoint` varies by services and regions,
+  see [Regions and Endpoints](https://developer.huaweicloud.com/intl/en-us/endpoint) to obtain correct endpoint.
 
-### 4. 发送请求并查看响应 [:top:](#用户手册-top)
+### 4. Send Requests and Handle Responses [:top:](#user-manual-top)
 
 ``` c++
-// 初始化请求，以调用接口 listVpcs 为例
+// Initialize request
 Vpc::V2::Model::ListVpcsRequest listRequest;
 std::shared_ptr<Vpc::V2::Model::ListVpcsResponse> listRes = vpcApi->listVpcs(listRequest);
 std::string responseBody = listRes->getHttpBody();
 std::cout << stringValue << std::endl;
 ```
 
-#### 4.1 异常处理 [:top:](#用户手册-top)
+#### 4.1 Exceptions [:top:](#user-manual-top)
 
-| 一级分类                 | 一级分类说明   | 二级分类                 | 二级分类说明                            |
-| :----------------------- | :------------- | :----------------------- | :-------------------------------------- |
-| ConnectionException      | 连接类异常     | HostUnreachableException | 网络不可达、被拒绝                      |
-|                          |                | SslHandShakeException    | SSL认证异常                             |
-| RequestTimeoutException  | 响应超时异常   | CallTimeoutException     | 单次请求，服务器处理超时未返回          |
-|                          |                | RetryOutageException     | 在重试策略消耗完成已后，仍无有效的响应  |
-| ServiceResponseException | 服务器响应异常 | ServerResponseException  | 服务端内部错误，Http响应码：[500,]      |
-|                          |                | ClientRequestException   | 请求参数不合法，Http响应码：[400， 500) |
+| Level 1                  | Notice                 | Level 2                  | Notice                                        |
+| :----------------------- | :--------------------- | :----------------------- | :-------------------------------------------- |
+| ConnectionException      | Connection error       | HostUnreachableException | Host is not reachable                         |
+|                          |                        | SslHandShakeException    | SSL certification error                       |
+| RequestTimeoutException  | Request timeout        | CallTimeoutException     | timeout for single request                    |
+|                          |                        | RetryOutageException     | no response after retrying                    |
+| ServiceResponseException | service response error | ServerResponseException  | server inner error, http status code: [500,]  |
+|                          |                        | ClientRequestException   | invalid request, http status code: [400? 500) |
 
 ``` c++
-// 异常处理
+// handle exceptions
 try {
     std::shared_ptr<Vpc::V2::Model::ListVpcsResponse> listRes = 
         vpcApi->listVpcs(listRequest);
@@ -355,26 +346,29 @@ try {
 }
 ```
 
-### 5. 异步客户端使用 [:top:](#用户手册-top)
+### 5. Use Asynchronous Client [:top:](#user-manual-top)
 
-``` c++
-// 采用c++ std::async接口实现，以listVpcs接口为例
+``` cpp
+// use c++ std::async
 #inclue <future>
 auto future = std::async(std::launch::async,
                         &Vpc::V2::VpcClient::listVpcs, vpcApi, listRequest);
 auto listResponse = future.get();
 ```
 
-### 6. 故障处理 [:top:](#用户手册-top)
+### 6. Troubleshooting [:top:](#user-manual-top)
 
-SDK 提供 Access 级别的访问日志，用户可根据需要进行配置。
+SDK supports `Access` log which could be configured manually.
 
-#### 6.1 访问日志 [:top:](#用户手册-top)
+#### 6.1 Access Log [:top:](#user-manual-top)
 
-SDK 支持打印 Access 级别的访问日志，需要用户手动打开日志开关，支持打印到控制台或者指定的文件。示例如下：
+SDK supports print access log which could be enabled by manual configuration, the log could be output in console or
+specified files.
+
+For example:
 
 ``` c++
-// 初始化指定云服务的客户端 {Service}Client ，以初始化 VpcClient 为例
+// Initialize specified service client instance, take VpcClient for example
 std::unique_ptr<Vpc::V2::VpcClient> vpcApi_v2 = Vpc::V2::VpcClient::newBuilder()
     .withCredentials(basicCredentials)
     .withHttpConfig(httpConfig)
@@ -383,30 +377,29 @@ std::unique_ptr<Vpc::V2::VpcClient> vpcApi_v2 = Vpc::V2::VpcClient::newBuilder()
     .withEndPoint(endpoint)
     .build();
 ```
+**where:**
 
-**说明**：
+- `withFileLogger`:
+    - `logPath` means log file path.
+    - `enable` means file log is enabled.
+- `withStreamLogger`:
+    - `enable` means console log is enabled.
 
-- `withFileLogger` 支持如下配置：
-    - `logPath`: 日志文件路径
-    - `enable`: 日志文件使能
-- `withStreamLogger` 支持如下配置：
-    - `enable`: 使能控制台输出日志
+After enabled log, the SDK will print the access log by default, every request will be recorded in console like:
 
-打开日志开关后，每次请求都会有一条记录，如：
-
-```shell
+``` shell
 [2020-10-16 03:10:29][INFO] "GET https://iam.cn-north-1.myhuaweicloud.com/v3.0/OS-CREDENTIAL/credentials/W8VHHFEFPIJV6TFOUOQO"  200 244 7a68399eb8ed63fc91018426a7c4b8a0
 ```
 
-日志格式为：
+The format of access log is:
 
 ``` text
-"{httpMethod} {uri}" {httpStatusCode} {responseContentLength} {requestId}
+"{httpMethod} {uri}" {httpStatusCode} {responseContentLength} {requestId}`
 ```
 
-### 7. 配置 CMakeLists.txt [:top:](#用户手册-top)
+### 7. Set CMakeLists.txt [:top:](#user-manual-top)
 
-- 使用一个服务
+- If you want to use one service, you could configure like this:
 
 ``` cmake
 # USE ONE SERVICE
@@ -422,7 +415,7 @@ else()
 endif()
 ```
 
-- 使用多个服务
+- If you want to use multiple services, you could configure like this:
 
 ``` cmake
 # USE MULTIPLE SERVICES(EXAMPLE: USE VPC ECS AND EIP)
