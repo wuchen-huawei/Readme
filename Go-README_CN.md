@@ -162,7 +162,7 @@ httpConfig.WithIgnoreSSLVerification(true);
 
 Global 级服务有 BSS、DevStar、EPS、IAM、RMS。
 
-Region 级服务仅需要提供 projectId 。Global 级服务需要提供 domainId 。
+Region 级服务需要提供 projectId 。Global 级服务需要提供 domainId 。
 
 客户端认证可以使用永久 AK&SK 认证，也可以使用临时 AK&SK&SecurityToken 认证。
 
@@ -315,7 +315,7 @@ if err == nil {
 
 在某些场景下可能对业务发出的Http请求进行Debug，需要看到原始的Http请求和返回信息，SDK提供监听器功能来获取原始的为加密的Http请求和返回信息。
 
-> :warning:  Warning: 原始信息打印仅在debug阶段使用，请不要在生产系统中将原始的Http头和Body信息打印到日志，这些信息并未加密且其中包含敏感数据，例如所创建虚拟机的密码，IAM用户的密码等;
+> :warning:  Warning: 原始信息打印仅在 Debug 阶段使用，请不要在生产系统中将原始的 HTTP 头和 Body 信息打印到日志，这些信息并未加密且其中包含敏感数据，例如所创建虚拟机的密码，IAM 用户的密码等；当 Body 体为二进制内容，即 Content-Type 标识为二进制时，Body 为"***"，详细内容不输出。
 
 ``` go
 func RequestHandler(request http.Request) {
