@@ -31,7 +31,7 @@
 
 - 使用 pip 安装
 
-```bash
+``` bash
 # 安装核心库
 pip install huaweicloudsdkcore
 
@@ -41,7 +41,7 @@ pip install huaweicloudsdkvpc
 
 - 使用源码安装
 
-```bash
+``` bash
 # 安装核心库
 cd huaweicloudsdkcore-${version}
 python setup.py install
@@ -166,11 +166,11 @@ config.ssl_ca_cert = ssl_ca_cert
 
 ### 2. 客户端认证信息 [:top:](#用户手册-top)
 
-华为云服务存在两种部署方式，Region级服务和Global级服务。
+华为云服务存在两种部署方式，Region 级服务和 Global 级服务。
 
-Global级服务有 BSS、DevStar、EPS、IAM、RMS、TMS。
+Global 级服务有 BSS、DevStar、EPS、IAM、RMS、TMS。
 
-Region级服务仅需要提供 projectId。Global级服务需要提供domainId。
+Region 级服务需要提供 projectId 。Global 级服务需要提供 domainId 。
 
 客户端认证可以使用永久 AK&SK 认证，也可以使用临时 AK&SK&SecurityToken 认证。
 
@@ -326,7 +326,7 @@ print(response.result())
 
 ### 6. 故障处理 [:top:](#用户手册-top)
 
-SDK 提供 Access 级别的访问日志级 Debug 级别的原始 HTTP 监听器日志，用户可根据需要进行配置。
+SDK 提供 Access 级别的访问日志及 Debug 级别的原始 HTTP 监听器日志，用户可根据需要进行配置。
 
 #### 6.1 访问日志 [:top:](#用户手册-top)
 
@@ -355,7 +355,7 @@ client = VpcClient.new_builder() \
 
 打开日志开关后，每次请求都会有一条记录，如：
 
-``` shell 
+``` text 
 2020-06-16 10:44:02,019 4568 HuaweiCloud-SDK http_handler.py 28 INFO "GET https://vpc.cn-north-1.myhuaweicloud.com/v1/0904f9e1f100d2932f94c01f9aa1cfd7/vpcs" 200 11 0:00:00.543430 b5c927ffdab8401e772e70aa49972037
 ```
 
