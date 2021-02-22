@@ -22,26 +22,26 @@
   ，您需要确认已在 [华为云控制台](https://console.huaweicloud.com/console/?locale=zh-cn&region=cn-north-4#/home) 开通当前服务。
 
 - 华为云 .Net SDK 适用于：
-  - **.NET Framework 4.5** 及其以上版本
-  - **.NET Standard 2.0** 及其以上版本
-  - **C# 4.0** 及其以上版本
+    - **.NET Framework 4.5** 及其以上版本
+    - **.NET Standard 2.0** 及其以上版本
+    - **C# 4.0** 及其以上版本
 
 ## SDK 获取和安装
 
-您可以通过如下方式获取和安装 SDK 。
+您可以通过如下方式获取和安装 SDK ：
 
 无论您要使用哪个产品/服务的开发工具包，都必须安装`HuaweiCloud.SDK.Core`。以使用虚拟私有云 VPC SDK 为例，您需要安装`HuaweiCloud.SDK.Core` 和 `HuaweiCloud.SDK.Vpc`：
 
 - 使用 .NET CLI 工具
 
-```bash
+``` bash
 dotnet add package HuaweiCloud.SDK.Core
 dotnet add package HuaweiCloud.SDK.Vpc
 ```
 
 - 使用 Package Manager
 
-```bash
+``` bash
 Install-Package HuaweiCloud.SDK.Core
 Install-Package HuaweiCloud.SDK.Vpc
 ```
@@ -124,22 +124,22 @@ namespace ConsoleApp1
 ## 用户手册 [:top:](#华为云开发者-net-软件开发工具包net-sdk)
 
 * [1. 客户端连接参数](#1-客户端连接参数-top)
-  * [1.1 默认配置](#11-默认配置-top)
-  * [1.2 网络代理](#12-网络代理-top)
-  * [1.3 超时配置](#13-超时配置-top)
-  * [1.4 SSL 配置](#14-ssl-配置-top)
+    * [1.1 默认配置](#11-默认配置-top)
+    * [1.2 网络代理](#12-网络代理-top)
+    * [1.3 超时配置](#13-超时配置-top)
+    * [1.4 SSL 配置](#14-ssl-配置-top)
 * [2. 客户端认证信息](#2-客户端认证信息-top)
-  * [2.1 使用永久 AK 和 SK](#21-使用永久-ak-和-sk-top)
-  * [2.2 使用临时 AK 和 SK](#22-使用临时-ak-和-sk-top)
+    * [2.1 使用永久 AK 和 SK](#21-使用永久-ak-和-sk-top)
+    * [2.2 使用临时 AK 和 SK](#22-使用临时-ak-和-sk-top)
 * [3. 客户端初始化](#3-客户端初始化-top)
-  * [3.1 指定云服务 Endpoint 方式](#31-指定云服务-endpoint-方式-top)
-  * [3.2 指定 Region 方式（推荐）](#32-指定-region-方式-推荐-top)
+    * [3.1 指定云服务 Endpoint 方式](#31-指定云服务-endpoint-方式-top)
+    * [3.2 指定 Region 方式（推荐）](#32-指定-region-方式-推荐-top)
 * [4. 发送请求并查看响应](#4-发送请求并查看响应-top)
-  * [4.1 异常处理](#41-异常处理-top)
+    * [4.1 异常处理](#41-异常处理-top)
 * [5. 异步客户端使用](#5-异步客户端使用-top)
 * [6. 故障处理](#6-故障处理-top)
-  * [6.1 访问日志](#61-访问日志-top)
-  * [6.2 HTTP 监听器](#62-http-监听器-top)
+    * [6.1 访问日志](#61-访问日志-top)
+    * [6.2 HTTP 监听器](#62-http-监听器-top)
 
 ### 1. 客户端连接参数 [:top:](#用户手册-top)
 
@@ -180,7 +180,7 @@ config.IgnoreSslVerification = true;
 
 Global 级服务有 IAM、TMS、EPS。
 
-Region 级服务仅需要提供 projectId 。Global 级服务需要提供 domainId 。
+Region 级服务需要提供 projectId 。Global 级服务需要提供 domainId 。
 
 **认证参数说明**：
 
@@ -218,7 +218,6 @@ Credentials globalCredentials = new GlobalCredentials(ak, sk, domainId);
   中的 `CreateTemporaryAccessKeyByAgency` 方法。
 
 临时 AK&SK&SecurityToken 获取成功后，可使用如下方式初始化认证信息：
-
 
 ``` csharp
 // Region级服务
@@ -259,7 +258,6 @@ IamClient iamClient = IamClient.NewBuilder()
     .WithCredential(globalCredentials)
     .WithRegion(IamRegion.CN_NORTH_4)
     .WithHttpConfig(config)
-    .WithLogging(LogLevel.Information)
     .Build();
 ```
 
@@ -270,7 +268,7 @@ IamClient iamClient = IamClient.NewBuilder()
 
 ### 4. 发送请求并查看响应 [:top:](#用户手册-top)
 
-```csharp
+``` csharp
 // 初始化请求，以调用接口 ListVpcs 为例
 var request = new ListVpcsRequest
 {
@@ -292,7 +290,7 @@ Console.WriteLine(JsonUtils.Serialize(response.Vpcs));
 | ServiceResponseException | 服务器响应异常 | ServerResponseException | 服务端内部错误，Http响应码：[500,] |
 | | | ClientRequestException | 请求参数不合法，Http响应码：[400, 500) |
 
-```csharp
+``` csharp
 // 异常处理
 try
 {
@@ -315,7 +313,7 @@ catch (ServiceResponseException serviceResponseException)
 
 ### 5. 异步客户端使用 [:top:](#用户手册-top)
 
-```csharp
+``` csharp
 // 初始化异步客户端，以初始化 VpcAsyncClient 为例
 var vpcClient = VpcAsyncClient.NewBuilder()
     .WithCredential(auth)
@@ -336,7 +334,7 @@ Console.WriteLine(JsonUtils.Serialize(response.Vpcs));
 
 ### 6. 故障处理 [:top:](#用户手册-top)
 
-SDK 提供 Access 级别的访问日志级 Debug 级别的原始 HTTP 监听器日志，用户可根据需要进行配置。
+SDK 提供 Access 级别的访问日志及 Debug 级别的原始 HTTP 监听器日志，用户可根据需要进行配置。
 
 #### 6.1 访问日志 [:top:](#用户手册-top)
 
@@ -354,7 +352,7 @@ var vpcClient = VpcClient.NewBuilder()
 
 打开日志开关后，每次请求都会有以下记录，如：
 
-``` shell
+``` text
 info: System.Net.Http.HttpClient.SdkHttpClient.LogicalHandler[100]
       Start processing HTTP request GET https://vpc.cn-north-1.myhuaweicloud.com/v1/076958154900d2492f8bc0197405c803/vpcs?limit=1
 info: System.Net.Http.HttpClient.SdkHttpClient.ClientHandler[100]
@@ -371,7 +369,7 @@ info: System.Net.Http.HttpClient.SdkHttpClient.LogicalHandler[101]
 
 > :warning:  Warning: 原始信息打印仅在 Debug 阶段使用，请不要在生产系统中将原始的 HTTP 头和 Body 信息打印到日志，这些信息并未加密且其中包含敏感数据，例如所创建虚拟机的密码，IAM 用户的密码等；当 Body 体为二进制内容，即 Content-Type 标识为二进制时，Body 为"***"，详细内容不输出。
 
-```csharp
+``` csharp
 private void RequestHandler(HttpRequestMessage message, ILogger logger)
 {
     logger.LogDebug(message.ToString());
