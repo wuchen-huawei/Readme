@@ -16,10 +16,10 @@
 ## 使用前提
 
 - 要使用华为云 Java SDK ，您需要拥有华为云账号以及该账号对应的 Access Key（AK）和 Secret Access Key（SK）。请在华为云控制台 “我的凭证-访问密钥” 页面上创建和查看您的 AK&SK
-  。更多信息请查看[访问密钥](https://support.huaweicloud.com/usermanual-ca/zh-cn_topic_0046606340.html)。
+  。更多信息请查看 [访问密钥](https://support.huaweicloud.com/usermanual-ca/zh-cn_topic_0046606340.html) 。
 
 - 要使用华为云 Java SDK 访问指定服务的 API
-  ，您需要确认已在[华为云控制台](https://console.huaweicloud.com/console/?locale=zh-cn&region=cn-north-4#/home)开通当前服务。
+  ，您需要确认已在 [华为云控制台](https://console.huaweicloud.com/console/?locale=zh-cn&region=cn-north-4#/home) 开通当前服务。
 
 - 华为云 Java SDK 支持 **Java JDK 1.8** 及其以上版本。
 
@@ -27,8 +27,8 @@
 
 推荐您通过 Maven 安装依赖的方式使用华为云 Java SDK：
 
-首先您需要在您的操作系统中[ 下载 ](https://maven.apache.org/download.cgi)并[ 安装 Maven ](https://maven.apache.org/install.html)
-，安装完成后您只需在 Maven 项目的 `pom.xml` 文件加入相应的依赖项即可。
+首先您需要在您的操作系统中 [下载](https://maven.apache.org/download.cgi) 并 [安装](https://maven.apache.org/install.html) Maven ，安装完成后您只需在
+Maven 项目的 `pom.xml` 文件加入相应的依赖项即可。
 
 无论您要使用哪个产品/服务的开发工具包，都必须安装 `huaweicloud-sdk-core` 。以使用虚拟私有云 VPC SDK 为例，您需要安装 `huaweicloud-sdk-core`
 和 `huaweicloud-sdk-vpc` ：
@@ -54,22 +54,20 @@
 ``` java
 package com.huaweicloud.sdk.test;
 
-// 导入依赖模块
+/* 导入依赖模块 */
+// 日志打印
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 // 用户身份认证
 import com.huaweicloud.sdk.core.auth.BasicCredentials;
 // 请求异常类
-import com.huaweicloud.sdk.core.exception.ClientRequestException;
-import com.huaweicloud.sdk.core.exception.ServerResponseException;
+import com.huaweicloud.sdk.core.exception.ServiceResponseException;
 // Http配置
 import com.huaweicloud.sdk.core.http.HttpConfig;
-// 导入相应产品的 {Service}Client
 import com.huaweicloud.sdk.vpc.v2.VpcClient;
 // 导入待请求接口的 request 和 response 类
 import com.huaweicloud.sdk.vpc.v2.model.ListVpcsRequest;
 import com.huaweicloud.sdk.vpc.v2.model.ListVpcsResponse;
-// 日志打印
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public class Application {
     private static final Logger logger = LoggerFactory.getLogger(Application.class);
@@ -87,6 +85,7 @@ public class Application {
             logger.error("ErrorMsg: " + e.getErrorMsg());
         }
     }
+
     public static void main(String[] args) {
         String ak = "{your ak string}";
         String sk = "{your sk string}";
@@ -122,27 +121,27 @@ public class Application {
 
 ## 变更日志
 
-每个版本的详细更改记录可在[变更日志](https://github.com/huaweicloud/huaweicloud-sdk-java-v3/blob/master/CHANGELOG_CN.md)中查看。
+每个版本的详细更改记录可在 [变更日志](https://github.com/huaweicloud/huaweicloud-sdk-java-v3/blob/master/CHANGELOG_CN.md) 中查看。
 
 ## 用户手册 [:top:](#华为云开发者-java-软件开发工具包java-sdk)
 
 * [1. 客户端连接参数](#1-客户端连接参数-top)
-  * [1.1 默认配置](#11-默认配置-top)
-  * [1.2 网络代理](#12-网络代理-top)
-  * [1.3 超时配置](#13-超时配置-top)
-  * [1.4 SSL 配置](#14-ssl-配置-top)
+    * [1.1 默认配置](#11-默认配置-top)
+    * [1.2 网络代理](#12-网络代理-top)
+    * [1.3 超时配置](#13-超时配置-top)
+    * [1.4 SSL 配置](#14-ssl-配置-top)
 * [2. 客户端认证信息](#2-客户端认证信息-top)
-  * [2.1 使用永久 AK 和 SK](#21-使用永久-ak-和-sk-top)
-  * [2.2 使用临时 AK 和 SK](#22-使用临时-ak-和-sk-top)
+    * [2.1 使用永久 AK 和 SK](#21-使用永久-ak-和-sk-top)
+    * [2.2 使用临时 AK 和 SK](#22-使用临时-ak-和-sk-top)
 * [3. 客户端初始化](#3-客户端初始化-top)
-  * [3.1 指定云服务 Endpoint 方式](#31-指定云服务-endpoint-方式-top)
-  * [3.2 指定 Region 方式（推荐）](#32-指定-region-方式-推荐-top)
+    * [3.1 指定云服务 Endpoint 方式](#31-指定云服务-endpoint-方式-top)
+    * [3.2 指定 Region 方式（推荐）](#32-指定-region-方式-推荐-top)
 * [4. 发送请求并查看响应](#4-发送请求并查看响应-top)
-  * [4.1 异常处理](#41-异常处理-top)
+    * [4.1 异常处理](#41-异常处理-top)
 * [5. 异步客户端使用](#5-异步客户端使用-top)
 * [6. 故障处理](#6-故障处理-top)
-  * [6.1 访问日志](#61-访问日志-top)
-  * [6.2 HTTP 监听器](#62-http-监听器-top)
+    * [6.1 访问日志](#61-访问日志-top)
+    * [6.2 HTTP 监听器](#62-http-监听器-top)
 
 ### 1. 客户端连接参数 [:top:](#用户手册-top)
 
@@ -183,9 +182,9 @@ config.withIgnoreSSLVerification(true);
 
 Global 级服务有 BSS、DevStar、EPS、IAM、OSM、RMS、TMS。
 
-Region 级服务仅需要提供 projectId 。Global 级服务需要提供 domainId 。
+Region 级服务需要提供 projectId 。Global 级服务需要提供 domainId 。
 
-**参数说明**：
+**认证参数说明**：
 
 - `ak` - 华为云账号 Access Key
 - `sk` - 华为云账号 Secret Access Key
@@ -223,7 +222,7 @@ GlobalCredentials globalCredentials = new GlobalCredentials()
 - 通过永久 AK&SK 获得可以参考文档：https://support.huaweicloud.com/api-iam/iam_04_0002.html ，对应 IAM SDK
   中的 `CreateTemporaryAccessKeyByToken` 方法。
 
-- 通过委托授权获得可以参考文档：https://support.huaweicloud.com/api-iam/iam_04_0101.html, 对应 IAM SDK
+- 通过委托授权获得可以参考文档：https://support.huaweicloud.com/api-iam/iam_04_0101.html ，对应 IAM SDK
   中的 `CreateTemporaryAccessKeyByAgency` 方法。
 
 临时 AK&SK&SecurityToken 获取成功后，可使用如下方式初始化认证信息：
@@ -261,7 +260,7 @@ VpcClient vpcClient = VpcClient.newBuilder()
 
 **说明：**
 
-- `endpoint` 是华为云各服务应用区域和各服务的终端节点，详情请查看[地区和终端节点](https://developer.huaweicloud.com/endpoint)。
+- `endpoint` 是华为云各服务应用区域和各服务的终端节点，详情请查看 [地区和终端节点](https://developer.huaweicloud.com/endpoint) 。
 
 #### 3.2 指定 Region 方式 **（推荐）** [:top:](#用户手册-top)
 
@@ -285,7 +284,6 @@ IamClient iamClient = IamClient.newBuilder()
 **说明：**
 
 - 指定 Region 方式创建客户端的场景，支持自动获取用户的 projectId 或者 domainId，初始化认证信息时可无需指定相应参数。
-
 - 不适用于 `多ProjectId` 的场景。
 
 ### 4. 发送请求并查看响应 [:top:](#用户手册-top)
@@ -296,7 +294,6 @@ ListVpcRequest request = new ListVpcsRequest().withLimit(1);
 
 ListVpcsResponse response = client.listVpcs(request); 
 logger.info(response.toString());
-
 ```
 
 #### 4.1 异常处理 [:top:](#用户手册-top)
@@ -344,13 +341,13 @@ ListVpcsResponse response = future.get();
 
 ### 6. 故障处理 [:top:](#用户手册-top)
 
-SDK 提供 Access 级别的访问日志级 Debug 级别的原始 HTTP 监听器日志，用户可根据需要进行配置。
+SDK 提供 Access 级别的访问日志及 Debug 级别的原始 HTTP 监听器日志，用户可根据需要进行配置。
 
 #### 6.1 访问日志 [:top:](#用户手册-top)
 
 **注意：** SDK在运行的时候默认采用slf4j进行日志打印，如果在运行代码实例时，未配置日志实现库，会有提示如下：
 
-``` shell
+``` text
 SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
 SLF4J: Defaulting to no-operation (NOP) logger implementation
 SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
@@ -395,7 +392,7 @@ SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further detail
 
 SDK 默认会打印访问日志，每次请求都会有一条记录：
 
-``` shell
+``` text
 16:53:04.905 [main] INFO HuaweiCloud-SDK-Access - "GET https://ecs.cn-southwest-2.myhuaweicloud.com/v1/077d6a6c19000fdd2f3bc00150080291/cloudservers/detail?offset=1&limit=25" 200 2251 deabe20c14f997a0291fc451a4da16a4
 16:53:06.212 [main] INFO HuaweiCloud-SDK-Access - "PUT https://ecs.cn-southwest-2.myhuaweicloud.com/v1/077d6a6c19000fdd2f3bc00150080291/cloudservers/1aeac6fb-a2f2-48dc-9052-36637d119dd3" 200 880 f16f70e3fe245c11ab741760f8689a01
 17:02:37.734 [main] INFO HuaweiCloud-SDK-Access - "GET https://ecs.cn-southwest-2.myhuaweicloud.com/v1/077d6a6c19000fdd2f3bc00150080291/cloudservers/detail?offset=1&limit=-1" 400 165 8c3c8b6fed4482d28e1929a78dc93f04
