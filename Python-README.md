@@ -394,4 +394,3 @@ client = VpcClient.new_builder() \
 **Notice:**
 
 HttpHandler supports method `add_request_handler` and `add_response_handler`.
-
