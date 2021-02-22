@@ -76,7 +76,7 @@ npm install typescript
 # 添加scripts
 "dev": "ts-node-dev ./index.ts"
 npm run dev
-# 运行完成后，本地浏览器访问：http://localhost:3000/
+# 运行完成后，本地浏览器访问：http://localhost:3000/ 查看运行结果
 ```
 
 ## 变更日志
@@ -88,14 +88,13 @@ npm run dev
 * [1. 客户端连接参数](#1-客户端连接参数-top)
     * [1.1 默认配置](#11-默认配置-top)
     * [1.2 网络代理](#12-网络代理-top)
-    * [1.3 超时配置](#13-超时配置-top)
+    * [1.3 SSL 配置](#13-ssl-配置-top)
 * [2. 客户端认证信息](#2-客户端认证信息-top)
     * [2.1 使用永久 AK 和 SK](#21-使用永久-ak-和-sk-top)
     * [2.2 使用临时 AK 和 SK](#22-使用临时-ak-和-sk-top)
 * [3. 客户端初始化](#3-客户端初始化-top)
     * [3.1 指定云服务 Endpoint 方式](#31-指定云服务-endpoint-方式-top)
 * [4. 发送请求并查看响应](#4-发送请求并查看响应-top)
-    * [4.1 异常处理](#41-异常处理-top)
 * [5. 故障处理](#5-故障处理-top)
     * [5.1 HTTP 监听器](#51-http-监听器-top)
 
@@ -115,7 +114,7 @@ const client = DevStarClient.newBuilder()
 client.withProxyAgent("http://username:password@proxy.huaweicloud.com:8080")
 ```
    
-#### 1.3 超时配置 [:top:](#用户手册-top)
+#### 1.3 SSL 配置 [:top:](#用户手册-top)
 
 ``` javascript
 // 配置跳过服务端证书验证（可选）
@@ -210,28 +209,6 @@ result.then(result => {
 }).catch(ex => {
     res.send("exception:" + JSON.stringify(ex))
 });
-```
-
-#### 4.1 异常处理 [:top:](#用户手册-top)
-
-| 一级分类 | 一级分类说明 | 二级分类 | 二级分类说明 |
-| :---- | :---- | :---- | :---- |
-| ConnectionException | 连接类异常 | HostUnreachableException | 网络不可达、被拒绝 |
-| | | SslHandShakeException | SSL认证异常 |
-| RequestTimeoutException | 响应超时异常 | CallTimeoutException | 单次请求，服务器处理超时未返回 |
-| | | RetryOutageException | 在重试策略消耗完成已后，仍无有效的响应 |
-| ServiceResponseException | 服务器响应异常 | ServerResponseException | 服务端内部错误，Http响应码：[500,] |
-| | | ClientRequestException | 请求参数不合法，Http响应码：[400， 500) |
-
-``` javascript
-// 异常处理
-if (httpStatusCode >= 400 && httpStatusCode < 500) {
-    return new ClientRequestException(httpStatusCode, errorData);
-} else if (httpStatusCode >= 500 && httpStatusCode < 600) {
-    return new ServerResponseException(httpStatusCode, errorData);
-} else {
-    return new ServiceResponseException(httpStatusCode, errorData);
-}
 ```
 
 ### 5. 故障处理 [:top:](#用户手册-top)
