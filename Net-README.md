@@ -6,13 +6,15 @@ English | [简体中文](README_CN.md)
 
 # Huawei Cloud .Net Software Development Kit (.Net SDK)
 
-The Huawei Cloud .Net SDK allows you to easily work with Huawei Cloud services such as Elastic Compute Service (ECS) and Virtual Private Cloud(VPC) without the need to handle API related tasks.
+The Huawei Cloud .Net SDK allows you to easily work with Huawei Cloud services such as Elastic Compute Service (ECS) and
+Virtual Private Cloud(VPC) without the need to handle API related tasks.
 
 This document introduces how to obtain and use Huawei Cloud .Net SDK.
 
 ## Requirements
 
-- To use Huawei Cloud .Net SDK, you must have Huawei Cloud account as well as the Access Key and Secret key of the Huawei Cloud account. You can create an Access Key in the Huawei Cloud console. For more information,
+- To use Huawei Cloud .Net SDK, you must have Huawei Cloud account as well as the Access Key and Secret key of the
+  Huawei Cloud account. You can create an Access Key in the Huawei Cloud console. For more information,
   see [My Credentials](https://support.huaweicloud.com/en-us/usermanual-ca/en-us_topic_0046606340.html).
 
 - To use Huawei Cloud .Net SDK to access the APIs of specific service, please make sure you do have activated the
@@ -27,7 +29,8 @@ This document introduces how to obtain and use Huawei Cloud .Net SDK.
 
 Run the following commands to install .Net SDK:
 
-You must install `HuaweiCloud.SDK.Core` library no matter which product development kit you need to use. Take using VPC SDK for example, you need to install `HuaweiCloud.SDK.Core` library and `HuaweiCloud.SDK.Vpc` library:
+You must install `HuaweiCloud.SDK.Core` library no matter which product development kit you need to use. Take using VPC
+SDK for example, you need to install `HuaweiCloud.SDK.Core` library and `HuaweiCloud.SDK.Vpc` library:
 
 - Use .NET CLI
 
@@ -38,14 +41,15 @@ dotnet add package HuaweiCloud.SDK.Vpc
 
 - Use Package Manager
 
-```bash
+``` bash
 Install-Package HuaweiCloud.SDK.Core
 Install-Package HuaweiCloud.SDK.Vpc
 ```
 
 ## Code example
 
-- The following example shows how to query a list of VPC in a specific region, you need to substitute your real `{Service}Client` for `VpcClient` in actual use.
+- The following example shows how to query a list of VPC in a specific region, you need to substitute your
+  real `{Service}Client` for `VpcClient` in actual use.
 - Substitute the values for `{your ak string}`, `{your sk string}`, `{your endpoint string}` and `{your project id}`.
 
 ```csharp
@@ -112,26 +116,25 @@ namespace ConsoleApp1
 Detailed changes for each released version are documented in
 the [CHANGELOG.md](https://github.com/huaweicloud/huaweicloud-sdk-net-v3/blob/master/CHANGELOG.md).
 
-
 ## User Manual [:top:](#huawei-cloud-net-software-development-kit-net-sdk)
 
 * [1. Client Configuration](#1-client-configuration-top)
-  * [1.1  Default Configuration](#11-default-configuration-top)
-  * [1.2  Network Proxy](#12-network-proxy-top)
-  * [1.3  Connection](#13-connection-top)
-  * [1.4  SSL Certification](#14-ssl-certification-top)
+    * [1.1  Default Configuration](#11-default-configuration-top)
+    * [1.2  Network Proxy](#12-network-proxy-top)
+    * [1.3  Connection](#13-connection-top)
+    * [1.4  SSL Certification](#14-ssl-certification-top)
 * [2. Credentials Configuration](#2-credentials-configuration-top)
-  * [2.1  Use Permanent AK&SK](#21-use-permanent-aksk-top)
-  * [2.2  Use Temporary AK&SK](#22-use-temporary-aksk-top)
+    * [2.1  Use Permanent AK&SK](#21-use-permanent-aksk-top)
+    * [2.2  Use Temporary AK&SK](#22-use-temporary-aksk-top)
 * [3. Client Initialization](#3-client-initialization-top)
-  * [3.1  Initialize the client with specified Endpoint](#31-initialize-the-serviceclient-with-specified-endpoint-top)
-  * [3.2  Initialize the client with specified Region (Recommended)](#32-initialize-the-serviceclient-with-specified-region-recommended-top)
+    * [3.1  Initialize the client with specified Endpoint](#31-initialize-the-serviceclient-with-specified-endpoint-top)
+    * [3.2  Initialize the client with specified Region (Recommended)](#32-initialize-the-serviceclient-with-specified-region-recommended-top)
 * [4. Send Requests and Handle Responses](#4-send-requests-and-handle-responses-top)
-  * [4.1  Exceptions](#41-exceptions-top)
+    * [4.1  Exceptions](#41-exceptions-top)
 * [5. Use Asynchronous Client](#5-use-asynchronous-client-top)
 * [6. Troubleshooting](#6-troubleshooting-top)
-  * [6.1 Access Log](#61-access-log-top)
-  * [6.2 Original HTTP Listener](#62-original-http-listener-top)
+    * [6.1 Access Log](#61-access-log-top)
+    * [6.2 Original HTTP Listener](#62-original-http-listener-top)
 
 ### 1. Client Configuration [:top:](#user-manual-top)
 
@@ -157,6 +160,7 @@ config.ProxyPassword = "test";
 ``` csharp
 config.Timeout = 120;
 ```
+
 #### 1.4 SSL Certification [:top:](#user-manual-top)
 
 ``` csharp
@@ -170,7 +174,8 @@ There are two types of Huawei Cloud services, `regional` services and `global` s
 
 Global services contain IAM, TMS, EPS.
 
-For `regional` services' authentication, projectId is required. For `global` services' authentication, domainId is required.
+For `regional` services' authentication, projectId is required. For `global` services' authentication, domainId is
+required.
 
 **Parameter description**:
 
@@ -198,9 +203,8 @@ use this feature, it's required to build your client instance with method `with_
 to [3.2 Initialize the client with specified Region](#32-initialize-the-serviceclient-with-specified-region-recommended-top)
 .
 
-
 #### 2.2 Use Temporary AK&SK [:top:](#user-manual-top)
-    
+
 It's required to obtain temporary access key, security key and security token first, which could be obtained through
 permanent access key and security key or through an agency.
 
@@ -237,7 +241,8 @@ VpcClient vpcClient = VpcClient.NewBuilder()
 
 **where:**
 
-- `endpoint` is the service specific endpoints, see [Regions and Endpoints](https://developer.huaweicloud.com/intl/en-us/endpoint).
+- `endpoint` is the service specific endpoints,
+  see [Regions and Endpoints](https://developer.huaweicloud.com/intl/en-us/endpoint).
 
 #### 3.2 Initialize the {Service}Client with specified Region **(Recommended)** [:top:](#user-manual-top)
 
@@ -255,7 +260,8 @@ IamClient iamClient = IamClient.NewBuilder()
 
 **Notice:**
 
-- If you use {Service}Region to initialize {Service}Client, projectId/domainId supports automatic acquisition, you don't need to configure it when initializing Credentials.
+- If you use {Service}Region to initialize {Service}Client, projectId/domainId supports automatic acquisition, you don't
+  need to configure it when initializing Credentials.
 - Multiple ProjectId situation is not supported.
 
 ### 4. Send Requests and Handle Responses [:top:](#user-manual-top)
@@ -281,7 +287,7 @@ Console.WriteLine(JsonUtils.Serialize(response.Vpcs));
 | | | RetryOutageException | no response after retrying |
 | ServiceResponseException | service response error | ServerResponseException | server inner error, http status code: [500,] |
 | | | ClientRequestException | invalid request, http status code: [400, 500) |
-    
+
 ```csharp
 // Handle ClientRequestExceptions
 try
@@ -338,7 +344,6 @@ In some situation, you may need to debug your http requests, original http reque
 needed. The SDK provides a listener function to obtain the original encrypted http request and response information.
 
 > :warning:  Warning: The original http log information is used in debugging stage only, please do not print the original http header or body in the production environment. These log information is not encrypted and contains sensitive data such as the password of your ECS virtual machine, or the password of your IAM user account, etc. When the response body is binary content, the body will be printed as "***" without detailed information.
-
 
 ```csharp
 private void RequestHandler(HttpRequestMessage message, ILogger logger)
