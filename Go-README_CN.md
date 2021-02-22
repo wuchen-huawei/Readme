@@ -106,20 +106,20 @@ func main() {
 ## 用户手册 [:top:](#华为云开发者-go-软件开发工具包go-sdk)
 
 * [1. 客户端连接参数](#1-客户端连接参数-top)
-  * [1.1 默认配置](#11-默认配置-top)
-  * [1.2 网络代理](#12-网络代理-top)
-  * [1.3 超时配置](#13-超时配置-top)
-  * [1.4 SSL配置](#14-ssl-配置-top)
+    * [1.1 默认配置](#11-默认配置-top)
+    * [1.2 网络代理](#12-网络代理-top)
+    * [1.3 超时配置](#13-超时配置-top)
+    * [1.4 SSL配置](#14-ssl-配置-top)
 * [2. 客户端认证信息](#2-客户端认证信息-top)
-  * [2.1 永久 AK 和 SK](#21-永久-ak-和-sk-top)
-  * [2.2 临时 AK 和 SK](#22-临时-ak-和-sk-top)
+    * [2.1 使用永久 AK 和 SK](#21-使用永久-ak-和-sk-top)
+    * [2.2 使用临时 AK 和 SK](#22-使用临时-ak-和-sk-top)
 * [3. 客户端初始化](#3-客户端初始化-top)
-  * [3.1 指定云服务 Endpoint 方式](#31-指定云服务-endpoint-方式-top)
-  * [3.2 指定 Region 方式（推荐）](#32-指定-region-方式-推荐-top)
+    * [3.1 指定云服务 Endpoint 方式](#31-指定云服务-endpoint-方式-top)
+    * [3.2 指定 Region 方式（推荐）](#32-指定-region-方式-推荐-top)
 * [4. 发送请求并查看响应](#4-发送请求并查看响应-top)
-  * [4.1 异常处理](#41-异常处理-top)
+    * [4.1 异常处理](#41-异常处理-top)
 * [5. 故障处理](#5-故障处理-top)
-  * [5.1 HTTP 监听器](#51-http监听器-top)
+    * [5.1 HTTP 监听器](#51-http监听器-top)
 
 ### 1. 客户端连接参数 [:top:](#用户手册-top)
 
@@ -135,11 +135,11 @@ httpConfig := config.DefaultHttpConfig()
 ``` go
 // 根据需要配置网络代理
 httpConfig.WithProxy(config.NewProxy().
-   WithSchema("http").
-   WithHost("proxy.huaweicloud.com").
-   WithPort(80).
-   WithUsername("testuser").
-   WithPassword("password"))))
+    WithSchema("http").
+    WithHost("proxy.huaweicloud.com").
+    WithPort(80).
+    WithUsername("testuser").
+    WithPassword("password"))))
 ```
 
 #### 1.3 超时配置 [:top:](#用户手册-top)
@@ -149,7 +149,7 @@ httpConfig.WithProxy(config.NewProxy().
 httpConfig.WithTimeout(120);
 ```
 
-#### 1.4  SSL 配置 [:top:](#用户手册-top)
+#### 1.4 SSL 配置 [:top:](#用户手册-top)
 
 ``` go
 // 根据需要配置是否跳过SSL证书校验
@@ -179,17 +179,17 @@ Region 级服务仅需要提供 projectId 。Global 级服务需要提供 domain
 ``` go
 // Region 级服务
 basicAuth := basic.NewCredentialsBuilder().
-            WithAk(ak).
-            WithSk(sk).
-            WithProjectId(projectId).
-            Build()
+    WithAk(ak).
+    WithSk(sk).
+    WithProjectId(projectId).
+    Build()
 
 // Global 级服务
 globalAuth := global.NewCredentialsBuilder().
-            WithAk(ak).
-            WithSk(sk).
-            WithDomainId(domainId).
-            Build()
+    WithAk(ak).
+    WithSk(sk).
+    WithDomainId(domainId).
+    Build()
 ```
 
 **说明**：
@@ -212,19 +212,19 @@ globalAuth := global.NewCredentialsBuilder().
 ``` go
 // Region级服务
 basicAuth := basic.NewCredentialsBuilder().
-            WithAk(ak).
-            WithSk(sk).
-            WithProjectId(projectId).
-            WithSecurityToken(securityToken).
-            Build()
+    WithAk(ak).
+    WithSk(sk).
+    WithProjectId(projectId).
+    WithSecurityToken(securityToken).
+    Build()
 
 // Global级服务
 globalAuth := global.NewCredentialsBuilder().
-            WithAk(ak).
-            WithSk(sk).
-            WithDomainId(domainId).
-            WithSecurityToken(securityToken).
-            Build()
+    WithAk(ak).
+    WithSk(sk).
+    WithDomainId(domainId).
+    WithSecurityToken(securityToken).
+    Build()
 ```
 
 ### 3. 客户端初始化 [:top:](#用户手册-top)
