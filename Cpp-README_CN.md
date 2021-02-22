@@ -103,7 +103,7 @@ vcpkg install curl cpprestsdk boost openssl spdlog
 
 - 调用前请根据实际情况替换如下变量：`{your ak string}`、 `{your sk string}`、 `{your endpoint}` 以及 `{your project id}`。
 
-``` c++
+``` cpp
 #include <cstdio>
 #include <iostream>
 #include <huaweicloud/core/exception/Exceptions.h>
@@ -201,14 +201,14 @@ $
 
 #### 1.1 默认配置 [:top:](#用户手册-top)
 
-``` c++
+``` cpp
 // 使用默认配置
 HttpConfig httpConfig = HttpConfig();
 ```
 
 #### 1.2 网络代理 [:top:](#用户手册-top)
 
-``` c++
+``` cpp
 // 根据需要配置网络代理
 httpConfig.setProxyProtocol("http");
 httpConfig.setProxyHost("proxy.huawei.com");
@@ -219,7 +219,7 @@ httpConfig.setProxyPassword("password");
 
 #### 1.3 超时配置 [:top:](#用户手册-top)
 
-``` c++
+``` cpp
 // 默认连接超时为60秒，默认读取超时为120秒。可根据需求修改该默认值
 httpConfig.setConnectTimeout(60);
 httpConfig.setReadTimeout(120);
@@ -227,7 +227,7 @@ httpConfig.setReadTimeout(120);
 
 #### 1.4 SSL 配置 [:top:](#用户手册-top)
 
-``` c++
+``` cpp
 // 配置跳过服务端证书验证（可选）
 httpConfig.setIgnoreSslVerification(true);
 ```
@@ -238,7 +238,7 @@ httpConfig.setIgnoreSslVerification(true);
 
 Global 级服务当前仅支持 IAM 。
 
-Region 级服务仅需要提供 projectId 。Global 级服务需要提供 domainId 。
+Region 级服务需要提供 projectId 。Global 级服务需要提供 domainId 。
 
 客户端认证可以使用永久 AK&SK 认证，也可以使用临时 AK&SK&SecurityToken 认证。
 
@@ -252,7 +252,7 @@ Region 级服务仅需要提供 projectId 。Global 级服务需要提供 domain
 
 #### 2.1 使用永久 AK 和 SK [:top:](#用户手册-top)
 
-``` c++
+``` cpp
 // Region级服务
 auto basicCredentials = std::make_unique<BasicCredentials>(); 
 basicCredentials->withAk(ak)
@@ -278,7 +278,7 @@ globalCredentials->withAk(ak)
 
 临时 AK&SK&SecurityToken 获取成功后，可使用如下方式初始化认证信息：
 
-``` c++
+``` cpp
 // Region级服务
 auto basicCredentials = std::make_unique<BasicCredentials>(); 
 basicCredentials->withAk(ak)
@@ -298,7 +298,7 @@ globalCredentials->withAk(ak)
 
 #### 3.1 指定云服务 Endpoint 方式 [:top:](#用户手册-top)
 
-``` c++
+``` cpp
 // 初始化指定云服务的客户端 {Service}Client ，以初始化 VpcClient 为例
 std::unique_ptr<Vpc::V2::VpcClient> vpcApi_v2 = Vpc::V2::VpcClient::newBuilder()
     .withCredentials(basicCredentials)
@@ -313,7 +313,7 @@ std::unique_ptr<Vpc::V2::VpcClient> vpcApi_v2 = Vpc::V2::VpcClient::newBuilder()
 
 ### 4. 发送请求并查看响应 [:top:](#用户手册-top)
 
-``` c++
+``` cpp
 // 初始化请求，以调用接口 listVpcs 为例
 Vpc::V2::Model::ListVpcsRequest listRequest;
 std::shared_ptr<Vpc::V2::Model::ListVpcsResponse> listRes = vpcApi->listVpcs(listRequest);
@@ -332,7 +332,7 @@ std::cout << stringValue << std::endl;
 | ServiceResponseException | 服务器响应异常 | ServerResponseException  | 服务端内部错误，Http响应码：[500,]      |
 |                          |                | ClientRequestException   | 请求参数不合法，Http响应码：[400， 500) |
 
-``` c++
+``` cpp
 // 异常处理
 try {
     std::shared_ptr<Vpc::V2::Model::ListVpcsResponse> listRes = 
@@ -357,9 +357,9 @@ try {
 
 ### 5. 异步客户端使用 [:top:](#用户手册-top)
 
-``` c++
+``` cpp
 // 采用c++ std::async接口实现，以listVpcs接口为例
-#inclue <future>
+#include <future>
 auto future = std::async(std::launch::async,
                         &Vpc::V2::VpcClient::listVpcs, vpcApi, listRequest);
 auto listResponse = future.get();
@@ -373,7 +373,7 @@ SDK 提供 Access 级别的访问日志，用户可根据需要进行配置。
 
 SDK 支持打印 Access 级别的访问日志，需要用户手动打开日志开关，支持打印到控制台或者指定的文件。示例如下：
 
-``` c++
+``` cpp
 // 初始化指定云服务的客户端 {Service}Client ，以初始化 VpcClient 为例
 std::unique_ptr<Vpc::V2::VpcClient> vpcApi_v2 = Vpc::V2::VpcClient::newBuilder()
     .withCredentials(basicCredentials)
@@ -394,7 +394,7 @@ std::unique_ptr<Vpc::V2::VpcClient> vpcApi_v2 = Vpc::V2::VpcClient::newBuilder()
 
 打开日志开关后，每次请求都会有一条记录，如：
 
-```shell
+``` text
 [2020-10-16 03:10:29][INFO] "GET https://iam.cn-north-1.myhuaweicloud.com/v3.0/OS-CREDENTIAL/credentials/W8VHHFEFPIJV6TFOUOQO"  200 244 7a68399eb8ed63fc91018426a7c4b8a0
 ```
 
