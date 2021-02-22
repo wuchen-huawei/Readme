@@ -20,7 +20,7 @@ This document introduces how to obtain and use Huawei Cloud Python SDK.
 - To use Huawei Cloud Python SDK to access the APIs of specific service, please make sure you do have activated the
   service in [Huawei Cloud console](https://console.huaweicloud.com/?locale=en-us) if needed.
 
-- Huawei Cloud Python SDK requires **Python 3** or later, Run command `python --version` to check the version of Python.
+- Huawei Cloud Python SDK requires **Python 3** or later, run command `python --version` to check the version of Python.
 
 ## Install Python SDK
 
@@ -31,7 +31,7 @@ using VPC SDK for example, you need to install `huaweicloudsdkcore` library and 
 
 - Use python pip
 
-```bash
+``` bash
 # Install the core library
 pip install huaweicloudsdkcore
 
@@ -41,7 +41,7 @@ pip install huaweicloudsdkvpc
 
 - Install from source code
 
-```bash
+``` bash
 # Install the core library
 cd huaweicloudsdkcore-${version}
 python setup.py install
@@ -181,7 +181,7 @@ required.
 #### 2.1 Use Permanent AK&SK [:top:](#user-manual-top)
 
 ``` python
-# Region services
+# Regional services
 basic_credentials = BasicCredentials(ak, sk, project_id)
 
 # Global services
@@ -207,7 +207,7 @@ document: https://support.huaweicloud.com/en-us/api-iam/iam_04_0101.html . The A
 corresponds to the method of `CreateTemporaryAccessKeyByAgency` in IAM SDK.
 
 ``` python
-# Region services
+# Regional services
 basic_credentials = BasicCredentials(ak, sk, project_id).with_security_token(security_token)
 
 # Global services
@@ -293,7 +293,8 @@ except exception.ServiceResponseException as e:
 
 #### 4.2 Get Response Object [:top:](#user-manual-top)
 
-The default response format of each request is `json string`, if you want to obtain the response object, the Python SDK supports using method `to_json_object()` to get it.
+The default response format of each request is `json string`, if you want to obtain the response object, the Python SDK
+supports using method `to_json_object()` to get it.
 
 ``` python
 request = ListVpcsRequest(limit=1)
@@ -305,7 +306,7 @@ response_obj = response.to_json_object()
 print(response_obj["vpcs"])
 ```
 
-**Notice:** This method is only supported in version `3.0.34-rc` or later. 
+**Notice:** This method is only supported in version `3.0.34-rc` or later.
 
 ### 5. Use Asynchronous Client [:top:](#user-manual-top)
 
@@ -360,7 +361,7 @@ client = VpcClient.new_builder() \
 
 After enabled log, the SDK will print the access log by default, every request will be recorded in console like:
 
-```shell script
+``` text
 2020-06-16 10:44:02,019 4568 HuaweiCloud-SDK http_handler.py 28 INFO "GET https://vpc.cn-north-1.myhuaweicloud.com/v1/0904f9e1f100d2932f94c01f9aa1cfd7/vpcs" 200 11 0:00:00.543430 b5c927ffdab8401e772e70aa49972037
 ```
 
