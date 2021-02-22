@@ -43,7 +43,7 @@ sudo apt-get install libcurl4-openssl-dev libboost-all-dev libssl-dev libcpprest
 
 spdlog 需要从源码进行安装
 
-```bash
+``` bash
 git clone https://github.com/gabime/spdlog.git
 cd spdlog
 mkdir build
@@ -55,7 +55,7 @@ sudo make install
 
 #### Step 2：编译安装
 
-```bash
+``` bash
 git clone https://github.com/huaweicloud/huaweicloud-sdk-cpp-v3.git
 cd huaweicloud-sdk-cpp-v3
 mkdir build
@@ -65,7 +65,7 @@ make
 sudo make install
 ```
 
-完成上述操作后，**C++ SDK 安装目录为 `/usr/local` 。**
+完成上述操作后，**C++ SDK 安装目录为 `/usr/local`**。
 
 ### 在 Windows 系统上安装 SDK
 
@@ -77,7 +77,7 @@ vcpkg install curl cpprestsdk boost openssl spdlog
 
 #### Step 2：使用 CLion 进行编译
 
-1. 使用 CLion 打开 huaweicloud-sdk-cpp-v3 目录
+1. 使用 CLion 打开 `huaweicloud-sdk-cpp-v3` 目录
 
 2. 选择 `File` → `Settings`
 
@@ -95,7 +95,7 @@ vcpkg install curl cpprestsdk boost openssl spdlog
 
 编译完成后选择 `Build` → `Install`
 
-完成上述操作后，**C++ SDK 安装目录为 `C:\Program File (x86)\huaweicloud-sdk-cpp-v3` 。**
+完成上述操作后，**C++ SDK 安装目录为 `C:\Program File (x86)\huaweicloud-sdk-cpp-v3`** 。
 
 ## 代码示例
 
@@ -408,7 +408,7 @@ std::unique_ptr<Vpc::V2::VpcClient> vpcApi_v2 = Vpc::V2::VpcClient::newBuilder()
 
 - 使用一个服务
 
-```cmake
+``` cmake
 # USE ONE SERVICE
 SET(BUILD_SERVICE vpc)
 SET(SERVICE_VERSION v2)
@@ -424,7 +424,7 @@ endif()
 
 - 使用多个服务
 
-```cmake
+``` cmake
 # USE MULTIPLE SERVICES(EXAMPLE: USE VPC ECS AND EIP)
 add_subdirectory(core)
 add_subdirectory(vpc/src/v2)
