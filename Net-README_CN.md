@@ -15,21 +15,22 @@
 
 ## 使用前提
 
-- 要使用华为云 .Net SDK ，您需要拥有云账号以及该账号对应的 Access Key（AK）和 Secret Access Key（SK）。 请在华为云控制台“我的凭证-访问密钥”页面上创建和查看您的 AK&SK 。更多信息请查看[访问密钥](https://support.huaweicloud.com/usermanual-ca/zh-cn_topic_0046606340.html).
+- 要使用华为云 .Net SDK ，您需要拥有云账号以及该账号对应的 Access Key（AK）和 Secret Access Key（SK）。 请在华为云控制台“我的凭证-访问密钥”页面上创建和查看您的 AK&SK
+  。更多信息请查看 [访问密钥](https://support.huaweicloud.com/usermanual-ca/zh-cn_topic_0046606340.html) 。
 
 - 要使用华为云 .Net SDK 访问指定服务的 API
-  ，您需要确认已在[华为云控制台](https://console.huaweicloud.com/console/?locale=zh-cn&region=cn-north-4#/home)开通当前服务。
+  ，您需要确认已在 [华为云控制台](https://console.huaweicloud.com/console/?locale=zh-cn&region=cn-north-4#/home) 开通当前服务。
 
 - 华为云 .Net SDK 适用于：
-    - **.NET Framework 4.5** 及其以上版本
-    - **.NET Standard 2.0** 及其以上版本
-    - **C# 4.0** 及其以上版本
+  - **.NET Framework 4.5** 及其以上版本
+  - **.NET Standard 2.0** 及其以上版本
+  - **C# 4.0** 及其以上版本
 
 ## SDK 获取和安装
 
-您可以通过如下方式获取和安装SDK。
+您可以通过如下方式获取和安装 SDK 。
 
-无论您要使用哪个产品/服务的开发工具包，都必须安装`HuaweiCloud.SDK.Core`。以使用虚拟私有云VPC SDK为例，您需要安装`HuaweiCloud.SDK.Core` 和 `HuaweiCloud.SDK.Vpc`：
+无论您要使用哪个产品/服务的开发工具包，都必须安装`HuaweiCloud.SDK.Core`。以使用虚拟私有云 VPC SDK 为例，您需要安装`HuaweiCloud.SDK.Core` 和 `HuaweiCloud.SDK.Vpc`：
 
 - 使用 .NET CLI 工具
 
@@ -57,7 +58,7 @@ using HuaweiCloud.SDK.Core.Auth;
 // 导入指定云服务的 {Service}，此处以 Vpc 为例
 using HuaweiCloud.SDK.Vpc.V2;
 using HuaweiCloud.SDK.Vpc.V2.Model;
-// 导入日志打印插件的命名空间
+// 导入日志打印的命名空间
 using Microsoft.Extensions.Logging;
 
 namespace ConsoleApp1
@@ -113,14 +114,14 @@ namespace ConsoleApp1
 
 ## 在线调试
 
-[API Explorer](https://apiexplorer.developer.huaweicloud.com/apiexplorer/overview) 提供API检索及平台调试，支持全量快速检索、可视化调试、帮助文档查看、在线咨询。
+[API Explorer](https://apiexplorer.developer.huaweicloud.com/apiexplorer/overview)
+提供API检索及平台调试，支持全量快速检索、可视化调试、帮助文档查看、在线咨询。
 
 ## 变更日志
 
-每个版本的详细更改记录可在[变更日志](https://github.com/huaweicloud/huaweicloud-sdk-net-v3/blob/master/CHANGELOG_CN.md)中查看。
+每个版本的详细更改记录可在 [变更日志](https://github.com/huaweicloud/huaweicloud-sdk-net-v3/blob/master/CHANGELOG_CN.md) 中查看。
 
-
-## 用户手册 [:top:](#华为云开发者-java-软件开发工具包java-sdk)
+## 用户手册 [:top:](#华为云开发者-net-软件开发工具包net-sdk)
 
 * [1. 客户端连接参数](#1-客户端连接参数-top)
   * [1.1 默认配置](#11-默认配置-top)
@@ -150,6 +151,7 @@ var config = HttpConfig.GetDefaultConfig();
 ```
 
 #### 1.2 网络代理 [:top:](#用户手册-top)
+
 ``` csharp
 // 根据需要配置网络代理
 config.ProxyHost = "http://proxy.huaweicloud.com";
@@ -177,7 +179,7 @@ config.IgnoreSslVerification = true;
 华为云服务存在两种部署方式，Region 级服务和 Global 级服务。
 
 Global 级服务有 IAM、TMS、EPS。
-    
+
 Region 级服务仅需要提供 projectId 。Global 级服务需要提供 domainId 。
 
 **认证参数说明**：
@@ -186,12 +188,12 @@ Region 级服务仅需要提供 projectId 。Global 级服务需要提供 domain
 - `sk` - 华为云账号 Secret Access Key
 - `projectId` - 云服务所在项目 ID ，根据你想操作的项目所属区域选择对应的项目 ID
 - `domainId` - 华为云账号 ID
-- `securityToken` -  采用临时 AK&SK 认证场景下的安全票据
+- `securityToken` - 采用临时 AK&SK 认证场景下的安全票据
 
 客户端认证可以使用永久 AK&SK 认证，也可以使用临时 AK&SK&SecurityToken 认证。
 
 #### 2.1 使用永久 AK 和 SK [:top:](#用户手册-top)
-    
+
 ``` csharp
 // Region级服务
 Credentials basicCredentials = new BasicCredentials(ak, sk, projectId);
@@ -203,9 +205,11 @@ Credentials globalCredentials = new GlobalCredentials(ak, sk, domainId);
 **说明**：
 
 - `3.0.26-beta` 及以上版本支持通过永久 AK&SK 回填 projectId/domainId ，需要在初始化客户端时配合 `WithRegion()`
-  方法使用，代码示例详见 [3.2 指定Region方式（推荐）](#32-指定-region-方式-推荐-top)。
+  方法使用，代码示例详见 [3.2 指定Region方式（推荐）](#32-指定-region-方式-推荐-top) 。
 
 #### 2.2 使用临时 AK 和 SK [:top:](#用户手册-top)
+
+首先需要获得临时 AK、SK 和 SecurityToken ，可以从永久 AK&SK 获得，或者通过委托授权获得。
 
 - 通过永久 AK&SK 获得可以参考文档：https://support.huaweicloud.com/api-iam/iam_04_0002.html ，对应 IAM SDK
   中的 `CreateTemporaryAccessKeyByToken` 方法。
@@ -214,7 +218,8 @@ Credentials globalCredentials = new GlobalCredentials(ak, sk, domainId);
   中的 `CreateTemporaryAccessKeyByAgency` 方法。
 
 临时 AK&SK&SecurityToken 获取成功后，可使用如下方式初始化认证信息：
-    
+
+
 ``` csharp
 // Region级服务
 Credentials basicCredentials = new BasicCredentials(ak, sk, projectId).WithSecurityToken(securityToken);
@@ -241,7 +246,7 @@ var vpcClient = VpcClient.NewBuilder()
 
 **说明:**
 
-- `endpoint` 是华为云各服务应用区域和各服务的终端节点，详情请查看[地区和终端节点](https://developer.huaweicloud.com/endpoint)。
+- `endpoint` 是华为云各服务应用区域和各服务的终端节点，详情请查看 [地区和终端节点](https://developer.huaweicloud.com/endpoint) 。
 
 #### 3.2 指定 Region 方式 **（推荐）** [:top:](#用户手册-top)
 
