@@ -119,6 +119,7 @@ the [CHANGELOG.md](https://github.com/huaweicloud/huaweicloud-sdk-python-v3/blob
     * [3.2  Initialize the client with specified Region (Recommended)](#32-initialize-the-serviceclient-with-specified-region-recommended-top)
 * [4. Send Requests and Handle Responses](#4-send-requests-and-handle-responses-top)
     * [4.1  Exceptions](#41-exceptions-top)
+    * [4.2  Get Response Object](#42-get-response-object-top)
 * [5. Use Asynchronous Client](#5-use-asynchronous-client-top)
 * [6. Troubleshooting](#6-troubleshooting-top)
     * [6.1 Access Log](#61-access-log-top)
@@ -289,6 +290,22 @@ except exception.ServiceResponseException as e:
     print(e.error_code)
     print(e.error_msg)
 ```
+
+#### 4.2 Get Response Object [:top:](#user-manual-top)
+
+The default response format of each request is `json string`, if you want to obtain the response object, the Python SDK supports using method `to_json_object()` to get it.
+
+``` python
+request = ListVpcsRequest(limit=1)
+# original response string
+response = client.list_vpcs(request)
+print(response)
+# response object
+response_obj = response.to_json_object()
+print(response_obj["vpcs"])
+```
+
+**Notice:** This method is only supported in version `3.0.34-rc` or later. 
 
 ### 5. Use Asynchronous Client [:top:](#user-manual-top)
 
