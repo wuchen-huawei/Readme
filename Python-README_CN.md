@@ -122,6 +122,7 @@ if __name__ == "__main__":
     * [3.2 指定 Region 方式（推荐）](#32-指定-region-方式-推荐-top)
 * [4. 发送请求并查看响应](#4-发送请求并查看响应-top)
     * [4.1 异常处理](#41-异常处理-top)
+    * [4.2 获取对象化响应](#42-获取对象化响应-top)
 * [5. 异步客户端使用](#5-异步客户端使用-top)
 * [6. 故障处理](#6-故障处理-top)
     * [6.1 访问日志](#61-访问日志-top)
@@ -288,6 +289,22 @@ except exception.ServiceResponseException as e:
     print(e.error_code)
     print(e.error_msg)
 ```
+
+#### 4.2 获取对象化响应 [:top:](#用户手册-top)
+
+Python SDK 默认返回的 response 为原始响应的 Json 数据，如果需要获取当前数据对象，可以使用 `to_json_object()` 方法获取：
+
+``` python
+request = ListVpcsRequest(limit=1)
+# 原始响应
+response = client.list_vpcs(request)
+print(response)
+# 对象化后的响应
+response_obj = response.to_json_object()
+print(response_obj["vpcs"])
+```
+
+**说明**：该方法仅在 `3.0.32-rc` 及以上版本可以使用
 
 ### 5. 异步客户端使用 [:top:](#用户手册-top)
 
