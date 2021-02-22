@@ -20,7 +20,7 @@ This document introduces how to obtain and use Huawei Cloud Go SDK.
 - To use Huawei Cloud Go SDK to access the APIs of specific service, please make sure you do have activated the service
   in [Huawei Cloud console](https://console.huaweicloud.com/?locale=en-us) if needed.
 
-- Huawei Cloud Go SDK requires go 1.14 or later. Run command `go version` to check the version of Go.
+- Huawei Cloud Go SDK requires go 1.14 or later, run command `go version` to check the version of Go.
 
 ## Install Go SDK
 
@@ -102,20 +102,20 @@ the [CHANGELOG.md](https://github.com/huaweicloud/huaweicloud-sdk-go-v3/blob/mas
 ## User Manual [:top:](#huawei-cloud-go-software-development-kit-go-sdk)
 
 * [1. Client Configuration](#1-client-configuration-top)
-  * [1.1  Default Configuration](#11-default-configuration-top)
-  * [1.2  Network Proxy](#12-network-proxy-top)
-  * [1.3  Connection](#13-connection-top)
-  * [1.4  SSL Certification](#14-ssl-certification-top)
+    * [1.1  Default Configuration](#11-default-configuration-top)
+    * [1.2  Network Proxy](#12-network-proxy-top)
+    * [1.3  Connection](#13-connection-top)
+    * [1.4  SSL Certification](#14-ssl-certification-top)
 * [2. Credentials Configuration](#2-credentials-configuration-top)
-  * [2.1  Use Permanent AK&SK](#21-use-permanent-aksk-top)
-  * [2.2  Use Temporary AK&SK](#22-use-temporary-aksk-top)
+    * [2.1  Use Permanent AK&SK](#21-use-permanent-aksk-top)
+    * [2.2  Use Temporary AK&SK](#22-use-temporary-aksk-top)
 * [3. Client Initialization](#3-client-initialization-top)
-  * [3.1  Initialize client with specified Endpoint](#31-initialize-the-serviceclient-with-specified-endpoint-top)
-  * [3.2  Initialize client with specified Region](#32-initialize-the-serviceclient-with-specified-region-recommended-top)
+    * [3.1  Initialize client with specified Endpoint](#31-initialize-the-serviceclient-with-specified-endpoint-top)
+    * [3.2  Initialize client with specified Region](#32-initialize-the-serviceclient-with-specified-region-recommended-top)
 * [4. Send Request and Handle response](#4-send-requests-and-handle-responses-top)
-  * [4.1  Exceptions](#41-exceptions-top)
+    * [4.1  Exceptions](#41-exceptions-top)
 * [5. Troubleshooting](#5-troubleshooting-top)
-  * [5.1  Original HTTP Listener](#51-original-http-listener-top)
+    * [5.1  Original HTTP Listener](#51-original-http-listener-top)
 
 ### 1. Client Configuration [:top:](#user-manual-top)
 
@@ -316,7 +316,7 @@ if err == nil {
 In some situation, you may need to debug your http requests, original http request and response information will be
 needed. The SDK provides a listener function to obtain the original encrypted http request and response information.
 
-> :warning:  Warning: The original http log information is used in debugging stage only, please do not print the original http header or body in the production environment. This log information is not encrypted and contains sensitive data such as the password of your ECS virtual machine, or the password of your IAM user account, etc.
+> :warning:  Warning: The original http log information is used in debugging stage only, please do not print the original http header or body in the production environment. This log information is not encrypted and contains sensitive data such as the password of your ECS virtual machine, or the password of your IAM user account, etc. When the response body is binary content, the body will be printed as "***" without detailed information.
 
 ``` go
 func RequestHandler(request http.Request) {
