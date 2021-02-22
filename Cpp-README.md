@@ -6,17 +6,19 @@ English | [简体中文](./README_CN.md)
 
 # Huawei Cloud C++ Software Development Kit (C++ SDK)
 
-The Huawei Cloud C++ SDK allows you to easily work with Huawei Cloud services such as Elastic Compute Service (ECS) and Virtual Private Cloud (VPC) without the need to handle API related tasks.
+The Huawei Cloud C++ SDK allows you to easily work with Huawei Cloud services such as Elastic Compute Service (ECS) and
+Virtual Private Cloud (VPC) without the need to handle API related tasks.
 
 This document introduces how to obtain and use Huawei Cloud C++ SDK.
 
 ## Requirements
 
-- To use Huawei Cloud C++ SDK, you must have Huawei Cloud account as well as the Access Key and Secret key of the Huawei Cloud account.  You can create an Access Key in the Huawei Cloud console. For more information,
+- To use Huawei Cloud C++ SDK, you must have Huawei Cloud account as well as the Access Key and Secret key of the Huawei
+  Cloud account. You can create an Access Key in the Huawei Cloud console. For more information,
   see [My Credentials](https://support.huaweicloud.com/en-us/usermanual-ca/en-us_topic_0046606340.html).
 
-- To use Huawei Cloud C++ SDK to access the APIs of specific service, please make sure you do have activated the
-  service in [Huawei Cloud console](https://console.huaweicloud.com/?locale=en-us) if needed.
+- To use Huawei Cloud C++ SDK to access the APIs of specific service, please make sure you do have activated the service
+  in [Huawei Cloud console](https://console.huaweicloud.com/?locale=en-us) if needed.
 
 - Huawei Cloud C++ SDK requires **C++ 14** or later, and requires **CMake 3.10** or later.
 
@@ -90,11 +92,13 @@ vcpkg install curl cpprestsdk boost openssl spdlog
 
 choose `Build` -> `Install` after compilation.
 
-After the preceding commands completed, **the installation directory of C++ SDK** is `C:\Program File (x86)\huaweicloud-sdk-cpp-v3`.     
- 
+After the preceding commands completed, **the installation directory of C++ SDK**
+is `C:\Program File (x86)\huaweicloud-sdk-cpp-v3`.
+
 ## Code example
 
-- The following example shows how to query a list of VPC in a specific region, you need to substitute your real `{Service}Client` for `VpcClient` in actual use.
+- The following example shows how to query a list of VPC in a specific region, you need to substitute your
+  real `{Service}Client` for `VpcClient` in actual use.
 
 - Substitute the values for `{your ak string}`, `{your sk string}`, `{your endpoint}` and `{your project id}`.
 
@@ -155,9 +159,10 @@ int main(void)
 }
 ```
 
-If you want to run the example on Linux platform, please copy commands above and save as vpc_test.cpp, then build with the following command:
+If you want to run the example on Linux platform, please copy commands above and save as vpc_test.cpp, then build with
+the following command:
 
-```bash
+``` bash
 $ g++ -o vpc_test vpc_test.cpp --std=c++14 -lvpc_v2 -lcore -lcrypto -lboost_system -lcpprest
 $ ./vpc_test
 # response
@@ -192,14 +197,14 @@ the [CHANGELOG.md](https://github.com/huaweicloud/huaweicloud-sdk-cpp-v3/blob/ma
 
 #### 1.1 Default Configuration [:top:](#user-manual-top)
 
-``` c++
+``` cpp
 // Use default configuration
 HttpConfig httpConfig = HttpConfig();
 ```
 
 #### 1.2 Network Proxy [:top:](#user-manual-top)
 
-``` c++
+``` cpp
 // Use network proxy if needed
 httpConfig.setProxyProtocol("http");
 httpConfig.setProxyHost("proxy.huawei.com");
@@ -210,7 +215,7 @@ httpConfig.setProxyPassword("password");
 
 #### 1.3 Connection [:top:](#user-manual-top)
 
-``` c++
+``` cpp
 // The default connection timeout is 60 seconds, the default read timeout is 120 seconds. You could change it if needed.
 httpConfig.setConnectTimeout(60);
 httpConfig.setReadTimeout(120);
@@ -218,7 +223,7 @@ httpConfig.setReadTimeout(120);
 
 #### 1.4 SSL Certification [:top:](#user-manual-top)
 
-``` c++
+``` cpp
 // Skip ssl certification checking while using https protocol if needed
 httpConfig.setIgnoreSslVerification(true);
 ```
@@ -242,7 +247,7 @@ required.
 
 #### 2.1 Use Permanent AK&SK [:top:](#user-manual-top)
 
-``` c++
+``` cpp
 // Regional services
 auto basicCredentials = std::make_unique<BasicCredentials>(); 
 basicCredentials->withAk(ak)
@@ -269,7 +274,7 @@ Obtaining a temporary access key and security token through an agency, you could
 document: https://support.huaweicloud.com/en-us/api-iam/iam_04_0101.html . The API mentioned in the document above
 corresponds to the method of `CreateTemporaryAccessKeyByAgency` in IAM SDK.
 
-``` c++
+``` cpp
 // Regional services
 auto basicCredentials = std::make_unique<BasicCredentials>(); 
 basicCredentials->withAk(ak)
@@ -289,7 +294,7 @@ globalCredentials->withAk(ak)
 
 #### 3.1 Initialize the {Service}Client with specified Endpoint [:top:](#user-manual-top)
 
-``` c++
+``` cpp
 // Initialize specified service client instance, take VpcClient for example
 std::unique_ptr<Vpc::V2::VpcClient> vpcApi_v2 = Vpc::V2::VpcClient::newBuilder()
     .withCredentials(basicCredentials)
@@ -305,7 +310,7 @@ std::unique_ptr<Vpc::V2::VpcClient> vpcApi_v2 = Vpc::V2::VpcClient::newBuilder()
 
 ### 4. Send Requests and Handle Responses [:top:](#user-manual-top)
 
-``` c++
+``` cpp
 // Initialize request
 Vpc::V2::Model::ListVpcsRequest listRequest;
 std::shared_ptr<Vpc::V2::Model::ListVpcsResponse> listRes = vpcApi->listVpcs(listRequest);
@@ -324,7 +329,7 @@ std::cout << stringValue << std::endl;
 | ServiceResponseException | service response error | ServerResponseException  | server inner error, http status code: [500,]  |
 |                          |                        | ClientRequestException   | invalid request, http status code: [400? 500) |
 
-``` c++
+``` cpp
 // handle exceptions
 try {
     std::shared_ptr<Vpc::V2::Model::ListVpcsResponse> listRes = 
@@ -351,7 +356,7 @@ try {
 
 ``` cpp
 // use c++ std::async
-#inclue <future>
+#include <future>
 auto future = std::async(std::launch::async,
                         &Vpc::V2::VpcClient::listVpcs, vpcApi, listRequest);
 auto listResponse = future.get();
@@ -368,7 +373,7 @@ specified files.
 
 For example:
 
-``` c++
+``` cpp
 // Initialize specified service client instance, take VpcClient for example
 std::unique_ptr<Vpc::V2::VpcClient> vpcApi_v2 = Vpc::V2::VpcClient::newBuilder()
     .withCredentials(basicCredentials)
@@ -378,6 +383,7 @@ std::unique_ptr<Vpc::V2::VpcClient> vpcApi_v2 = Vpc::V2::VpcClient::newBuilder()
     .withEndPoint(endpoint)
     .build();
 ```
+
 **where:**
 
 - `withFileLogger`:
@@ -388,14 +394,14 @@ std::unique_ptr<Vpc::V2::VpcClient> vpcApi_v2 = Vpc::V2::VpcClient::newBuilder()
 
 After enabled log, the SDK will print the access log by default, every request will be recorded in console like:
 
-``` shell
+``` text
 [2020-10-16 03:10:29][INFO] "GET https://iam.cn-north-1.myhuaweicloud.com/v3.0/OS-CREDENTIAL/credentials/W8VHHFEFPIJV6TFOUOQO"  200 244 7a68399eb8ed63fc91018426a7c4b8a0
 ```
 
 The format of access log is:
 
 ``` text
-"{httpMethod} {uri}" {httpStatusCode} {responseContentLength} {requestId}`
+"{httpMethod} {uri}" {httpStatusCode} {responseContentLength} {requestId}
 ```
 
 ### 7. Set CMakeLists.txt [:top:](#user-manual-top)
