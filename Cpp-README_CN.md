@@ -178,7 +178,7 @@ $
 
 每个版本的详细更改记录可在 [变更日志](https://github.com/huaweicloud/huaweicloud-sdk-cpp-v3/blob/master/CHANGELOG_CN.md) 中查看。
 
-## 用户手册 [:top:](#华为云开发者-c++-软件开发工具包c++-sdk)
+## 用户手册 [:top:](#华为云开发者-c-软件开发工具包c-sdk)
 
 * [1. 客户端连接参数](#1-客户端连接参数-top)
     * [1.1 默认配置](#11-默认配置-top)
@@ -195,7 +195,7 @@ $
 * [5. 异步客户端使用](#5-异步客户端使用-top)
 * [6. 故障处理](#6-故障处理-top)
     * [6.1 访问日志](#61-访问日志-top)
-* [7. 配置 CMakeLists.txt](#7-配置-cmakelisttxt-top)
+* [7. 配置 CMakeLists.txt](#7-配置-cmakeliststxt-top)
 
 ### 1. 客户端连接参数 [:top:](#用户手册-top)
 
