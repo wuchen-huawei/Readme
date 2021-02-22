@@ -21,7 +21,7 @@
 - 要使用华为云 Java SDK 访问指定服务的 API
   ，您需要确认已在[华为云控制台](https://console.huaweicloud.com/console/?locale=zh-cn&region=cn-north-4#/home)开通当前服务。
 
-- 华为云 Python SDK 支持 python3 及以上版本。可执行 `python --version` 检查当前 python 的版本信息。
+- 华为云 Python SDK 支持 **python3** 及以上版本。可执行 `python --version` 检查当前 python 的版本信息。
 
 ## SDK 获取和安装
 
@@ -107,7 +107,7 @@ if __name__ == "__main__":
 
 每个版本的详细更改记录可在[变更日志](https://github.com/huaweicloud/huaweicloud-sdk-python-v3/blob/master/CHANGELOG_CN.md)中查看。
 
-## 用户手册 [:top:](#华为云开发者-python-软件开发工具python-sdk)
+## 用户手册 [:top:](#华为云开发者-python-软件开发工具包python-sdk)
 
 * [1. 客户端连接参数](#1-客户端连接参数-top)
   * [1.1 默认配置](#11-默认配置-top)
@@ -233,7 +233,7 @@ client = VpcClient.new_builder() \
 
 - `endpoint` 是华为云各服务应用区域和各服务的终端节点，详情请查看[地区和终端节点](https://developer.huaweicloud.com/endpoint)。
 
-#### 3.2 指定Region方式 **（推荐）** [:top:](#用户手册-top)
+#### 3.2 指定 Region 方式 **（推荐）** [:top:](#用户手册-top)
 
 ``` python
 # 增加region依赖
@@ -279,8 +279,9 @@ print(respones)
 ``` python
 # 异常处理
 try:
-    request = ListVpcsRequest()
+    request = ListVpcsRequest(limit=1)
     response = client.list_vpcs(request)
+    print(respones)
 except exception.ServiceResponseException as e:
     print(e.status_code)
     print(e.request_id)
@@ -327,13 +328,13 @@ client = VpcClient.new_builder() \
 **说明**：
 
 - `with_file_log` 支持如下配置：
-  - `path`：日志文件路径。
-  - `log_level`：日志级别，默认INFO。
-  - `max_bytes`：单个日志文件大小，默认为10485760 bytes。
-  - `backup_count`：日志文件个数，默认为5个。
+  - `path`：日志文件路径
+  - `log_level`：日志级别，默认INFO
+  - `max_bytes`：单个日志文件大小，默认为10485760 bytes
+  - `backup_count`：日志文件个数，默认为5个
 - `with_stream_log` 支持如下配置：
-  - `stream`：流对象，默认sys.stdout。
-  - `log_level`：日志级别，默认INFO。
+  - `stream`：流对象，默认sys.stdout
+  - `log_level`：日志级别，默认INFO
 
 打开日志开关后，每次请求都会有一条记录，如：
 
