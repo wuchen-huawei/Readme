@@ -298,7 +298,7 @@ supports using method `to_json_object()` to get it.
 
 ``` python
 request = ListVpcsRequest(limit=1)
-# original response string
+# original response json string
 response = client.list_vpcs(request)
 print(response)
 # response object
@@ -332,7 +332,7 @@ SDK supports `Access` log and `Debug` log which could be configured manually.
 
 #### 6.1 Access Log [:top:](#user-manual-top)
 
-SDK supports print access log which could be enabled by manual configuration, the log could be output in console or
+SDK supports print access log which could be enabled by manual configuration, the log could be output to the console or
 specified files.
 
 For example:
@@ -359,7 +359,7 @@ client = VpcClient.new_builder() \
     - `stream` means stream object, the default value is sys.stdout.
     - `log_level` means log level, the default value is INFO.
 
-After enabled log, the SDK will print the access log by default, every request will be recorded in console like:
+After enabled log, the SDK will print the access log by default, every request will be recorded to the console like:
 
 ``` text
 2020-06-16 10:44:02,019 4568 HuaweiCloud-SDK http_handler.py 28 INFO "GET https://vpc.cn-north-1.myhuaweicloud.com/v1/0904f9e1f100d2932f94c01f9aa1cfd7/vpcs" 200 11 0:00:00.543430 b5c927ffdab8401e772e70aa49972037
