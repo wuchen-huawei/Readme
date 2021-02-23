@@ -368,7 +368,7 @@ SDK supports `Access` log which could be configured manually.
 
 #### 6.1 Access Log [:top:](#user-manual-top)
 
-SDK supports print access log which could be enabled by manual configuration, the log could be output in console or
+SDK supports print access log which could be enabled by manual configuration, the log could be output to the console or
 specified files.
 
 For example:
@@ -392,7 +392,7 @@ std::unique_ptr<Vpc::V2::VpcClient> vpcApi_v2 = Vpc::V2::VpcClient::newBuilder()
 - `withStreamLogger`:
     - `enable` means console log is enabled.
 
-After enabled log, the SDK will print the access log by default, every request will be recorded in console like:
+After enabled log, the SDK will print the access log by default, every request will be recorded to the console like:
 
 ``` text
 [2020-10-16 03:10:29][INFO] "GET https://iam.cn-north-1.myhuaweicloud.com/v3.0/OS-CREDENTIAL/credentials/W8VHHFEFPIJV6TFOUOQO"  200 244 7a68399eb8ed63fc91018426a7c4b8a0
