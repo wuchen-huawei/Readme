@@ -24,14 +24,11 @@ This document introduces how to obtain and use Huawei Cloud Go SDK.
 
 ## Install Go SDK
 
-Run the following commands to install Huawei Cloud Go SDK and related libraries:
+Run the following command to install Huawei Cloud Go SDK:
 
 ``` bash
 # Install the library of Huawei Cloud Go SDK
 go get github.com/huaweicloud/huaweicloud-sdk-go-v3
-
-# Install the dependent library
-go get github.com/json-iterator/go
 ```
 
 ## Code Example
