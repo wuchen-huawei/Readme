@@ -4,97 +4,111 @@
   <a href="https://www.huaweicloud.com/"><img width="270px" height="90px" src="https://console-static.huaweicloud.com/static/authui/20210202115135/public/custom/images/logo.svg"></a>
 </p>
 
-<h1 align="center">华为云开发者 Python 软件开发工具包（Python SDK）</h1>
+<h1 align="center">华为云开发者 .Net 软件开发工具包（.Net SDK）</h1>
 
-欢迎使用华为云 Python SDK。
+欢迎使用华为云 .Net SDK 。
 
-华为云 Python SDK让您无需关心请求细节即可快速使用弹性云服务器、虚拟私有云等多个华为云服务。
+华为云 .Net SDK 让您无需关心请求细节即可快速使用弹性云服务器、虚拟私有云等多个华为云服务。
 
-这里将向您介绍如何获取并使用华为云 Python SDK 。
+这里将向您介绍如何获取并使用华为云 .Net SDK 。
 
 ## 使用前提
 
-- 要使用华为云 Java SDK ，您需要拥有华为云账号以及该账号对应的 Access Key（AK）和 Secret Access Key（SK）。请在华为云控制台 “我的凭证-访问密钥” 页面上创建和查看您的 AK&SK
+- 要使用华为云 .Net SDK ，您需要拥有云账号以及该账号对应的 Access Key（AK）和 Secret Access Key（SK）。 请在华为云控制台“我的凭证-访问密钥”页面上创建和查看您的 AK&SK
   。更多信息请查看 [访问密钥](https://support.huaweicloud.com/usermanual-ca/zh-cn_topic_0046606340.html) 。
 
-- 要使用华为云 Java SDK 访问指定服务的 API
+- 要使用华为云 .Net SDK 访问指定服务的 API
   ，您需要确认已在 [华为云控制台](https://console.huaweicloud.com/console/?locale=zh-cn&region=cn-north-4#/home) 开通当前服务。
 
-- 华为云 Python SDK 支持 **python3** 及以上版本。可执行 `python --version` 检查当前 python 的版本信息。
+- 华为云 .Net SDK 适用于：
+    - **.NET Framework 4.5** 及其以上版本
+    - **.NET Standard 2.0** 及其以上版本
+    - **C# 4.0** 及其以上版本
 
 ## SDK 获取和安装
 
-您可以使用 pip 安装 SDK 依赖包，也可以使用源码安装 SDK 依赖包。
+您可以通过如下方式获取和安装 SDK ：
 
-无论您要使用哪个产品/服务的开发工具包，都必须安装 `huaweicloudsdkcore` 。以使用虚拟私有云 VPC SDK 为例，您需要安装 `huaweicloudsdkcore` 和 `huaweicloudsdkvpc` ：
+无论您要使用哪个产品/服务的开发工具包，都必须安装`HuaweiCloud.SDK.Core`。以使用虚拟私有云 VPC SDK 为例，您需要安装`HuaweiCloud.SDK.Core` 和 `HuaweiCloud.SDK.Vpc`：
 
-- 使用 pip 安装
+- 使用 .NET CLI 工具
 
 ``` bash
-# 安装核心库
-pip install huaweicloudsdkcore
-
-# 安装VPC服务库
-pip install huaweicloudsdkvpc
+dotnet add package HuaweiCloud.SDK.Core
+dotnet add package HuaweiCloud.SDK.Vpc
 ```
 
-- 使用源码安装
+- 使用 Package Manager
 
 ``` bash
-# 安装核心库
-cd huaweicloudsdkcore-${version}
-python setup.py install
-
-# 安装VPC服务库
-cd huaweicloudsdkvpc-${version}
-python setup.py install
+Install-Package HuaweiCloud.SDK.Core
+Install-Package HuaweiCloud.SDK.Vpc
 ```
 
 ## 代码示例
 
-- 使用如下代码同步查询指定 Region 下的 VPC 清单，实际使用中请将 `VpcClient` 替换为您使用的产品/服务相应的 `{Service}Client`。
-- 调用前请根据实际情况替换如下变量：`{your ak string}`、 `{your sk string}`、 `{your endpoint}` 以及 `{your project id}`。
+- 使用如下代码同步查询指定 Region 下的 VPC 列表，实际使用中请将 `VpcClient` 替换为您使用的产品/服务相应的 `{Service}Client` 。
+- 调用前请根据实际情况替换如下变量： `{your ak string}`、`{your sk string}`、`{your endpoint string}` 以及 `{your project id}`。
 
-``` python
-# coding: utf-8
+``` csharp
+using System;
+using HuaweiCloud.SDK.Core;
+using HuaweiCloud.SDK.Core.Auth;
+// 导入指定云服务的 {Service}，此处以 Vpc 为例
+using HuaweiCloud.SDK.Vpc.V2;
+using HuaweiCloud.SDK.Vpc.V2.Model;
+// 导入日志打印的命名空间
+using Microsoft.Extensions.Logging;
 
+namespace ConsoleApp1
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            const string ak = "{your ak string}";
+            const string sk = "{your sk string}";
+            const string endpoint = "{your endpoint string}";
+            const string projectId = "{your projectID string}";
 
-from huaweicloudsdkcore.auth.credentials import BasicCredentials
-from huaweicloudsdkcore.exceptions import exceptions
-from huaweicloudsdkcore.http.http_config import HttpConfig
-# 导入指定云服务的库 huaweicloudsdk{service}
-from huaweicloudsdkvpc.v2 import *
+            Credentials auth = new BasicCredentials(ak, sk, projectId);
+            var config = HttpConfig.GetDefaultConfig();
+            config.IgnoreSslVerification = true;
 
+            VpcClient vpcClient = VpcClient.NewBuilder()
+                .WithCredential(auth)
+                .WithEndPoint(endpoint)
+                .WithHttpConfig(config)
+                .WithLogging(LogLevel.Information)
+                .Build();
 
-def list_vpc(client):
-    try:
-        request = ListVpcsRequest(limit=1)
-        response = client.list_vpcs(request)
-        print(response)
-    except exceptions.ClientRequestException as e:
-        print(e.status_code)
-        print(e.request_id)
-        print(e.error_code)
-        print(e.error_msg)
+            var request = new ListVpcsRequest
+            {
+                Limit = 1
+            };
 
-
-if __name__ == "__main__":
-    ak = "{your ak string}"
-    sk = "{your sk string}"
-    endpoint = "{your endpoint}"
-    project_id = "{your project id}"
-
-    config = HttpConfig.get_default_config()
-    config.ignore_ssl_verification = True
-    credentials = BasicCredentials(ak, sk, project_id)
-
-    vpc_client = VpcClient.new_builder() \
-        .with_http_config(config) \
-        .with_credentials(credentials) \
-        .with_endpoint(endpoint) \
-        .build()
-
-    list_vpc(vpc_client)
+            try
+            {
+                var response = vpcClient.ListVpcs(request);
+                Console.WriteLine(JsonUtils.Serialize(response.Vpcs));
+            }
+            catch (RequestTimeoutException requestTimeoutException)
+            {
+                Console.WriteLine(requestTimeoutException.ErrorMessage);
+            }
+            catch (ServiceResponseException serviceResponseException)
+            {
+                Console.WriteLine(serviceResponseException.HttpStatusCode);
+                Console.WriteLine(serviceResponseException.ErrorCode);
+                Console.WriteLine(serviceResponseException.ErrorMsg);
+            }
+            catch (ConnectionException connectionException)
+            {
+                Console.WriteLine(connectionException.ErrorMessage);
+            }
+        }
+    }
+}
 ```
 
 ## 在线调试
@@ -104,9 +118,9 @@ if __name__ == "__main__":
 
 ## 变更日志
 
-每个版本的详细更改记录可在 [变更日志](https://github.com/huaweicloud/huaweicloud-sdk-python-v3/blob/master/CHANGELOG_CN.md) 中查看。
+每个版本的详细更改记录可在 [变更日志](https://github.com/huaweicloud/huaweicloud-sdk-net-v3/blob/master/CHANGELOG_CN.md) 中查看。
 
-## 用户手册 [:top:](#华为云开发者-python-软件开发工具包python-sdk)
+## 用户手册 [:top:](#华为云开发者-net-软件开发工具包net-sdk)
 
 * [1. 客户端连接参数](#1-客户端连接参数-top)
     * [1.1 默认配置](#11-默认配置-top)
@@ -121,78 +135,89 @@ if __name__ == "__main__":
     * [3.2 指定 Region 方式（推荐）](#32-指定-region-方式-推荐-top)
 * [4. 发送请求并查看响应](#4-发送请求并查看响应-top)
     * [4.1 异常处理](#41-异常处理-top)
-    * [4.2 获取响应对象](#42-获取响应对象-top)
 * [5. 异步客户端使用](#5-异步客户端使用-top)
 * [6. 故障处理](#6-故障处理-top)
     * [6.1 访问日志](#61-访问日志-top)
     * [6.2 HTTP 监听器](#62-http-监听器-top)
-    * [6.3 兼容性问题](#63-兼容性问题-top)
+* [7. FAQ](#7-faq-top)
 
 ### 1. 客户端连接参数 [:top:](#用户手册-top)
 
 #### 1.1 默认配置 [:top:](#用户手册-top)
 
-``` python
-# 使用默认配置
-config = HttpConfig.get_default_config()
+``` csharp
+// 使用默认配置
+var config = HttpConfig.GetDefaultConfig();
 ```
 
 #### 1.2 网络代理 [:top:](#用户手册-top)
 
-``` python
-# 根据需要配置网络代理
-config.proxy_protocol = 'http'
-config.proxy_host = 'proxy.huaweicloud.com'
-config.proxy_port = 80
-config.proxy_user = 'username'
-config.proxy_password = 'password'
+根据需要配置网络代理
+
+- 若配置代理时指定了端口号，则默认仅支持 HTTP 代理
+
+``` csharp
+config.ProxyHost = "proxy.huaweicloud.com";
+// 指定端口号为8080
+config.ProxyPort = 8080;
+config.ProxyUsername = "test";
+config.ProxyPassword = "test";
+```
+
+- 若配置代理时未指定端口号，则可支持 HTTP 和 HTTPS 代理
+
+``` csharp
+// 协议和端口号均在host中
+config.ProxyHost = "https://proxy.huaweicloud.com:8080";
+config.ProxyUsername = "test";
+config.ProxyPassword = "test";
 ```
 
 #### 1.3 超时配置 [:top:](#用户手册-top)
 
-``` python
-# 默认连接超时时间为60秒，读取超时时间为120秒，支持统一指定超时时长timeout=timeout，或分别指定超时时长timeout=(connect timeout, read timeout)
-config.timeout = 120
+``` csharp
+// 默认超时时间为120秒，可根据需要调整
+config.Timeout = 120;
 ```
 
 #### 1.4 SSL 配置 [:top:](#用户手册-top)
 
-``` python
-# 根据需要配置是否跳过SSL证书校验
-config.ignore_ssl_verification = True
-# 配置服务器端CA证书，用于SDK验证服务端证书合法性
-config.ssl_ca_cert = ssl_ca_cert
+``` csharp
+// 根据需要配置是否跳过SSL证书验证
+config.IgnoreSslVerification = true;
 ```
 
 ### 2. 客户端认证信息 [:top:](#用户手册-top)
 
 华为云服务存在两种部署方式，Region 级服务和 Global 级服务。
 
-Global 级服务有 BSS、DevStar、EPS、IAM、RMS、TMS。
+Global 级服务有 IAM、TMS、EPS。
 
 Region 级服务需要提供 projectId 。Global 级服务需要提供 domainId 。
 
-客户端认证可以使用永久 AK&SK 认证，也可以使用临时 AK&SK&SecurityToken 认证。
-
 **认证参数说明**：
 
-- `ak` 华为云账号 Access Key
-- `sk` 华为云账号 Secret Access Key
-- `project_id` 云服务所在项目 ID ，根据你想操作的项目所属区域选择对应的项目 ID
-- `domain_id` 华为云账号 ID
-- `security_token` 采用临时 AK&SK 认证场景下的安全票据
+- `ak` - 华为云账号 Access Key
+- `sk` - 华为云账号 Secret Access Key
+- `projectId` - 云服务所在项目 ID ，根据你想操作的项目所属区域选择对应的项目 ID
+- `domainId` - 华为云账号 ID
+- `securityToken` - 采用临时 AK&SK 认证场景下的安全票据
+
+客户端认证可以使用永久 AK&SK 认证，也可以使用临时 AK&SK&SecurityToken 认证。
 
 #### 2.1 使用永久 AK 和 SK [:top:](#用户手册-top)
 
-``` python
-# Region级服务
-basic_credentials = BasicCredentials(ak, sk, project_id)
+``` csharp
+// Region级服务
+Credentials basicCredentials = new BasicCredentials(ak, sk, projectId);
 
-# Global级服务
-global_credentials = GlobalCredentials(ak, sk, domain_id)
+// Global级服务
+Credentials globalCredentials = new GlobalCredentials(ak, sk, domainId);
 ```
 
-- `3.0.26-beta` 及以上版本支持通过永久 AK&SK 回填 project_id/domain_id ，需要在初始化客户端时配合 `with_region()`
+**说明**：
+
+- `3.0.26-beta` 及以上版本支持通过永久 AK&SK 回填 projectId/domainId ，需要在初始化客户端时配合 `WithRegion()`
   方法使用，代码示例详见 [3.2 指定Region方式（推荐）](#32-指定-region-方式-推荐-top) 。
 
 #### 2.2 使用临时 AK 和 SK [:top:](#用户手册-top)
@@ -207,12 +232,12 @@ global_credentials = GlobalCredentials(ak, sk, domain_id)
 
 临时 AK&SK&SecurityToken 获取成功后，可使用如下方式初始化认证信息：
 
-``` python
-# Region级服务
-basic_credentials = BasicCredentials(ak, sk, project_id).with_security_token(security_token)
-
-# Global级服务
-global_credentials = GlobalCredentials(ak, sk, domain_id).with_security_token(security_token)
+``` csharp
+// Region级服务
+Credentials basicCredentials = new BasicCredentials(ak, sk, projectId).WithSecurityToken(securityToken);
+    
+// Global级服务
+Credentials globalCredentials = new GlobalCredentials(ak, sk, domainId).WithSecurityToken(securityToken);
 ```
 
 ### 3. 客户端初始化 [:top:](#用户手册-top)
@@ -221,13 +246,14 @@ global_credentials = GlobalCredentials(ak, sk, domain_id).with_security_token(se
 
 #### 3.1 指定云服务 Endpoint 方式 [:top:](#用户手册-top)
 
-``` python
-# 初始化指定云服务的客户端 {Service}Client ，以初始化 VpcClient 为例
-client = VpcClient.new_builder() \
-    .with_http_config(config) \
-    .with_credentials(basic_credentials) \
-    .with_endpoint(endpoint) \
-    .build()
+``` csharp
+// 初始化指定云服务的客户端 {Service}Client，以初始化 VpcClient 为例
+var vpcClient = VpcClient.NewBuilder()
+    .WithCredential(basicCredentials)
+    .WithEndPoint(endpoint)
+    .WithHttpConfig(config)
+    .WithLogging(LogLevel.Information)
+    .Build();
 ```
 
 **说明:**
@@ -236,34 +262,34 @@ client = VpcClient.new_builder() \
 
 #### 3.2 指定 Region 方式 **（推荐）** [:top:](#用户手册-top)
 
-``` python
-# 增加region依赖
-from huaweicloudsdkiam.v3.region.iam_region import IamRegion
+``` csharp
+// 使用当前客户端初始化方式可不填 domainId
+Credentials globalCredentials = new GlobalCredentials(ak, sk);
 
-# 使用当前客户端初始化方式可不填 domain_id
-global_credentials = GlobalCredentials(ak, sk)
-
-# 初始化指定云服务的客户端 {Service}Client ，以初始化 IamClient 为例
-client = IamClient.new_builder() \
-    .with_http_config(config) \
-    .with_credentials(global_credentials) \
-    .with_region(IamRegion.CN_NORTH_4) \
-    .build()
+// 初始化指定云服务的客户端 {Service}Client，以初始化 IamClient 为例
+IamClient iamClient = IamClient.NewBuilder()
+    .WithCredential(globalCredentials)
+    .WithRegion(IamRegion.CN_NORTH_4)
+    .WithHttpConfig(config)
+    .Build();
 ```
 
-**说明:**
+**说明：**
 
 - 指定 Region 方式创建客户端的场景，支持自动获取用户的 projectId 或者 domainId，初始化认证信息时可无需指定相应参数。
 - 不适用于 `多ProjectId` 的场景。
 
 ### 4. 发送请求并查看响应 [:top:](#用户手册-top)
 
-``` python
-# 初始化请求，以调用接口 ListVpcs 为例
-request = ListVpcsRequest(limit=1)
+``` csharp
+// 初始化请求，以调用接口 ListVpcs 为例
+var request = new ListVpcsRequest
+{
+    Limit = 1,
+};
 
-response = client.list_vpcs(request)
-print(response)
+var response = vpcClient.ListVpcs(request)
+Console.WriteLine(JsonUtils.Serialize(response.Vpcs));
 ```
 
 #### 4.1 异常处理 [:top:](#用户手册-top)
@@ -275,53 +301,48 @@ print(response)
 | RequestTimeoutException | 响应超时异常 | CallTimeoutException | 单次请求，服务器处理超时未返回 |
 | | | RetryOutageException | 在重试策略消耗完成已后，仍无有效的响应 |
 | ServiceResponseException | 服务器响应异常 | ServerResponseException | 服务端内部错误，Http响应码：[500,] |
-| | | ClientRequestException | 请求参数不合法，Http响应码：[400， 500) |
+| | | ClientRequestException | 请求参数不合法，Http响应码：[400, 500) |
 
-``` python
-# 异常处理
-try:
-    request = ListVpcsRequest(limit=1)
-    response = client.list_vpcs(request)
-    print(response)
-except exception.ServiceResponseException as e:
-    print(e.status_code)
-    print(e.request_id)
-    print(e.error_code)
-    print(e.error_msg)
+``` csharp
+// 异常处理
+try
+{
+    var request = new ListVpcsRequest
+    {
+        Limit = 1,
+    };
+
+    var response = vpcClient.ListVpcs(request);
+    Console.WriteLine(JsonUtils.Serialize(response.Vpcs));
+}
+catch (ServiceResponseException serviceResponseException)
+{
+    Console.WriteLine(serviceResponseException.HttpStatusCode);
+    Console.WriteLine(serviceResponseException.ErrorCode);
+    Console.WriteLine(serviceResponseException.ErrorMsg);
+    Console.WriteLine(serviceResponseException.RequestId);
+}
 ```
-
-#### 4.2 获取响应对象 [:top:](#用户手册-top)
-
-Python SDK 默认返回的 response 为原始响应的 Json 数据，如果需要获取当前数据对象，可以使用 `to_json_object()` 方法：
-
-``` python
-request = ListVpcsRequest(limit=1)
-# 原始响应Json
-response = client.list_vpcs(request)
-print(response)
-# 响应对象
-response_obj = response.to_json_object()
-print(response_obj["vpcs"])
-```
-
-**说明**：该方法仅在 `3.0.34-rc` 及以上版本可以使用
 
 ### 5. 异步客户端使用 [:top:](#用户手册-top)
 
-``` python
-# 初始化异步客户端，以初始化 VpcAsyncClient 为例
-client = VpcAsyncClient.new_builder() \
-    .with_http_config(config) \
-    .with_credentials(basic_credentials) \
-    .with_endpoint(endpoint) \
-    .build()
+``` csharp
+// 初始化异步客户端，以初始化 VpcAsyncClient 为例
+var vpcClient = VpcAsyncClient.NewBuilder()
+    .WithCredential(auth)
+    .WithEndPoint(endpoint)
+    .WithHttpConfig(config)
+    .Build();
 
-# 发送异步请求
-request = ListVpcsRequest(limit=1)
-response = client.list_vpcs_async(request)
+// 发送异步请求
+var future = vpcClient.ListVpcsAsync(new ListVpcsRequest()
+{
+    Limit = 1
+});
 
-# 获取异步请求结果
-print(response.result())
+// 获取异步请求结果
+var response = future.Result;
+Console.WriteLine(JsonUtils.Serialize(response.Vpcs));
 ```
 
 ### 6. 故障处理 [:top:](#用户手册-top)
@@ -330,91 +351,68 @@ SDK 提供 Access 级别的访问日志及 Debug 级别的原始 HTTP 监听器�
 
 #### 6.1 访问日志 [:top:](#用户手册-top)
 
-SDK 支持打印 Access 级别的访问日志，需要用户手动打开日志开关，支持打印到控制台或者指定的文件。示例如下：
+SDK 支持打印访问日志，需要用户手动打开日志开关，支持打印到控制台。示例代码如下：
 
-``` python
-client = VpcClient.new_builder() \
-    .with_http_config(config) \
-    .with_credentials(basic_credentials) \
-    .with_endpoint(endpoint) \
-    .with_file_log(path="test.log", log_level=logging.INFO) \  # 日志打印至文件
-    .with_stream_log(log_level=logging.INFO) \                 # 日志打印至控制台
-    .build()
+``` csharp
+var vpcClient = VpcClient.NewBuilder()
+    .WithCredential(auth)
+    .WithEndPoint(endpoint)
+    // 设置打印日志的级别即可在控制台打印日志
+    .WithLogging(LogLevel.Information)
+    .WithHttpConfig(config)
+    .Build();
 ```
 
-**说明**：
+打开日志开关后，每次请求都会有以下记录，如：
 
-- `with_file_log` 支持如下配置：
-    - `path`：日志文件路径
-    - `log_level`：日志级别，默认INFO
-    - `max_bytes`：单个日志文件大小，默认为10485760 bytes
-    - `backup_count`：日志文件个数，默认为5个
-- `with_stream_log` 支持如下配置：
-    - `stream`：流对象，默认sys.stdout
-    - `log_level`：日志级别，默认INFO
-
-打开日志开关后，每次请求都会有一条记录，如：
-
-``` text 
-2020-06-16 10:44:02,019 4568 HuaweiCloud-SDK http_handler.py 28 INFO "GET https://vpc.cn-north-1.myhuaweicloud.com/v1/0904f9e1f100d2932f94c01f9aa1cfd7/vpcs" 200 11 0:00:00.543430 b5c927ffdab8401e772e70aa49972037
-```
-
-日志格式为：
-
-``` python
-%(asctime)s %(thread)d %(name)s %(filename)s %(lineno)d %(levelname)s %(message)s
+``` text
+info: System.Net.Http.HttpClient.SdkHttpClient.LogicalHandler[100]
+      Start processing HTTP request GET https://vpc.cn-north-1.myhuaweicloud.com/v1/076958154900d2492f8bc0197405c803/vpcs?limit=1
+info: System.Net.Http.HttpClient.SdkHttpClient.ClientHandler[100]
+      Sending HTTP request GET https://vpc.cn-north-1.myhuaweicloud.com/v1/076958154900d2492f8bc0197405c803/vpcs?limit=1
+info: System.Net.Http.HttpClient.SdkHttpClient.ClientHandler[101]
+      Received HTTP response after 517.5326ms - OK
+info: System.Net.Http.HttpClient.SdkHttpClient.LogicalHandler[101]
+      End processing HTTP request after 543.6428ms - OK
 ```
 
 #### 6.2 HTTP 监听器 [:top:](#用户手册-top)
 
-在某些场景下可能对业务发出的 HTTP 请求进行 Debug ，需要看到原始的 HTTP 请求和返回信息，SDK 提供监听器功能来获取原始的为加密的 HTTP 请求和返回信息。
+在某些场景下可能对业务发出的 HTTP 请求进行 Debug ，需要看到原始的 HTTP 请求和返回信息， SDK 提供监听器功能来获取原始的为加密的 HTTP 请求和返回信息。
 
 > :warning:  Warning: 原始信息打印仅在 Debug 阶段使用，请不要在生产系统中将原始的 HTTP 头和 Body 信息打印到日志，这些信息并未加密且其中包含敏感数据，例如所创建虚拟机的密码，IAM 用户的密码等；当 Body 体为二进制内容，即 Content-Type 标识为二进制时，Body 为"***"，详细内容不输出。
 
-``` python
-import logging
-from huaweicloudsdkcore.http.http_handler import HttpHandler
+``` csharp
+private void RequestHandler(HttpRequestMessage message, ILogger logger)
+{
+    logger.LogDebug(message.ToString());
+}
 
+private void ResponseHandler(HttpResponseMessage message, ILogger logger)
+{
+    logger.LogDebug(message.ToString());
+}
 
-def response_handler(**kwargs):
-    logger = kwargs.get("logger")
-    response = kwargs.get("response")
-    request = response.request
-
-    base = "> Request %s %s HTTP/1.1" % (request.method, request.path_url) + "\n"
-    if len(request.headers) != 0:
-        base = base + "> Headers:" + "\n"
-        for each in request.headers:
-            base = base + "    %s : %s" % (each, request.headers[each]) + "\n"
-    base = base + "> Body: %s" % request.body + "\n\n"
-
-    base = base + "< Response HTTP/1.1 %s " % response.status_code + "\n"
-    if len(response.headers) != 0:
-        base = base + "< Headers:" + "\n"
-        for each in response.headers:
-            base = base + "    %s : %s" % (each, response.headers[each],) + "\n"
-    base = base + "< Body: %s" % response.content
-    logger.debug(base)
-
-
-if __name__ == "__main__":
-    client = VpcClient.new_builder() \
-        .with_http_config(config) \
-        .with_credentials(basic_credentials) \
-        .with_stream_log(log_level=logging.DEBUG) \
-        .with_http_handler(HttpHandler().add_response_handler(response_handler)) \
-        .with_endpoint(endpoint) \
-        .build()
+var vpcClient = VpcClient.NewBuilder()
+    .WithCredential(auth)
+    .WithEndPoint(endpoint)
+    .WithLogging(LogLevel.Debug)
+    .WithHttpConfig(config)
+    .WithHttpHandler(new HttpHandler()
+        .AddRequestHandler(RequestHandler)
+        .AddResponseHandler(ResponseHandler))
+    .Build();
 ```
 
 **说明:**
-HttpHandler 支持如下方法 `add_request_handler`、`add_response_handler` 。
 
-#### 6.3 兼容性问题 [:top:](#用户手册-top)
+HttpHandler 支持如下方法 `AddRequestHandler` 、`AddResponseHandler` 。
+
+### 7. FAQ [:top:](#用户手册-top)
 
 - 使用 .Net Framework 4.7 集成 .Net SDK，发生死锁问题
 
-【问题现象】： 在使用 **同步客户端** 调用某接口，任务启动后程序挂死，无任何报错信息，也不会超时退出
+【问题现象】：使用 **同步客户端** 调用某接口，任务启动后程序挂死，无任何报错信息，也不会超时退出
 
 【问题原因】：.Net SDK 内部 **同步客户端** 发送请求的实现是先发送 **异步** 请求，然后等待异步任务返回。在此场景下，.Net Framework UI 的线程上下文和 SDK 的异步任务上下文发生了**死锁**，导致 SDK 的异步任务无法启动。 [原文链接](https://blog.stephencleary.com/2012/07/dont-block-on-async-code.html)
 
