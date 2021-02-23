@@ -1,63 +1,63 @@
-[English](./README.md) | 简体中文
+English | [简体中文](README_CN.md)
 
 <p align="center">
-  <a href="https://www.huaweicloud.com/"><img width="270px" height="90px" src="https://console-static.huaweicloud.com/static/authui/20210202115135/public/custom/images/logo.svg"></a>
+<a href="https://www.huaweicloud.com/"><img width="450px" height="102px" src="https://console-static.huaweicloud.com/static/authui/20210202115135/public/custom/images/logo-en.svg"></a>
 </p>
 
-<h1 align="center">华为云开发者 .Net 软件开发工具包（.Net SDK）</h1>
+<h1 align="center">Huawei Cloud .Net Software Development Kit (.Net SDK)</h1>
 
-欢迎使用华为云 .Net SDK 。
+The Huawei Cloud .Net SDK allows you to easily work with Huawei Cloud services such as Elastic Compute Service (ECS) and
+Virtual Private Cloud(VPC) without the need to handle API related tasks.
 
-华为云 .Net SDK 让您无需关心请求细节即可快速使用弹性云服务器、虚拟私有云等多个华为云服务。
+This document introduces how to obtain and use Huawei Cloud .Net SDK.
 
-这里将向您介绍如何获取并使用华为云 .Net SDK 。
+## Requirements
 
-## 使用前提
+- To use Huawei Cloud .Net SDK, you must have Huawei Cloud account as well as the Access Key and Secret key of the
+  Huawei Cloud account. You can create an Access Key in the Huawei Cloud console. For more information,
+  see [My Credentials](https://support.huaweicloud.com/en-us/usermanual-ca/en-us_topic_0046606340.html).
 
-- 要使用华为云 .Net SDK ，您需要拥有云账号以及该账号对应的 Access Key（AK）和 Secret Access Key（SK）。 请在华为云控制台“我的凭证-访问密钥”页面上创建和查看您的 AK&SK
-  。更多信息请查看 [访问密钥](https://support.huaweicloud.com/usermanual-ca/zh-cn_topic_0046606340.html) 。
+- To use Huawei Cloud .Net SDK to access the APIs of specific service, please make sure you do have activated the
+  service in [Huawei Cloud console](https://console.huaweicloud.com/?locale=en-us) if needed.
 
-- 要使用华为云 .Net SDK 访问指定服务的 API
-  ，您需要确认已在 [华为云控制台](https://console.huaweicloud.com/console/?locale=zh-cn&region=cn-north-4#/home) 开通当前服务。
+- The .NET SDK requires：
+    - **.NET Framework 4.5** or above
+    - **.NET Standard 2.0** or above
+    - **C# 4.0** or above
 
-- 华为云 .Net SDK 适用于：
-    - **.NET Framework 4.5** 及其以上版本
-    - **.NET Standard 2.0** 及其以上版本
-    - **C# 4.0** 及其以上版本
+## Install .Net SDK
 
-## SDK 获取和安装
+Run the following commands to install .Net SDK:
 
-您可以通过如下方式获取和安装 SDK ：
+You must install `HuaweiCloud.SDK.Core` library no matter which product development kit you need to use. Take using VPC
+SDK for example, you need to install `HuaweiCloud.SDK.Core` library and `HuaweiCloud.SDK.Vpc` library:
 
-无论您要使用哪个产品/服务的开发工具包，都必须安装`HuaweiCloud.SDK.Core`。以使用虚拟私有云 VPC SDK 为例，您需要安装`HuaweiCloud.SDK.Core` 和 `HuaweiCloud.SDK.Vpc`：
-
-- 使用 .NET CLI 工具
+- Use .NET CLI
 
 ``` bash
 dotnet add package HuaweiCloud.SDK.Core
 dotnet add package HuaweiCloud.SDK.Vpc
 ```
 
-- 使用 Package Manager
+- Use Package Manager
 
 ``` bash
 Install-Package HuaweiCloud.SDK.Core
 Install-Package HuaweiCloud.SDK.Vpc
 ```
 
-## 代码示例
+## Code example
 
-- 使用如下代码同步查询指定 Region 下的 VPC 列表，实际使用中请将 `VpcClient` 替换为您使用的产品/服务相应的 `{Service}Client` 。
-- 调用前请根据实际情况替换如下变量： `{your ak string}`、`{your sk string}`、`{your endpoint string}` 以及 `{your project id}`。
+- The following example shows how to query a list of VPC in a specific region, you need to substitute your
+  real `{Service}Client` for `VpcClient` in actual use.
+- Substitute the values for `{your ak string}`, `{your sk string}`, `{your endpoint string}` and `{your project id}`.
 
-``` csharp
+```csharp
 using System;
 using HuaweiCloud.SDK.Core;
 using HuaweiCloud.SDK.Core.Auth;
-// 导入指定云服务的 {Service}，此处以 Vpc 为例
 using HuaweiCloud.SDK.Vpc.V2;
 using HuaweiCloud.SDK.Vpc.V2.Model;
-// 导入日志打印的命名空间
 using Microsoft.Extensions.Logging;
 
 namespace ConsoleApp1
@@ -111,161 +111,159 @@ namespace ConsoleApp1
 }
 ```
 
-## 在线调试
+## Changelog
 
-[API Explorer](https://apiexplorer.developer.huaweicloud.com/apiexplorer/overview)
-提供API检索及平台调试，支持全量快速检索、可视化调试、帮助文档查看、在线咨询。
+Detailed changes for each released version are documented in
+the [CHANGELOG.md](https://github.com/huaweicloud/huaweicloud-sdk-net-v3/blob/master/CHANGELOG.md).
 
-## 变更日志
+## User Manual [:top:](#huawei-cloud-net-software-development-kit-net-sdk)
 
-每个版本的详细更改记录可在 [变更日志](https://github.com/huaweicloud/huaweicloud-sdk-net-v3/blob/master/CHANGELOG_CN.md) 中查看。
+* [1. Client Configuration](#1-client-configuration-top)
+    * [1.1  Default Configuration](#11-default-configuration-top)
+    * [1.2  Network Proxy](#12-network-proxy-top)
+    * [1.3  Connection](#13-connection-top)
+    * [1.4  SSL Certification](#14-ssl-certification-top)
+* [2. Credentials Configuration](#2-credentials-configuration-top)
+    * [2.1  Use Permanent AK&SK](#21-use-permanent-aksk-top)
+    * [2.2  Use Temporary AK&SK](#22-use-temporary-aksk-top)
+* [3. Client Initialization](#3-client-initialization-top)
+    * [3.1  Initialize the client with specified Endpoint](#31-initialize-the-serviceclient-with-specified-endpoint-top)
+    * [3.2  Initialize the client with specified Region (Recommended)](#32-initialize-the-serviceclient-with-specified-region-recommended-top)
+* [4. Send Requests and Handle Responses](#4-send-requests-and-handle-responses-top)
+    * [4.1  Exceptions](#41-exceptions-top)
+* [5. Use Asynchronous Client](#5-use-asynchronous-client-top)
+* [6. Troubleshooting](#6-troubleshooting-top)
+    * [6.1 Access Log](#61-access-log-top)
+    * [6.2 Original HTTP Listener](#62-original-http-listener-top)
+* [7. FAQ](#7-faq-top)
 
-## 用户手册 [:top:](#华为云开发者-net-软件开发工具包net-sdk)
+### 1. Client Configuration [:top:](#user-manual-top)
 
-* [1. 客户端连接参数](#1-客户端连接参数-top)
-    * [1.1 默认配置](#11-默认配置-top)
-    * [1.2 网络代理](#12-网络代理-top)
-    * [1.3 超时配置](#13-超时配置-top)
-    * [1.4 SSL 配置](#14-ssl-配置-top)
-* [2. 客户端认证信息](#2-客户端认证信息-top)
-    * [2.1 使用永久 AK 和 SK](#21-使用永久-ak-和-sk-top)
-    * [2.2 使用临时 AK 和 SK](#22-使用临时-ak-和-sk-top)
-* [3. 客户端初始化](#3-客户端初始化-top)
-    * [3.1 指定云服务 Endpoint 方式](#31-指定云服务-endpoint-方式-top)
-    * [3.2 指定 Region 方式（推荐）](#32-指定-region-方式-推荐-top)
-* [4. 发送请求并查看响应](#4-发送请求并查看响应-top)
-    * [4.1 异常处理](#41-异常处理-top)
-* [5. 异步客户端使用](#5-异步客户端使用-top)
-* [6. 故障处理](#6-故障处理-top)
-    * [6.1 访问日志](#61-访问日志-top)
-    * [6.2 HTTP 监听器](#62-http-监听器-top)
+#### 1.1 Default Configuration [:top:](#user-manual-top)
 
-### 1. 客户端连接参数 [:top:](#用户手册-top)
-
-#### 1.1 默认配置 [:top:](#用户手册-top)
-
-``` csharp
-// 使用默认配置
+```csharp
+// Use default configuration
 var config = HttpConfig.GetDefaultConfig();
 ```
 
-#### 1.2 网络代理 [:top:](#用户手册-top)
+#### 1.2 Network Proxy [:top:](#user-manual-top)
 
-根据需要配置网络代理
+Use network proxy if needed.
 
-- 若配置代理时指定了端口号，则默认仅支持 HTTP 代理
+- Only HTTP proxy is supported if you have assigned proxy port when configuring proxy.
 
 ``` csharp
 config.ProxyHost = "proxy.huaweicloud.com";
-// 指定端口号为8080
+// assign proxy port
 config.ProxyPort = 8080;
 config.ProxyUsername = "test";
 config.ProxyPassword = "test";
 ```
 
-- 若配置代理时未指定端口号，则可支持 HTTP 和 HTTPS 代理
+- Both HTTP and HTTPS proxy are supported if proxy port is unassigned when configuring proxy.
 
 ``` csharp
-// 协议和端口号均在host中
 config.ProxyHost = "https://proxy.huaweicloud.com:8080";
 config.ProxyUsername = "test";
 config.ProxyPassword = "test";
 ```
 
-#### 1.3 超时配置 [:top:](#用户手册-top)
+#### 1.3 Connection [:top:](#user-manual-top)
 
 ``` csharp
-// 默认超时时间为120秒，可根据需要调整
 config.Timeout = 120;
 ```
 
-#### 1.4 SSL 配置 [:top:](#用户手册-top)
+#### 1.4 SSL Certification [:top:](#user-manual-top)
 
 ``` csharp
-// 根据需要配置是否跳过SSL证书验证
+// Skip ssl certifaction checking while using https protocal if needed
 config.IgnoreSslVerification = true;
 ```
 
-### 2. 客户端认证信息 [:top:](#用户手册-top)
+### 2. Credentials Configuration [:top:](#user-manual-top)
 
-华为云服务存在两种部署方式，Region 级服务和 Global 级服务。
+There are two types of Huawei Cloud services, `regional` services and `global` services.
 
-Global 级服务有 IAM、TMS、EPS。
+Global services contain IAM, TMS, EPS.
 
-Region 级服务需要提供 projectId 。Global 级服务需要提供 domainId 。
+For `regional` services' authentication, projectId is required. For `global` services' authentication, domainId is
+required.
 
-**认证参数说明**：
+**Parameter description**:
 
-- `ak` - 华为云账号 Access Key
-- `sk` - 华为云账号 Secret Access Key
-- `projectId` - 云服务所在项目 ID ，根据你想操作的项目所属区域选择对应的项目 ID
-- `domainId` - 华为云账号 ID
-- `securityToken` - 采用临时 AK&SK 认证场景下的安全票据
+- `ak` is the access key ID for your account.
+- `sk` is the secret access key for your account.
+- `projectId` is the ID of your project depending on the region you want to operate.
+- `domainId` is the account ID of Huawei Cloud.
+- `securityToken` is the security token when using temporary AK/SK.
 
-客户端认证可以使用永久 AK&SK 认证，也可以使用临时 AK&SK&SecurityToken 认证。
+You could use permanent AK and SK **or** use temporary AK and SK and SecurityToken to complete credentials'
+configuration.
 
-#### 2.1 使用永久 AK 和 SK [:top:](#用户手册-top)
+#### 2.1 Use Permanent AK&SK [:top:](#user-manual-top)
 
 ``` csharp
-// Region级服务
+// Regional services
 Credentials basicCredentials = new BasicCredentials(ak, sk, projectId);
 
-// Global级服务
+// Global services
 Credentials globalCredentials = new GlobalCredentials(ak, sk, domainId);
 ```
 
-**说明**：
+**Notice**: project_id/domain_id supports **automatic acquisition** in version `3.0.26-beta` or later, if you want to
+use this feature, it's required to build your client instance with method `with_region()`, detailed example could refer
+to [3.2 Initialize the client with specified Region](#32-initialize-the-serviceclient-with-specified-region-recommended-top)
+.
 
-- `3.0.26-beta` 及以上版本支持通过永久 AK&SK 回填 projectId/domainId ，需要在初始化客户端时配合 `WithRegion()`
-  方法使用，代码示例详见 [3.2 指定Region方式（推荐）](#32-指定-region-方式-推荐-top) 。
+#### 2.2 Use Temporary AK&SK [:top:](#user-manual-top)
 
-#### 2.2 使用临时 AK 和 SK [:top:](#用户手册-top)
+It's required to obtain temporary access key, security key and security token first, which could be obtained through
+permanent access key and security key or through an agency.
 
-首先需要获得临时 AK、SK 和 SecurityToken ，可以从永久 AK&SK 获得，或者通过委托授权获得。
+Obtaining a temporary access key token through permanent access key and security key, you could refer to
+document: https://support.huaweicloud.com/en-us/api-iam/iam_04_0002.html . The API mentioned in the document above
+corresponds to the method of `CreateTemporaryAccessKeyByToken` in IAM SDK.
 
-- 通过永久 AK&SK 获得可以参考文档：https://support.huaweicloud.com/api-iam/iam_04_0002.html ，对应 IAM SDK
-  中的 `CreateTemporaryAccessKeyByToken` 方法。
-
-- 通过委托授权获得可以参考文档：https://support.huaweicloud.com/api-iam/iam_04_0101.html ，对应 IAM SDK
-  中的 `CreateTemporaryAccessKeyByAgency` 方法。
-
-临时 AK&SK&SecurityToken 获取成功后，可使用如下方式初始化认证信息：
+Obtaining a temporary access key and security token through an agency, you could refer to
+document: https://support.huaweicloud.com/en-us/api-iam/iam_04_0101.html . The API mentioned in the document above
+corresponds to the method of `CreateTemporaryAccessKeyByAgency` in IAM SDK.
 
 ``` csharp
-// Region级服务
+// Regional services
 Credentials basicCredentials = new BasicCredentials(ak, sk, projectId).WithSecurityToken(securityToken);
     
-// Global级服务
+// Global services
 Credentials globalCredentials = new GlobalCredentials(ak, sk, domainId).WithSecurityToken(securityToken);
 ```
 
-### 3. 客户端初始化 [:top:](#用户手册-top)
+### 3. Client Initialization [:top:](#user-manual-top)
 
-客户端初始化有两种方式，可根据需要选择下列两种方式中的一种：
+There are two ways to initialize the {Service}Client, you could choose one you preferred.
 
-#### 3.1 指定云服务 Endpoint 方式 [:top:](#用户手册-top)
+#### 3.1 Initialize the {Service}Client with specified Endpoint [:top:](#user-manual-top)
 
 ``` csharp
-// 初始化指定云服务的客户端 {Service}Client，以初始化 VpcClient 为例
-var vpcClient = VpcClient.NewBuilder()
+// Initialize specified {Service}Client instance, take VpcClient for example
+VpcClient vpcClient = VpcClient.NewBuilder()
     .WithCredential(basicCredentials)
     .WithEndPoint(endpoint)
     .WithHttpConfig(config)
-    .WithLogging(LogLevel.Information)
     .Build();
 ```
 
-**说明:**
+**where:**
 
-- `endpoint` 是华为云各服务应用区域和各服务的终端节点，详情请查看 [地区和终端节点](https://developer.huaweicloud.com/endpoint) 。
+- `endpoint` is the service specific endpoints,
+  see [Regions and Endpoints](https://developer.huaweicloud.com/intl/en-us/endpoint).
 
-#### 3.2 指定 Region 方式 **（推荐）** [:top:](#用户手册-top)
+#### 3.2 Initialize the {Service}Client with specified Region **(Recommended)** [:top:](#user-manual-top)
 
 ``` csharp
-// 使用当前客户端初始化方式可不填 domainId
+// DomainId could be unassigned in this situation
 Credentials globalCredentials = new GlobalCredentials(ak, sk);
 
-// 初始化指定云服务的客户端 {Service}Client，以初始化 IamClient 为例
+// Initialize specified {Service}Client instance, take IamClient for example
 IamClient iamClient = IamClient.NewBuilder()
     .WithCredential(globalCredentials)
     .WithRegion(IamRegion.CN_NORTH_4)
@@ -273,15 +271,16 @@ IamClient iamClient = IamClient.NewBuilder()
     .Build();
 ```
 
-**说明：**
+**Notice:**
 
-- 指定 Region 方式创建客户端的场景，支持自动获取用户的 projectId 或者 domainId，初始化认证信息时可无需指定相应参数。
-- 不适用于 `多ProjectId` 的场景。
+- If you use {Service}Region to initialize {Service}Client, projectId/domainId supports automatic acquisition, you don't
+  need to configure it when initializing Credentials.
+- Multiple ProjectId situation is not supported.
 
-### 4. 发送请求并查看响应 [:top:](#用户手册-top)
+### 4. Send Requests and Handle Responses [:top:](#user-manual-top)
 
-``` csharp
-// 初始化请求，以调用接口 ListVpcs 为例
+```csharp
+// Send request and print response, take interface of ListVpcs for example
 var request = new ListVpcsRequest
 {
     Limit = 1,
@@ -291,19 +290,19 @@ var response = vpcClient.ListVpcs(request)
 Console.WriteLine(JsonUtils.Serialize(response.Vpcs));
 ```
 
-#### 4.1 异常处理 [:top:](#用户手册-top)
+#### 4.1 Exceptions [:top:](#user-manual-top)
 
-| 一级分类 | 一级分类说明 | 二级分类 | 二级分类说明 |
+| Level 1 | Notice | Level 2 | Notice |
 | :---- | :---- | :---- | :---- |
-| ConnectionException | 连接类异常 | HostUnreachableException | 网络不可达、被拒绝 |
-| | | SslHandShakeException | SSL认证异常 |
-| RequestTimeoutException | 响应超时异常 | CallTimeoutException | 单次请求，服务器处理超时未返回 |
-| | | RetryOutageException | 在重试策略消耗完成已后，仍无有效的响应 |
-| ServiceResponseException | 服务器响应异常 | ServerResponseException | 服务端内部错误，Http响应码：[500,] |
-| | | ClientRequestException | 请求参数不合法，Http响应码：[400, 500) |
+| ConnectionException | Connection error | HostUnreachableException | Host is not reachable |
+| | | SslHandShakeException | SSL certification error |
+| RequestTimeoutException | Request timeout | CallTimeoutException | timeout for single request |
+| | | RetryOutageException | no response after retrying |
+| ServiceResponseException | service response error | ServerResponseException | server inner error, http status code: [500,] |
+| | | ClientRequestException | invalid request, http status code: [400, 500) |
 
-``` csharp
-// 异常处理
+```csharp
+// Handle ClientRequestExceptions
 try
 {
     var request = new ListVpcsRequest
@@ -323,46 +322,48 @@ catch (ServiceResponseException serviceResponseException)
 }
 ```
 
-### 5. 异步客户端使用 [:top:](#用户手册-top)
+### 5. Use Asynchronous Client [:top:](#user-manual-top)
 
-``` csharp
-// 初始化异步客户端，以初始化 VpcAsyncClient 为例
+```csharp
+// Initialize asynchronous client instance, take VpcAsyncClient for example
 var vpcClient = VpcAsyncClient.NewBuilder()
     .WithCredential(auth)
     .WithEndPoint(endpoint)
     .WithHttpConfig(config)
     .Build();
 
-// 发送异步请求
+// send asynchronous request
 var future = vpcClient.ListVpcsAsync(new ListVpcsRequest()
 {
     Limit = 1
 });
 
-// 获取异步请求结果
+// get asynchronous response
 var response = future.Result;
 Console.WriteLine(JsonUtils.Serialize(response.Vpcs));
 ```
 
-### 6. 故障处理 [:top:](#用户手册-top)
+### 6. Troubleshooting [:top:](#user-manual-top)
 
-SDK 提供 Access 级别的访问日志及 Debug 级别的原始 HTTP 监听器日志，用户可根据需要进行配置。
+SDK supports `Access` log and `Debug` log which could be configured manually.
 
-#### 6.1 访问日志 [:top:](#用户手册-top)
+#### 6.1 Access Log [:top:](#user-manual-top)
 
-SDK 支持打印访问日志，需要用户手动打开日志开关，支持打印到控制台。示例代码如下：
+SDK supports print access log which could be enabled by manual configuration, the log could be output to the console.
+
+For example:
 
 ``` csharp
 var vpcClient = VpcClient.NewBuilder()
     .WithCredential(auth)
     .WithEndPoint(endpoint)
-    // 设置打印日志的级别即可在控制台打印日志
+    // configure log level and request will be print on the console
     .WithLogging(LogLevel.Information)
     .WithHttpConfig(config)
     .Build();
 ```
 
-打开日志开关后，每次请求都会有以下记录，如：
+After enabled log, the SDK will print the access log by default, every request will be recorded to the console like:
 
 ``` text
 info: System.Net.Http.HttpClient.SdkHttpClient.LogicalHandler[100]
@@ -375,13 +376,14 @@ info: System.Net.Http.HttpClient.SdkHttpClient.LogicalHandler[101]
       End processing HTTP request after 543.6428ms - OK
 ```
 
-#### 6.2 HTTP 监听器 [:top:](#用户手册-top)
+#### 6.2 Original HTTP Listener [:top:](#user-manual-top)
 
-在某些场景下可能对业务发出的 HTTP 请求进行 Debug ，需要看到原始的 HTTP 请求和返回信息， SDK 提供监听器功能来获取原始的为加密的 HTTP 请求和返回信息。
+In some situation, you may need to debug your http requests, original http request and response information will be
+needed. The SDK provides a listener function to obtain the original encrypted http request and response information.
 
-> :warning:  Warning: 原始信息打印仅在 Debug 阶段使用，请不要在生产系统中将原始的 HTTP 头和 Body 信息打印到日志，这些信息并未加密且其中包含敏感数据，例如所创建虚拟机的密码，IAM 用户的密码等；当 Body 体为二进制内容，即 Content-Type 标识为二进制时，Body 为"***"，详细内容不输出。
+> :warning:  Warning: The original http log information is used in debugging stage only, please do not print the original http header or body in the production environment. These log information is not encrypted and contains sensitive data such as the password of your ECS virtual machine, or the password of your IAM user account, etc. When the response body is binary content, the body will be printed as "***" without detailed information.
 
-``` csharp
+```csharp
 private void RequestHandler(HttpRequestMessage message, ILogger logger)
 {
     logger.LogDebug(message.ToString());
@@ -403,6 +405,16 @@ var vpcClient = VpcClient.NewBuilder()
     .Build();
 ```
 
-**说明:**
+**where:**
 
-HttpHandler 支持如下方法 `AddRequestHandler` 、`AddResponseHandler` 。
+HttpHandler supports method `AddRequestHandler` and `AddResponseHandler`.
+
+### 7. FAQ
+
+Use .Net Framework 4.7 to integrate .Net SDK, a dead lock occurs
+
+**[Symptom]**: When using synchronized client to call an interface, and the program has been started, but where is no error message or timeout occurs.
+
+**[Cause]**: The inner implementation of sending requests in synchronized client of SDK is to use an asynchronous task, and SDK will await this task. In such scenario, **deadlock** occurs between the context of the .Net Framework UI and the asynchronous task context of the SDK. As a result, the asynchronous task of the SDK cannot be activated. [Original article](https://blog.stephencleary.com/2012/07/dont-block-on-async-code.html)
+
+**[Solution]**: **Switch the synchronous client to the asynchronous client**. If the UI events and API requests are both asynchronous, there will be no deadlock.
