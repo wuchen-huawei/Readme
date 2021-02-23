@@ -1,6 +1,6 @@
 [English](./README.md) | 简体中文
 
-<p align="center" style="margin-bottom: 20px; padding-bottom: 20px;">
+<p align="center">
   <a href="https://www.huaweicloud.com/"><img width="270px" height="90px" src="https://console-static.huaweicloud.com/static/authui/20210202115135/public/custom/images/logo.svg"></a>
 </p>
 
@@ -24,14 +24,11 @@
 
 ## SDK 获取和安装
 
-使用 go get 安装华为云 Go SDK ，执行如下命令安装华为云 Go SDK 库以及相关依赖库：
+使用 go get 安装华为云 Go SDK ，执行如下命令安装华为云 Go SDK 库：
 
 ``` bash
 # 安装华为云 Go SDK 库
 go get github.com/huaweicloud/huaweicloud-sdk-go-v3
-
-# 安装依赖
-go get github.com/json-iterator/go
 ```
 
 ## 代码示例
