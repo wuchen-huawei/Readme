@@ -3,192 +3,201 @@
 <p align="center">
   <a href="https://www.huaweicloud.com/"><img width="270px" height="90px" src="https://console-static.huaweicloud.com/static/authui/20210202115135/public/custom/images/logo.svg"></a>
 </p>
-<br>
+<font color="#fff">invisible</font>
 
 <h1 align="center">华为云开发者 Php 软件开发工具包（Php SDK）</h1>
 
-欢迎使用华为云 Php SDK 。
+# 华为云开发者 Go 软件开发工具包（Go SDK）
 
-华为云 Php SDK 让您无需关心请求细节即可快速使用弹性云服务器、虚拟私有云等多个华为云服务。
+欢迎使用华为云 Go SDK。
 
-这里将向您介绍如何获取并使用华为云 Php SDK 。
+华为云 Go SDK 让您无需关心请求细节即可快速使用弹性云服务器、虚拟私有云等多个华为云服务。
+
+这里将向您介绍如何获取并使用华为云 Go SDK 。
 
 ## 使用前提
 
-- 要使用华为云 Php SDK，您需要拥有华为云账号以及该账号对应的 Access Key（AK）和 Secret Access Key（SK）。请在华为云控制台 “我的凭证-访问密钥” 页面上创建和查看您的 AK&SK
+- 要使用华为云 Go SDK ，您需要拥有云账号以及该账号对应的 Access Key（AK）和 Secret Access Key（SK）。请在华为云控制台“我的凭证-访问密钥”页面上创建和查看您的 AK&SK
   。更多信息请查看 [访问密钥](https://support.huaweicloud.com/usermanual-ca/zh-cn_topic_0046606340.html) 。
 
-- 要使用华为云 Php SDK 访问指定服务的 API
+- 要使用华为云 Go SDK 访问指定服务的 API
   ，您需要确认已在 [华为云控制台](https://console.huaweicloud.com/console/?locale=zh-cn&region=cn-north-4#/home) 开通当前服务。
 
-- 华为云 Php SDK 支持 **PHP 5.6** 及以上版本，可执行 `php --version` 检查当前 Php 的版本信息。
+- 华为云 Go SDK 支持 go 1.14 及以上版本，可执行 `go version` 检查当前 Go 的版本信息。
 
 ## SDK 获取和安装
 
-推荐使用 [Composer](http://getcomposer.org/) 安装 SDK 。
-
-Composer 是 Php 的依赖管理工具，允许您在项目中声明依赖关系并安装这些依赖：
+使用 go get 安装华为云 Go SDK ，执行如下命令安装华为云 Go SDK 库以及相关依赖库：
 
 ``` bash
-# 安装 Composer
-curl -sS https://getcomposer.org/installer | php
-# 安装 PHP SDK
-composer require huaweicloud/huaweicloud-sdk-php
-```
+# 安装华为云 Go SDK 库
+go get github.com/huaweicloud/huaweicloud-sdk-go-v3
 
-安装完毕后，你需要引入 Composer 的自动加载文件：
-
-``` php
-require 'path/to/vendor/autoload.php';
+# 安装依赖
+go get github.com/json-iterator/go
 ```
 
 ## 代码示例
 
-- 使用如下代码同步查询当前账号下已创建的永久 AK 信息，实际使用中请将 `IamClient` 替换为您使用的产品/服务相应的 `{Service}Client` 。
-- 调用前请根据实际情况替换如下变量：`{your ak string}`、 `{your sk string}`、 `{your endpoint}` 以及 `{your domain id}`。
+- 使用如下代码在指定 Region 下查询 VPC 列表，实际使用中请将 `vpc "github.com/huaweicloud/huaweicloud-sdk-go-v3/services/vpc/v2"`
+  替换为您使用的产品/服务相应的 `{service} "github.com/huaweicloud/huaweicloud-sdk-go-v3/services/{service}/{version}"`
+  ，且初始化为 `{service}.New{Service}Client` 。
+- 调用前请根据实际情况替换如下变量： `{your ak string}`、`{your sk string}`、`{your endpoint string}` 以及 `{your project id}` 。
 
-``` php
-<?php
+``` go
+package main
 
-require_once ".\\vendor\autoload.php";
+import (
+    "fmt"
+    "github.com/huaweicloud/huaweicloud-sdk-go-v3/core/auth/basic"
+    "github.com/huaweicloud/huaweicloud-sdk-go-v3/core/config"
+    "github.com/huaweicloud/huaweicloud-sdk-go-v3/core/httphandler"
+    vpc "github.com/huaweicloud/huaweicloud-sdk-go-v3/services/vpc/v2"
+    "github.com/huaweicloud/huaweicloud-sdk-go-v3/services/vpc/v2/model"
+    "net/http"
+)
 
-use HuaweiCloud\SDK\Core\Auth\GlobalCredentials;
-use HuaweiCloud\SDK\Core\Http\HttpConfig;
-use HuaweiCloud\SDK\Core\Exceptions\ConnectionException;
-use HuaweiCloud\SDK\Core\Exceptions\RequestTimeoutException;
-use HuaweiCloud\SDK\Core\Exceptions\ServiceResponseException;
-use HuaweiCloud\SDK\Iam\V3\IamClient;
-use HuaweiCloud\SDK\Iam\V3\Model\ListPermanentAccessKeysRequest;
-use Monolog\Logger;
-
-$ak = "{your ak string}";
-$sk = "{your sk string}";
-$endpoint = "{your endpoint}";
-$domainId = "{your domain id}";
-
-$config = HttpConfig::getDefaultConfig();
-$config->setIgnoreSslVerification(true);
-$credentials = new GlobalCredentials($ak,$sk,$domainId);
-
-$iamClient = IamClient::newBuilder()
-    ->withHttpConfig($config)
-    ->withEndpoint($endpoint)
-    ->withCredentials($credentials)
-    ->withStreamLogger($stream = 'php://stdout',$logLevel =Logger::INFO)
-    ->withFileLogger($logPath='./test_log.txt', $logLevel = Logger::INFO)
-    ->build();
-
-function listPermanentAccessKeys($iamClient)
-{
-    $listPermanentAccessKeysRequest = new ListPermanentAccessKeysRequest(array('userId'=>"{your user id}"));
-    try {
-        $response = $iamClient->listPermanentAccessKeys($listPermanentAccessKeysRequest);
-        echo "\n";
-        echo $response;
-    } catch (ConnectionException $e) {
-        $msg = $e->getMessage();
-        echo "\n". $msg ."\n";
-    } catch (RequestTimeoutException $e) {
-        $msg = $e->getMessage();
-        echo "\n". $msg ."\n";
-    } catch (ServiceResponseException $e) {
-        echo "\n";
-        echo $e->getHttpStatusCode(). "\n";
-        echo $e->getErrorCode(). "\n";
-        echo $e->getErrorMsg(). "\n";
-    }
+func RequestHandler(request http.Request) {
+    fmt.Println(request)
 }
 
-listPermanentAccessKeys($iamClient);
+func ResponseHandler(response http.Response) {
+    fmt.Println(response)
+}
+
+func main() {
+    client := vpc.NewVpcClient(
+        vpc.VpcClientBuilder().
+            WithEndpoint("{your endpoint}").
+            WithCredential(
+                basic.NewCredentialsBuilder().
+                    WithAk("{your ak string}").
+                    WithSk("{your sk string}").
+                    WithProjectId("{your project id}").
+                    Build()).
+            WithHttpConfig(config.DefaultHttpConfig().
+                WithIgnoreSSLVerification(true).
+                WithHttpHandler(httphandler.
+                    NewHttpHandler().
+                        AddRequestHandler(RequestHandler).
+                        AddResponseHandler(ResponseHandler))).
+            Build())
+
+    limit := int32(1)
+    request := &model.ListVpcsRequest{
+      Limit: &limit,
+    }
+    response, err := client.ListVpcs(request)
+    if err == nil {
+      fmt.Printf("%+v\n\n", response.Vpcs)
+    } else {
+      fmt.Println(err)
+    }
+}
 ```
+
+## 在线调试
+
+[API Explorer](https://apiexplorer.developer.huaweicloud.com/apiexplorer/overview)
+提供API检索及平台调试，支持全量快速检索、可视化调试、帮助文档查看、在线咨询。
 
 ## 变更日志
 
-每个版本的详细更改记录可在 [变更日志](https://github.com/huaweicloud/huaweicloud-sdk-php-v3/blob/master/CHANGELOG_CN.md) 中查看。
+每个版本的详细更改记录可在 [变更日志](https://github.com/huaweicloud/huaweicloud-sdk-go-v3/blob/master/CHANGELOG_CN.md) 中查看。
 
-## 用户手册 [:top:](#华为云开发者-php-软件开发工具包php-sdk)
+## 用户手册 [:top:](#华为云开发者-go-软件开发工具包go-sdk)
 
 * [1. 客户端连接参数](#1-客户端连接参数-top)
     * [1.1 默认配置](#11-默认配置-top)
     * [1.2 网络代理](#12-网络代理-top)
     * [1.3 超时配置](#13-超时配置-top)
-    * [1.4 SSL 配置](#14-ssl-配置-top)
+    * [1.4 SSL配置](#14-ssl-配置-top)
 * [2. 客户端认证信息](#2-客户端认证信息-top)
     * [2.1 使用永久 AK 和 SK](#21-使用永久-ak-和-sk-top)
     * [2.2 使用临时 AK 和 SK](#22-使用临时-ak-和-sk-top)
 * [3. 客户端初始化](#3-客户端初始化-top)
     * [3.1 指定云服务 Endpoint 方式](#31-指定云服务-endpoint-方式-top)
+    * [3.2 指定 Region 方式（推荐）](#32-指定-region-方式-推荐-top)
 * [4. 发送请求并查看响应](#4-发送请求并查看响应-top)
     * [4.1 异常处理](#41-异常处理-top)
-* [5. 异步客户端使用](#5-异步客户端使用-top)
-* [6. 故障处理](#6-故障处理-top)
-    * [6.1 访问日志](#61-访问日志-top)
-    * [6.2 HTTP 监听器](#62-http-监听器-top)
+* [5. 故障处理](#5-故障处理-top)
+    * [5.1 HTTP 监听器](#51-http监听器-top)
 
 ### 1. 客户端连接参数 [:top:](#用户手册-top)
 
 #### 1.1 默认配置 [:top:](#用户手册-top)
 
-``` php
+``` go
 // 使用默认配置
-$config = HttpConfig::getDefaultConfig();
+httpConfig := config.DefaultHttpConfig()
 ```
 
 #### 1.2 网络代理 [:top:](#用户手册-top)
 
-``` php
-// 使用代理服务器（可选）
-$config->setProxyProtocol('http');
-$config->setProxyHost('proxy.huawei.com');
-$config->setProxyPort(8080);
-$config->setProxyUser('username');
-$config->setProxyPassword('password');
+``` go
+// 根据需要配置网络代理
+httpConfig.WithProxy(config.NewProxy().
+    WithSchema("http").
+    WithHost("proxy.huaweicloud.com").
+    WithPort(80).
+    WithUsername("testuser").
+    WithPassword("password"))))
 ```
 
 #### 1.3 超时配置 [:top:](#用户手册-top)
 
-``` php
-// 默认连接超时时间为60秒，读取超时时间为120秒。可根据需要修改默认值。
-$config->setTimeout(120);
-$config->setConnectionTimeout(60);
+``` go
+// 默认超时时间为120秒，可根据需要配置
+httpConfig.WithTimeout(120);
 ```
 
 #### 1.4 SSL 配置 [:top:](#用户手册-top)
 
-``` php
-# 配置跳过服务端证书验证（可选）
-$config->setIgnoreSslVerification(true);
-# 配置服务器端CA证书，用于SDK验证服务端证书合法性
-$config->setCertFile("{yourCertFile}");
+``` go
+// 根据需要配置是否跳过SSL证书校验
+httpConfig.WithIgnoreSSLVerification(true);
 ```
 
 ### 2. 客户端认证信息 [:top:](#用户手册-top)
 
 华为云服务存在两种部署方式，Region 级服务和 Global 级服务。
 
-Global 级服务当前仅支持 IAM 。
+Global 级服务有 BSS、DevStar、EPS、IAM、RMS。
 
 Region 级服务需要提供 projectId 。Global 级服务需要提供 domainId 。
 
+客户端认证可以使用永久 AK&SK 认证，也可以使用临时 AK&SK&SecurityToken 认证。
+
 **认证参数说明**：
 
-- `ak` - 华为云账号 Access Key
-- `sk` - 华为云账号 Secret Access Key
-- `projectId` - 云服务所在项目 ID ，根据你想操作的项目所属区域选择对应的项目 ID
-- `domainId` - 华为云账号 ID
-- `securityToken` - 采用临时 AK&SK 认证场景下的安全票据
-
-客户端认证可以使用永久 AK&SK 认证，也可以使用临时 AK&SK&SecurityToken 认证。
+- `ak` 华为云账号 Access Key
+- `sk` 华为云账号 Secret Access Key
+- `projectId` 云服务所在项目 ID ，根据你想操作的项目所属区域选择对应的项目 ID
+- `domainId` 华为云账号 ID
+- `securityToken` 采用临时 AK&SK 认证场景下的安全票据
 
 #### 2.1 使用永久 AK 和 SK [:top:](#用户手册-top)
 
-``` php
-// Region级服务
-$basicCredentials = new BasicCredentials($ak,$sk,$projectId);
-    
-// Global级服务
-$globalCredentials = new GlobalCredentials($ak,$sk,$domainId);
+``` go
+// Region 级服务
+basicAuth := basic.NewCredentialsBuilder().
+    WithAk(ak).
+    WithSk(sk).
+    WithProjectId(projectId).
+    Build()
+
+// Global 级服务
+globalAuth := global.NewCredentialsBuilder().
+    WithAk(ak).
+    WithSk(sk).
+    WithDomainId(domainId).
+    Build()
 ```
+
+**说明**：
+
+- `0.0.26-beta` 及以上版本支持通过永久 AK&SK 回填 projectId/domainId ，需要在初始化客户端时配合 `WithRegion()`
+  方法使用，代码示例详见 [3.2 指定Region方式（推荐）](#32-指定-region-方式-推荐-top) 。
 
 #### 2.2 使用临时 AK 和 SK [:top:](#用户手册-top)
 
@@ -202,198 +211,137 @@ $globalCredentials = new GlobalCredentials($ak,$sk,$domainId);
 
 临时 AK&SK&SecurityToken 获取成功后，可使用如下方式初始化认证信息：
 
-``` php
+``` go
 // Region级服务
-$basicCredentials = BasicCredentials(ak, sk, projectId).withSecurityToken(securityToken);
+basicAuth := basic.NewCredentialsBuilder().
+    WithAk(ak).
+    WithSk(sk).
+    WithProjectId(projectId).
+    WithSecurityToken(securityToken).
+    Build()
+
 // Global级服务
-$globalCredentials = GlobalCredentials(ak, sk, domainId).withSecurityToken(securityToken);
+globalAuth := global.NewCredentialsBuilder().
+    WithAk(ak).
+    WithSk(sk).
+    WithDomainId(domainId).
+    WithSecurityToken(securityToken).
+    Build()
 ```
 
 ### 3. 客户端初始化 [:top:](#用户手册-top)
 
+客户端初始化有两种方式，可根据需要选择下列两种方式中的一种：
+
 #### 3.1 指定云服务 Endpoint 方式 [:top:](#用户手册-top)
 
-``` php
-# 初始化指定云服务的客户端 {Service}Client ，以初始化 IamClient 为例
-$iamClient = IamClient::newBuilder()
-    ->withHttpConfig($config)
-    ->withEndpoint($endpoint)
-    ->withCredentials($globalCredentials)
-    ->build();
-```
-
-**说明：**
-
-- `endpoint` 是华为云各服务应用区域和各服务的终端节点，详情请查看 [地区和终端节点](https://developer.huaweicloud.com/endpoint) 。
-
-### 4. 发送请求并查看响应 [:top:](#用户手册-top)
-
-``` php
-// 初始化请求，以调用接口 ListPermanentAccessKeys 为例
-$request = new ListPermanentAccessKeysRequest(array(userId=>"{your user id}"));
-$response = $iamClient->listPermanentAccessKeys($request);
-echo response;
-```
-
-#### 4.1 异常处理 [:top:](#用户手册-top)
-
-| 一级分类 | 一级分类说明 | 二级分类 | 二级分类说明 |
-| :---- | :---- | :---- | :---- |
-| ConnectionException | 连接类异常 | HostUnreachableException | 网络不可达、被拒绝 |
-| | | SslHandShakeException | SSL认证异常 |
-| RequestTimeoutException | 响应超时异常 | CallTimeoutException | 单次请求，服务器处理超时未返回 |
-| | | RetryOutageException | 在重试策略消耗完成已后，仍无有效的响应 |
-| ServiceResponseException | 服务器响应异常 | ServerResponseException | 服务端内部错误，Http响应码：[500,] |
-| | | ClientRequestException | 请求参数不合法，Http响应码：[400， 500) |
-
-``` php
-# 异常处理
-try {
-    $request = new ListPermanentAccessKeysRequest(array(userId=>"{your userId}"));
-    $response = $iamClient->listPermanentAccessKeys($request);
-} catch (ConnectionException $e) {
-    $msg = $e->getMessage();
-    echo "\n". $msg ."\n";
-} catch (RequestTimeoutException $e) {
-    $msg = $e->getMessage();
-    echo "\n". $msg ."\n";
-} catch (ServiceResponseException $e) {
-    echo "\n";
-    echo $e->getHttpStatusCode(). "\n";
-    echo $e->getErrorCode() . "\n";
-    echo $e->getErrorMsg() . "\n";
-}
-```
-
-### 5. 异步客户端使用 [:top:](#用户手册-top)
-
-``` php
-// 初始化异步客户端，以初始化 IamAsyncClient 为例
-$iamClient = IamAsyncClient::newBuilder()
-    ->withHttpConfig($config)
-    ->withEndpoint($endpoint)
-    ->withCredentials($globalCredentials)
-    ->build();
-
-// 发送异步请求
-$request = new ShowPermanentAccessKeyRequest(array('accessKey' => "{your access key}"));
-$promise = $iamClient->showPermanentAccessKeyAsync($request);
-
-// 获取异步请求结果
-$response = $promise->wait();
-```
-
-### 6. 故障处理 [:top:](#用户手册-top)
-
-SDK 提供 Access 级别的访问日志及 Debug 级别的原始 HTTP 监听器日志，用户可根据需要进行配置。
-
-#### 6.1 访问日志 [:top:](#用户手册-top)
-
-SDK 支持打印 Access 级别的访问日志，需要用户手动打开日志开关，支持打印到控制台或者指定的文件。示例如下：
-
-``` php
-# 初始化指定云服务的客户端 {Service}Client ，以初始化 IamClient 为例
-$iamClient = IamClient::newBuilder()
-    ->withHttpConfig($config)
-    ->withEndpoint($endpoint)
-    ->withCredentials(null)
-    ->withStreamLogger($stream = 'php://stdout',$logLevel =Logger::INFO) // 日志打印至控制台
-    ->withFileLogger($logPath='./test_log.txt', $logLevel = Logger::INFO) // 日志打印至文件
-    ->build();
-```
-
-**说明**：
-
-- `withFileLogger` 支持如下配置：
-    - `$logPath`：日志文件路径
-    - `$logLevel`：日志级别，默认INFO
-    - `$logMaxFiles`：日志文件个数，默认为5个
-- `withStreamLogger` 支持如下配置：
-    - `$stream`：流对象，默认 'php://stdout'
-    - `$logLevel`：日志级别，默认INFO
-
-打开日志开关后，每次请求都会有一条记录，如：
-
-``` text
-[2020-10-16 03:10:29][INFO] "GET https://iam.cn-north-1.myhuaweicloud.com/v3.0/OS-CREDENTIAL/credentials/W8VHHFEFPIJV6TFOUOQO"  200 244 7a68399eb8ed63fc91018426a7c4b8a0
-```
-
-日志格式为：
-
-``` text
-"{httpMethod} {uri}" {httpStatusCode} {responseContentLength} {requestId}
-```
-
-#### 6.2 HTTP 监听器 [:top:](#用户手册-top)
-
-在某些场景下可能对业务发出的 HTTP 请求进行 Debug ，需要看到原始的 HTTP 请求和返回信息， SDK 提供监听器功能来获取原始的为加密的 HTTP 请求和返回信息。
-
-> :warning:  Warning: 原始信息打印仅在 Debug 阶段使用，请不要在生产系统中将原始的 HTTP 头和 Body 信息打印到日志，这些信息并未加密且其中包含敏感数据，例如所创建虚拟机的密码，IAM 用户的密码等；当 Body 体为二进制内容，即 Content-Type 标识为二进制时，Body 为"***"，详细内容不输出。
-
-``` php
-$requestHandler = function ($argsMap) {
-    if (isset($argsMap['request'])) {
-        $sdkRequest = $argsMap['request'];
-        $requestHeaders = $sdkRequest->headerParams;
-        $requestBase = "> Request " . $sdkRequest->method . ' ' .
-            $sdkRequest->url . "\n";
-        if (count($requestHeaders) > 0) {
-            $requestBase = $requestBase . '> Headers:' . "\n";
-            foreach ($requestHeaders as $key => $value) {
-                $requestBase = $requestBase . '    ' . $key . ' : ' .
-                    $value . "\n";
-            }
-            $requestBase = $requestBase . '> Body: ' .
-                $sdkRequest->body . "\n\n";
-        }
-        if (isset($argsMap['logger'])) {
-            $logger = $argsMap['logger'];
-            $logger->addDebug($requestBase);
-        }
-    }
-};
-
-$responseHandler = function ($argsMap) {
-    if (isset($argsMap['response'])) {
-        $response = $argsMap['response'];
-        $responseBase = "> Response HTTP/1.1 " .
-            $response->getStatusCode() . "\n";
-        $responseHeaders = $response->getHeaders();
-        if (count($responseHeaders) > 0) {
-            $responseBase = $responseBase . '> Headers:' . "\n";
-            foreach ($responseHeaders as $key => $value) {
-                $valueToString = '';
-                if (is_array($value)) {
-                    $valueToString = ''.join($value);
-                }
-                $responseBase = $responseBase . '    ' . $key . ' : '
-                    . $valueToString . "\n";
-            }
-            $responseBody = $response->getBody();
-            $responseBase = $responseBase . '> Body: ' . (string)
-                $responseBody . "\n\n";
-        }
-        if (isset($argsMap['logger'])) {
-            $logger = $argsMap['logger'];
-            $logger->addDebug($responseBase);
-        }
-    }
-};
-
-$httpHandler = new HttpHandler();
-$httpHandler->addRequestHandlers($requestHandler);
-$httpHandler->addResponseHandlers($responseHandler);
-
-$iamClient = IamClient::newBuilder()
-    ->withHttpConfig($config)
-    ->withEndpoint($endpoint)
-    ->withCredentials(null)
-    ->withStreamLogger($stream = 'php://stdout',$logLevel =Logger::INFO) // 日志打印至控制台
-    ->withFileLogger($logPath='./test_log.txt', $logLevel = Logger::INFO) // 日志打印至文件
-    ->withHttpHandler($httpHandler)
-    ->build();
+``` go
+// 初始化指定云服务的客户端 New{Service}Client ，以初始化 NewVpcClient 为例
+client := vpc.NewVpcClient(
+    vpc.VpcClientBuilder().
+        WithEndpoint(endpoint).
+        WithCredential(basicAuth).
+        WithHttpConfig(config.DefaultHttpConfig()).  
+        Build())
 ```
 
 **说明:**
 
-HttpHandler 支持如下方法 `addRequestHandlers`、 `addResponseHandlers` 。
+- `endpoint` 是华为云各服务应用区域和各服务的终端节点，详情请查看 [地区和终端节点](https://developer.huaweicloud.com/endpoint) 。
+
+#### 3.2 指定 Region 方式 **（推荐）** [:top:](#用户手册-top)
+
+``` go
+import (
+    // 增加region依赖
+    "github.com/huaweicloud/huaweicloud-sdk-go-v3/services/iam/v3/region"
+)
+
+globalAuth := global.NewCredentialsBuilder().
+            WithAk(ak).
+            WithSk(sk).
+            // 可不填 domainId
+            Build()
+
+// 初始化指定云服务的客户端 New{Service}Client ，以初始化 NewIamClient 为例
+client := iam.NewIamClient(
+    iam.IamClientBuilder().
+        WithRegion(region.CN_NORTH_4).
+        WithCredential(globalAuth).
+        WithHttpConfig(config.DefaultHttpConfig()).  
+        Build())
+```
+
+**说明：**
+
+- 指定 Region 方式创建客户端的场景，支持自动获取用户的 projectId 或者 domainId，初始化认证信息时可无需指定相应参数。
+
+- 不适用于 `多ProjectId` 的场景。
+
+### 4. 发送请求并查看响应 [:top:](#用户手册-top)
+
+``` go
+// 初始化请求,，以调用接口 ListVpcs 为例
+limit := int32(1)
+request := &model.ListVpcsRequest{
+    Limit: &limit,
+}
+
+response, err := client.ListVpcs(request)
+if err == nil {
+    fmt.Printf("%+v\n", response.Vpcs)
+} else {
+    fmt.Println(err)
+}
+```
+
+#### 4.1 异常处理 [:top:](#用户手册-top)
+
+| 一级分类 | 一级分类说明 |
+| :---- | :---- | 
+| ServiceResponseError | service response error |
+| url.Error | connect endpoint error |
+
+``` go
+response, err := client.ListVpcs(request)
+if err == nil {
+    fmt.Printf("%+v\n", response.Vpcs)
+} else {
+    fmt.Println(err)
+}
+```
+
+### 5. 故障处理 [:top:](#用户手册-top)
+
+#### 5.1 HTTP监听器 [:top:](#用户手册-top)
+
+在某些场景下可能对业务发出的Http请求进行Debug，需要看到原始的Http请求和返回信息，SDK提供监听器功能来获取原始的为加密的Http请求和返回信息。
+
+> :warning:  Warning: 原始信息打印仅在 Debug 阶段使用，请不要在生产系统中将原始的 HTTP 头和 Body 信息打印到日志，这些信息并未加密且其中包含敏感数据，例如所创建虚拟机的密码，IAM 用户的密码等；当 Body 体为二进制内容，即 Content-Type 标识为二进制时，Body 为"***"，详细内容不输出。
+
+``` go
+func RequestHandler(request http.Request) {
+    fmt.Println(request)
+}
+
+func ResponseHandler(response http.Response) {
+    fmt.Println(response)
+}
+
+client := vpc.NewVpcClient(
+    vpc.VpcClientBuilder().
+        WithEndpoint("{your endpoint}").
+        WithCredential(
+            basic.NewCredentialsBuilder().
+                WithAk("{your ak string}").
+                WithSk("{your sk string}").
+                WithProjectId("{your project id}").
+                    Build()).
+        WithHttpConfig(config.DefaultHttpConfig().
+            WithIgnoreSSLVerification(true).
+            WithHttpHandler(httphandler.
+                NewHttpHandler().
+                    AddRequestHandler(RequestHandler).
+                    AddResponseHandler(ResponseHandler))).
+        Build())
+```
