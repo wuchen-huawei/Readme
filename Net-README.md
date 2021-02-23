@@ -147,10 +147,22 @@ var config = HttpConfig.GetDefaultConfig();
 
 #### 1.2 Network Proxy [:top:](#user-manual-top)
 
+Use network proxy if needed.
+
+- Only HTTP proxy is supported if you have assigned proxy port when configuring proxy.
+
 ``` csharp
-// Use network proxy if needed
-config.ProxyHost = "http://proxy.huaweicloud.com";
+config.ProxyHost = "proxy.huaweicloud.com";
+// assign proxy port
 config.ProxyPort = 8080;
+config.ProxyUsername = "test";
+config.ProxyPassword = "test";
+```
+
+- Both HTTP and HTTPS proxy are supported if proxy port is unassigned when configuring proxy.
+
+``` csharp
+config.ProxyHost = "https://proxy.huaweicloud.com:8080";
 config.ProxyUsername = "test";
 config.ProxyPassword = "test";
 ```
@@ -336,7 +348,32 @@ SDK supports `Access` log and `Debug` log which could be configured manually.
 
 #### 6.1 Access Log [:top:](#user-manual-top)
 
-SDK supports print access log which could be enabled by manual configuration, the log could be ouput in console.
+SDK supports print access log which could be enabled by manual configuration, the log could be output to the console.
+
+For example:
+
+``` csharp
+var vpcClient = VpcClient.NewBuilder()
+    .WithCredential(auth)
+    .WithEndPoint(endpoint)
+    // configure log level and request will be print on the console
+    .WithLogging(LogLevel.Information)
+    .WithHttpConfig(config)
+    .Build();
+```
+
+After enabled log, the SDK will print the access log by default, every request will be recorded to the console like:
+
+``` text
+info: System.Net.Http.HttpClient.SdkHttpClient.LogicalHandler[100]
+      Start processing HTTP request GET https://vpc.cn-north-1.myhuaweicloud.com/v1/076958154900d2492f8bc0197405c803/vpcs?limit=1
+info: System.Net.Http.HttpClient.SdkHttpClient.ClientHandler[100]
+      Sending HTTP request GET https://vpc.cn-north-1.myhuaweicloud.com/v1/076958154900d2492f8bc0197405c803/vpcs?limit=1
+info: System.Net.Http.HttpClient.SdkHttpClient.ClientHandler[101]
+      Received HTTP response after 517.5326ms - OK
+info: System.Net.Http.HttpClient.SdkHttpClient.LogicalHandler[101]
+      End processing HTTP request after 543.6428ms - OK
+```
 
 #### 6.2 Original HTTP Listener [:top:](#user-manual-top)
 
