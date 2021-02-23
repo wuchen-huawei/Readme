@@ -414,6 +414,6 @@ HttpHandler 支持如下方法 `AddRequestHandler` 、`AddResponseHandler` 。
 
 【问题现象】：使用 **同步客户端** 调用某接口，任务启动后程序挂死，无任何报错信息，也不会超时退出
 
-【问题原因】：.Net SDK 内部 **同步客户端** 发送请求的实现是先发送 **异步** 请求，然后等待异步任务返回。在此场景下，.Net Framework UI 的线程上下文和 SDK 的异步任务上下文发生了**死锁**，导致 SDK 的异步任务无法启动。 [原文链接](https://blog.stephencleary.com/2012/07/dont-block-on-async-code.html)
+【问题原因】：.Net SDK 内部 **同步客户端** 发送请求的实现是先发送 **异步** 请求，然后等待异步任务返回。在此场景下，.Net Framework UI 的线程上下文和 SDK 的异步任务上下文发生了**死锁**，导致 SDK 的异步任务无法启动。[原文链接](https://blog.stephencleary.com/2012/07/dont-block-on-async-code.html)
 
 【解决方案】：**将同步客户端切换成异步客户端**，从 UI 事件到 API 请求均为异步就不会存在死锁问题。
