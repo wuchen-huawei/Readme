@@ -1,11 +1,10 @@
 [English](./README.md) | 简体中文
 
 <p align="center">
-  <a href="https://www.huaweicloud.com/"><img width="360px" height="120px" src="https://console-static.huaweicloud.com/static/authui/20210202115135/public/custom/images/logo.svg"></a>
+  <a href="https://www.huaweicloud.com/"><img width="270px" height="90px" src="https://console-static.huaweicloud.com/static/authui/20210202115135/public/custom/images/logo.svg"></a>
 </p>
-<br>
 
-# 华为云开发者 Node.js 软件开发工具包（Node.js SDK）
+<h1 align="center">华为云开发者 Node.js 软件开发工具包（Node.js SDK）</h1>
 
 欢迎使用华为云 Node.js SDK 。
 
