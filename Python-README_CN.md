@@ -1,11 +1,10 @@
 [English](./README.md) | 简体中文
 
 <p align="center">
-  <a href="https://www.huaweicloud.com/"><img width="360px" height="120px" src="https://console-static.huaweicloud.com/static/authui/20210202115135/public/custom/images/logo.svg"></a>
+  <a href="https://www.huaweicloud.com/"><img width="270px" height="90px" src="https://console-static.huaweicloud.com/static/authui/20210202115135/public/custom/images/logo.svg"></a>
 </p>
-<br>
 
-# 华为云开发者 Python 软件开发工具包（Python SDK）
+<h1 align="center">华为云开发者 Python 软件开发工具包（Python SDK）</h1>
 
 欢迎使用华为云 Python SDK。
 
@@ -122,7 +121,7 @@ if __name__ == "__main__":
     * [3.2 指定 Region 方式（推荐）](#32-指定-region-方式-推荐-top)
 * [4. 发送请求并查看响应](#4-发送请求并查看响应-top)
     * [4.1 异常处理](#41-异常处理-top)
-    * [4.2 获取对象化响应](#42-获取对象化响应-top)
+    * [4.2 获取响应对象](#42-获取响应对象-top)
 * [5. 异步客户端使用](#5-异步客户端使用-top)
 * [6. 故障处理](#6-故障处理-top)
     * [6.1 访问日志](#61-访问日志-top)
@@ -290,21 +289,21 @@ except exception.ServiceResponseException as e:
     print(e.error_msg)
 ```
 
-#### 4.2 获取对象化响应 [:top:](#用户手册-top)
+#### 4.2 获取响应对象 [:top:](#用户手册-top)
 
-Python SDK 默认返回的 response 为原始响应的 Json 数据，如果需要获取当前数据对象，可以使用 `to_json_object()` 方法获取：
+Python SDK 默认返回的 response 为原始响应的 Json 数据，如果需要获取当前数据对象，可以使用 `to_json_object()` 方法：
 
 ``` python
 request = ListVpcsRequest(limit=1)
-# 原始响应
+# 原始响应Json
 response = client.list_vpcs(request)
 print(response)
-# 对象化后的响应
+# 响应对象
 response_obj = response.to_json_object()
 print(response_obj["vpcs"])
 ```
 
-**说明**：该方法仅在 `3.0.32-rc` 及以上版本可以使用
+**说明**：该方法仅在 `3.0.34-rc` 及以上版本可以使用
 
 ### 5. 异步客户端使用 [:top:](#用户手册-top)
 
