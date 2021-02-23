@@ -4,9 +4,7 @@
   <a href="https://www.huaweicloud.com/"><img width="270px" height="90px" src="https://console-static.huaweicloud.com/static/authui/20210202115135/public/custom/images/logo.svg"></a>
 </p>
 
-&nbsp;
-
-# 华为云开发者 Java 软件开发工具包（Java SDK）
+<h1 align="center">华为云开发者 Java 软件开发工具包（Java SDK）</h1>
 
 欢迎使用华为云 Java SDK 。
 
@@ -154,6 +152,8 @@ HttpConfig config = HttpConfig.getDefaultHttpConfig();
 ```
 
 #### 1.2 网络代理 [:top:](#用户手册-top)
+
+当前 Java SDK 仅支持配置 HTTP 代理。
 
 ``` java
 // 根据需要配置网络代理，网络代理默认的协议为 `http` 协议
