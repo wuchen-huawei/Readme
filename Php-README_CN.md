@@ -3,7 +3,6 @@
 <p align="center">
   <a href="https://www.huaweicloud.com/"><img width="270px" height="90px" src="https://console-static.huaweicloud.com/static/authui/20210202115135/public/custom/images/logo.svg"></a>
 </p>
-<font color="#fff">invisible</font>
 
 <h1 align="center">华为云开发者 Php 软件开发工具包（Php SDK）</h1>
 
