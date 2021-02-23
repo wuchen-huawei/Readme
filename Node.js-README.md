@@ -1,7 +1,7 @@
 English | [简体中文](README_CN.md)
 
 <p align="center">
-<a href="https://www.huaweicloud.com/"><img width="400px" height="90px" src="https://console-static.huaweicloud.com/static/authui/20210202115135/public/custom/images/logo-en.svg"></a>
+<a href="https://www.huaweicloud.com/"><img width="450px" height="102px" src="https://console-static.huaweicloud.com/static/authui/20210202115135/public/custom/images/logo-en.svg"></a>
 </p>
 
 <h1 align="center">Huawei Cloud Node.js Software Development Kit (Node.js SDK)</h1>
