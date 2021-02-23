@@ -142,6 +142,8 @@ HttpConfig config = HttpConfig.getDefaultHttpConfig();
 
 #### 1.2 Network Proxy [:top:](#user-manual-top)
 
+Java SDK only supports HTTP proxy configuration currently.
+
 ``` java
 // Use network proxy if needed, the default protocol is `http`
 config.withProxyHost("proxy.huawei.com")
@@ -385,7 +387,7 @@ example, you can add one of the following dependency to your **pom.xml** file:
 </dependency>
 ```
 
-The SDK will print the access log by default, every request will be recorded in console like:
+The SDK will print the access log by default, every request will be recorded to the console like:
 
 ``` shell
 16:53:04.905 [main] INFO HuaweiCloud-SDK-Access - "GET https://ecs.cn-southwest-2.myhuaweicloud.com/v1/077d6a6c19000fdd2f3bc00150080291/cloudservers/detail?offset=1&limit=25" 200 2251 deabe20c14f997a0291fc451a4da16a4
